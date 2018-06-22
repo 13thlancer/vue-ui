@@ -1,0 +1,25 @@
+<link rel="stylesheet" type="text/css" href="../../../plugins/modules/ztree/css/zTreeStyle/zTreeStyle.min.css" />
+<div class="whui-fluid">
+    <div class="layui-row whui-form">
+        <form class="layui-form"  >
+            <div class="layui-col-xs12 layui-col-sm6 layui-col-md8">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">用户名称:</label>
+                    <div class="layui-input-block">
+                        <input type="text" id="name" name="name" class="layui-input" disabled>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-col-md-offset3 layui-col-xs12 layui-col-sm6 layui-col-md8">
+                <div class="layui-card">
+                    <div class="layui-card-body">
+                        <ul id="user-setRole-tree" class="ztree"></ul>
+                    </div>
+                </div>
+            </div>
+
+            <button class="layui-btn layui-hide" lay-submit lay-filter="user-setRole-submit"></button>
+        </form>
+    </div>
+</div>
+<script src="../../../lib/comm/js/comm.js?page=user-setRole" type="text/javascript" charset="utf-8"></script>

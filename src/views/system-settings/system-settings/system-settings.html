@@ -1,0 +1,201 @@
+<link rel="stylesheet" type="text/css" href="../../system-settings/system-settings/system-settings.css" />
+
+<title>系统设置</title>
+<div id="wh-system-settings">
+	<div class="layui-col-md12">
+		<div class="layui-tab wh-tab" lay-filter="settings-tab">
+			<ul class="layui-tab-title layui-col-md12 wh-tab-title wh-flex">
+				<li v-for="(navItem,index) in navList" v-bind:lay-id="'settings-tab'+index" class="wh-flex1" @click="navItemClick(index)" v-bind:class="index==navSelectIndex ? 'layui-this':''">
+					<img v-bind:src="index==navSelectIndex ? navItem.imgSecSrc : navItem.imgDesSrc" />
+					<span>{{navItem.title}}</span>
+				</li>
+			</ul>
+			<div class="layui-tab-content wh-tab-content">
+				<div class="layui-tab-item layui-show">
+					iServer参数
+				</div>
+				<div class="layui-tab-item">
+					系统语言
+				</div>
+				<div class="layui-tab-item">
+					库语言
+				</div>
+				<div class="layui-tab-item">
+					<div class="layui-row">
+						<div class="layui-col-md12">
+							<div class="layui-card">
+								<div class="layui-col-md1 code-item-bg">
+									<div class="layui-side-scroll center-scroll-bg code-item-scroll">
+										<div @click="codeItemClick(codeItem,index)" class="code-item" v-for="(codeItem,index) in codeTitleWebList" v-bind:class="index == codeItemSelectIndex ? 'code-item-active':''">
+											{{codeItem.name}}
+										</div>
+									</div>
+								</div>
+								<div class="layui-col-md7 code-content">
+									<div class="code-content-bg">
+										<div class="wh-flex code-content-head">
+											<div class="code-head-item wh-flex1" v-for="title in codeHeadList[codeItemSelectIndex]">{{title}}</div>
+											
+											<div class="code-scroll-item"></div>
+										</div>
+										<div class="layui-side-scroll center-scroll-bg">
+											<div @click="codeContentItemClick(item,index)" v-for="(item,index) in codeContentList" class="wh-flex code-content-content" v-bind:class="{'center-item-gray-bg':index%2, 'center-item-white-bg':!(index%2), 'active':index == codeContentSelectIndex}">
+												<div class="code-content-item wh-flex1">{{item.desc1}}</div>
+												<div class="code-content-item wh-flex1">{{item.desc2}}</div>
+												<div class="code-content-item wh-flex1">{{item.desc3}}</div>
+												<div class="code-content-item wh-flex1">{{item.desc4}}</div>
+												<div class="code-content-item wh-flex1">{{item.desc5}}</div>
+											</div>
+										</div>
+										<div class="code-content-bottom">
+											<div @click="addCodeContentItem" class="code-content-btn">新增</div>
+											<div class="code-native-site">本机站点：23234</div>
+										</div>
+									</div>
+								</div>
+								<div class="layui-col-md3 code-input">
+									<div class="code-input-bg">
+										<form class="layui-form" lay-filter="code-form">
+											<div class="wh-form">
+												<div v-for="item in codeInputList[codeItemSelectIndex]">
+													<div v-if="item.type == 1" class="layui-form-item">
+														<label class="layui-form-label">{{item.title}}:</label>
+														<div class="layui-input-block">
+															<input v-bind:disabled="!codeItemModify" v-model="selectContentDetialItem[item.key]" type="text" name="title" required lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+														</div>
+													</div>
+													<div v-else-if="item.type == 2" class="layui-form-item">
+														<label class="layui-form-label">{{item.title}}:</label>
+														<div class="layui-input-block">
+															<input v-bind:disabled="!codeItemModify" type="radio" name="isStop" value="Y" title="是" v-bind:checked="selectContentDetialItem[item.key] == 'Y'">
+															<input v-bind:disabled="!codeItemModify" type="radio" name="notStop" value="N" title="否" v-bind:checked="selectContentDetialItem[item.key] == 'N'">
+														</div>
+													</div>
+												</div>
+												<div class="layui-form-item">
+													<label class="layui-form-label">创建:</label>
+													<div class="layui-input-block">
+														<div class="layui-form-mid">{{selectContentDetialItem.createEmp}}</div>
+														<div class="layui-form-mid wh-form-line"></div>
+														<div class="layui-form-mid">{{selectContentDetialItem.createDate}}</div>
+													</div>
+												</div>
+												<div class="layui-form-item">
+													<label class="layui-form-label">修改:</label>
+													<div class="layui-input-block">
+														<div class="layui-form-mid">{{selectContentDetialItem.updateEmp}}</div>
+														<div class="layui-form-mid wh-form-line"></div>
+														<div class="layui-form-mid">{{selectContentDetialItem.updateDate}}</div>
+													</div>
+												</div>
+											</div>
+											<div v-show="!codeItemModify" class="wh-form-bottom">
+												<div class="wh-flex1">
+													<div @click="deleteCodeContentItem" class="code-form-left-btn">删除</div>
+												</div>
+												<div class="wh-flex1">
+													<div @click="modifyCodeContentItem" class="code-form-right-btn" lay-submit>修改</div>
+												</div>
+											</div>
+											<div v-show="codeItemModify" class="wh-form-bottom">
+												<div class="wh-flex1">
+													<div @click="cancelCodeContentItem" class="code-form-left-btn">取消</div>
+												</div>
+												<div class="wh-flex1">
+													<div @click="saveContentItem" class="code-form-right-btn" lay-submit>保存</div>
+												</div>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="layui-tab-item">
+					<div class="layui-row">
+						<div class="layui-col-md12">
+							<div class="layui-card">
+								<div class="layui-col-md8 system-content">
+									<div class="code-content-bg">
+										<div class="wh-flex code-content-head">
+											<div class="code-head-item wh-flex1">描述</div>
+											<div class="code-head-item wh-flex1">设置值</div>
+											<div class="code-head-item wh-flex1">说明</div>
+											<div class="code-scroll-item"></div>
+										</div>
+										<div class="wh-flex system-search-input-bg">
+											<div class="wh-flex1 system-search-input"><input v-model="systemSearchText" type="text" /></div>
+											<div @click="systemSearchClick" class="system-search-img"><img src="../../../assets/img/reservation_icon_sousuo.png" /></div>
+										</div>
+										<div class="layui-side-scroll center-scroll-bg system-scroll">
+											<div @click="systemItemClick(item,index)" v-for="(item,index) in systemContentList" class="wh-flex code-content-content" v-bind:class="{'center-item-gray-bg':index%2, 'center-item-white-bg':!(index%2), 'active':index == systemItemSelectIndex}">
+												<div class="code-content-item wh-flex1">{{item.configName}}</div>
+												<div class="code-content-item wh-flex1">{{item.configValue}}</div>
+												<div class="code-content-item wh-flex1">{{item.notice}}</div>
+											</div>
+										</div>
+										<div class="code-content-bottom">
+											<div class="system-native-site">本机站点：23234</div>
+										</div>
+									</div>
+								</div>
+								<div class="layui-col-md3 code-input">
+									<div class="code-input-bg" v-show="!layui.whui.isEmptyObject(selectSystemItem)">
+										<form class="layui-form">
+											<div class="wh-form">
+												<div class="layui-form-item">
+													<label class="layui-form-label">项目:</label>
+													<div class="layui-input-block">
+														<input v-model="selectSystemItem.configCode" type="text" name="title" disabled lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+													</div>
+												</div>
+												<div class="layui-form-item">
+													<label class="layui-form-label">描述:</label>
+													<div class="layui-input-block">
+														<textarea v-model="selectSystemItem.configName" name="desc" disabled placeholder="请输入内容" class="layui-textarea"></textarea>
+													</div>
+												</div>
+												<div class="layui-form-item">
+													<label class="layui-form-label">说明:</label>
+													<div class="layui-input-block">
+														<textarea v-model="selectSystemItem.notice" name="desc" disabled placeholder="请输入内容" class="layui-textarea"></textarea>
+													</div>
+												</div>
+												<div class="layui-form-item">
+													<label class="layui-form-label">设置值:</label>
+													<div class="layui-input-block">
+														<input v-bind:disabled="!systemItemModify" v-model="selectSystemItem.inputConfigValue" type="text" name="title" required lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+													</div>
+												</div>
+											</div>
+											<div v-show="!systemItemModify" class="wh-flex-justify wh-form-bottom">
+													<div @click="modifySystemContentItem" class="code-form-center-btn" style="">修改</div>
+											</div>
+											<div v-show="systemItemModify" class="wh-form-bottom">
+												<div class="wh-flex1">
+													<div @click="cancelSystemContentItem" class="code-form-left-btn">取消</div>
+												</div>
+												<div class="wh-flex1">
+													<div class="code-form-right-btn" lay-filter="systemSave" lay-submit>保存</div>
+												</div>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="layui-tab-item">
+					单据设置
+				</div>
+				<div class="layui-tab-item">
+					系统设置
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script src="../../system-settings/system-settings/system-settings.js" type="text/javascript" charset="utf-8"></script>

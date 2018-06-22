@@ -1,0 +1,141 @@
+<link rel="stylesheet" type="text/css" href="../../../plugins/animate/animate.min.css" />
+<div class="whhms-layout">
+	<div class="whhms-header">
+		<div class="whhms-left">
+			<script type="text/html" template lay-done="layui.element.render('nav', 'layadmin-pagetabs-nav')">
+				{{# if(layui.setter.pageTabs){ }}
+				<div class="whhms-pagetabs" id="LAY_app_tabs">
+					<div class="layui-tab" lay-unauto lay-allowClose="true" lay-filter="layadmin-layout-tabs">
+						<ul class="layui-tab-title" id="LAY_app_tabsheader">
+							<li lay-id="/"><i class="layui-icon layui-icon-home"></i></li>
+						</ul>
+					</div>
+					<div class="layadmin-tabs-control page-prev" layadmin-event="leftPage">
+						<a>
+							<img src="../../../assets/img/main-header-prev.png" />
+						</a>
+					</div>
+					<div class="layadmin-tabs-control page-next" layadmin-event="rightPage">
+						<a>
+							<img src="../../../assets/img/main-header-next.png" />
+						</a>
+					</div>
+				</div>
+				{{# } }}
+			</script>
+		</div>
+		<ul class="layui-nav whhms-right">
+			<li class="layui-nav-item">
+				<div id="whhms-header-timer-border" style="float: left;">
+					<div id="header-timer">
+					</div>
+					<div id="header-class">
+						&emsp;白班
+					</div>
+				</div>
+				<div id="whhms-header-query-border" class="animated fadeOutRight" style="display: none;position: absolute;">
+					<img id="header-btn-query-close" src="../../../assets/img/main-header-close.png" />
+					<input type="text" id="query-content" />
+				</div>
+			</li>
+			<li class="layui-nav-item">
+				<a id="header-btn-query-show">
+					<img src="../../../assets/img/main-header-query.png" />
+				</a>
+			</li>
+			<li class="layui-nav-item">
+				<a id="header-btn-time">
+					<img src="../../../assets/img/main-header-time.png" />
+				</a>
+			</li>
+			<li class="layui-nav-item">
+				<a id="header-btn-msg">
+					<img src="../../../assets/img/main-header-msg.png" />
+				</a>
+			</li>
+			<li class="layui-nav-item" lay-unselect>
+				<a id="header-btn-avatar">
+					<img src="../../../assets/img/main-header-avatar.png" />
+				</a>
+				<dl class="layui-nav-child">
+					<div class="fa fa-caret-up triangle-up">
+					</div>
+					<dd>
+						<a>
+							<img src="../../../assets/img/header-settings.png" />
+							<div class="child-title">
+								用户设置
+							</div>
+						</a>
+					</dd>
+					<hr>
+					<dd>
+						<a>
+							<img src="../../../assets/img/header-updatepwd.png" />
+							<div class="child-title">
+								密码修改
+							</div>
+						</a>
+					</dd>
+					<hr>
+					<!--<dd layadmin-event="logout" style="text-align: center;">-->
+					<dd>
+						<a>
+							<img src="../../../assets/img/header-about.png" />
+							<div class="child-title">
+								关于我们
+							</div>
+						</a>
+					</dd>
+				</dl>
+			</li>
+			<li class="layui-nav-item">
+				<a id="header-btn-min">
+					<img src="../../../assets/img/main-header-min.png" />
+				</a>
+			</li>
+			<li class="layui-nav-item">
+				<a id="header-btn-max">
+					<img src="../../../assets/img/main-header-max.png" />
+				</a>
+			</li>
+			<li class="layui-nav-item">
+				<a id="header-btn-close">
+					<img src="../../../assets/img/main-header-close.png" />
+				</a>
+			</li>
+		</ul>
+	</div>
+	<div class="whhms-side-menu">
+		<div class="whhms-side-scroll">
+
+			<script type="text/html" template lay-url="../layout/menu.json" lay-done="layui.element.render('nav', 'layadmin-system-side-menu');" id="TPL_layout">
+
+				<ul class="layui-nav" id="LAY-system-side-menu">
+					{{# var path = layui.router().path ,pathURL = layui.admin.correctRouter(path.join('/')) ,dataName = layui.setter.response.dataName; layui.whui.setLocalData('whui_menu',d[dataName]); layui.each(d[dataName], function(index, item){ var hasChildren = typeof item.list === 'object' && item.list.length > 0 ,classSelected = function(){ var match = path[0] == item.name || (index == 0 && !path[0]) || (item.jump && pathURL == layui.admin.correctRouter(item.jump)); if(match){ return hasChildren ? 'layui-nav-itemed' : 'layui-this'; } return ''; } ,url = (item.jump && typeof item.jump === 'string') ? item.jump : item.name; }}
+					<li data-jump="{{ item.jump || '' }}" class="layui-nav-item {{ classSelected() }}">
+						<a lay-href="{{ item.jump || '' }}">
+							<div class="item-img {{ item.icon }}"></div>
+						</a>
+						<div class="item-title">
+							{{item.title}}
+						</div>
+					</li>
+					{{# }); }}
+					<li class="layui-nav-item" lay-unselect>
+						<a id="menu-btn-dianzhang">
+							<div class="item-img img-dianzhang"></div>
+						</a>
+						<div class="item-title">
+							店长
+						</div>
+					</li>
+				</ul>
+			</script>
+		</div>
+	</div>
+	<div class="whhms-body" id="LAY_app_body">
+		<div class="layadmin-tabsbody-item layui-show"></div>
+	</div>
+</div>
+<script src="../../main/layout/layout.js" type="text/javascript" charset="utf-8"></script>

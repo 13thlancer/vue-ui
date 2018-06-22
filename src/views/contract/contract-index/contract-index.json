@@ -1,0 +1,49 @@
+{
+	"cols": [
+		[
+			{
+				"type": "checkbox"
+			}, {
+				"title": "序号",
+				"type": "numbers"
+			}, {
+				"field": "estateName",
+				"title": "房产名称"
+			}, {
+				"field": "estateNo",
+				"title": "房产编号"
+			}, {
+				"field": "contractNo",
+				"title": "合同编号"
+			}, {
+				"field": "roomUsage",
+				"title": "房屋用途"
+			}, {
+				"field": "rentCompany",
+				"title": "承租方"
+			}, {
+				"field": "certificateNo",
+				"title": "执照/身份证"
+			}, {
+				"field": "registerName",
+				"title": "工商登记名称"
+			}, {
+				"field": "rentMobile",
+				"title": "电话"
+			}, {
+				"field": "monthNum",
+				"title": "租期(月)"
+			}, {
+				"field": "startDate",
+				"title": "起租日期"
+			}, {
+				"field": "endDate",
+				"title": "停租日期"
+			}, {
+				"field": "deposit",
+				"title": "押金"
+			}
+			
+		]
+	]
+}

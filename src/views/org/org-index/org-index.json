@@ -1,0 +1,23 @@
+{
+  "cols": [
+    [
+      {
+        "type": "checkbox"
+      }, {
+      "title": "序号",
+      "type": "numbers"
+    }, {
+      "field": "name",
+      "width": "25%",
+      "title": "组织名称"
+    }, {
+      "field": "fullNames",
+      "width": "25%",
+      "title": "组织全称"
+    }, {
+      "field": "num",
+      "width": "25%",
+      "title": "组织编号"
+    }]
+  ]
+}

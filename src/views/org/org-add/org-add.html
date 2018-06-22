@@ -1,0 +1,46 @@
+<div class="whui-fluid">
+    <div class="layui-row whui-form">
+        <form class="layui-form" lay-filter="org-add-form">
+            <div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">组织名称</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="name" lay-verify="required" autocomplete="off" placeholder="请输入菜单名" class="layui-input">
+                    </div>
+                </div>
+            </div>
+            <div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">请求地址</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="url" lay-verify="required" autocomplete="off" placeholder="请输入请求地址" class="layui-input">
+                    </div>
+                </div>
+            </div>
+
+            <div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">组织编号</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="num" lay-verify="required" autocomplete="off" placeholder="请输入菜单编号" class="layui-input">
+                    </div>
+                </div>
+            </div>
+
+            <div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">父级组织</label>
+                    <div class="layui-input-block">
+                        <input id="org-add-pOrg" type="text" name="porg" placeholder="请选择父级菜单" class="layui-input" lay-filter="menu-add-tree-div">
+                        <input type="text" name="pcode" style="display: none;">
+                        <div id="pOrg" style="display: none; position: absolute; z-index: 200;background-color: #ffffff;border:1px solid black;">
+                            <ul id="org-add-tree" class="ztree" style="width:150px !important;"></ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="layui-btn layui-hide" lay-submit lay-filter="org-add-submit"></button>
+        </form>
+    </div>
+</div>
+<script src="../../../lib/comm/js/comm.js?page=org-add" type="text/javascript" charset="utf-8"></script>

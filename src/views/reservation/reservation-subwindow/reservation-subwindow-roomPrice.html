@@ -1,0 +1,19 @@
+<div class="layui-tab-content layui-col-md12 wh-tab-content">
+    <div class="layui-tab-item layui-show">
+        <div class="center-flex-bg center-content-head center-content-border">
+            <div class="center-head-item wh-flex2">日期</div>
+            <div class="center-head-item wh-flex1">描述</div>
+            <div class="center-head-item wh-flex1">协议房价</div>
+            <div class="center-head-item wh-flex1">实际房价</div>
+            <div class="center-scroll-item"></div>
+        </div>
+        <div class="layui-side-scroll subwindow-scroll-bg">
+            <div v-for="(item,index) in dataList" class="center-flex-bg center-content-head" v-bind:class="index%2 ? 'center-item-gray-bg':'center-item-white-bg'">
+                <div class="center-content-item wh-flex2">{{item.date}}</div>
+                <div class="center-content-item wh-flex1">{{item.desc}}</div>
+                <div class="center-content-item wh-flex1">{{item.ProomPrice}}</div>
+                <div class="center-content-item wh-flex1">{{item.AroomPrice}}</div>
+            </div>
+        </div>
+    </div>
+</div>

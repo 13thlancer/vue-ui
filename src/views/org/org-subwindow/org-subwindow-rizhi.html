@@ -1,0 +1,26 @@
+<link rel="stylesheet" type="text/css" href="../../org/org-subwindow/org-subwindow.css" />
+
+<div class="whui-fluid">
+    <div class="layui-row whui-form">
+        <form class="layui-form">
+
+            <div class="center-flex-bg center-content-head center-content-border">
+                <div class="center-head-item wh-flex2">时间</div>
+                <div class="center-head-item wh-flex1">项目</div>
+                <div class="center-head-item wh-flex1">旧值</div>
+                <div class="center-head-item wh-flex1">新值</div>
+                <div class="center-head-item wh-flex1">创建</div>
+                <div class="center-scroll-item"></div>
+            </div>
+            <div class="layui-side-scroll rizhi-scroll-bg">
+                <div v-for="(item,index) in dataList" class="center-flex-bg center-content-head" v-bind:class="index%2 ? 'center-item-gray-bg':'center-item-white-bg'">
+                    <div class="center-content-item wh-flex2">{{item.date}}</div>
+                    <div class="center-content-item wh-flex1">{{item.project}}</div>
+                    <div class="center-content-item wh-flex1">{{item.old}}</div>
+                    <div class="center-content-item wh-flex1">{{item.new}}</div>
+                    <div class="center-content-item wh-flex1">{{item.create}}</div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

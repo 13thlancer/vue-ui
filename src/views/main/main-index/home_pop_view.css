@@ -1,0 +1,42 @@
+#wh-pop-view .pop-view {
+	width: 142px;
+	height: 180px;
+}
+
+#wh-pop-view .triangle_border_up {
+    width:0;
+    height:0;
+    border-width:0 9px 12px;
+    border-style:solid;
+    border-color: green rgba(255,255,255,0) white;
+    position: fixed;
+    margin-top: -12px;
+    margin-left: 108px;
+}
+
+#wh-pop-view .pop-view-item {
+	font-size: 18px;
+	height: 59px;
+	line-height: 59px;
+	text-align: center;
+	width: 142px;
+	width: 100%;
+	border-bottom: 1px solid gainsboro;
+	color: #9999b3;
+	cursor: pointer;
+}
+
+#wh-pop-view .pop-view-item img {
+	height: 22px;
+	width: 22px;
+	margin-bottom: 5px;
+	margin-right: 12px;
+}
+
+#wh-pop-view .pop-view-item:hover {
+	background-color: #E9E9F8;
+}
+
+#wh-pop-view .pop-view-item:active {
+	background-color: #DEDEFF;
+}

@@ -1,0 +1,116 @@
+#main-dianzhang * {
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+#main-dianzhang .sanjiao {
+  position: fixed;
+  z-index: 19891016;
+  margin-left: -25px;
+  margin-top: 356px;
+}
+#main-dianzhang .dianzhang-container {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  justify-content: center;
+  width: 426px;
+  height: 426px;
+  padding: 15px;
+}
+#main-dianzhang .dianzhang-container .dianzhang-item {
+  width: 132px;
+  height: 132px;
+  padding-top: 21px;
+}
+#main-dianzhang .dianzhang-container .dianzhang-item a {
+  width: 60px;
+  height: 60px;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 10px;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
+}
+#main-dianzhang .dianzhang-container .dianzhang-item a:hover {
+  background-color: #E9E9F8;
+}
+#main-dianzhang .dianzhang-container .dianzhang-item a:hover + .dianzhang-title {
+  display: none;
+}
+#main-dianzhang .dianzhang-container .dianzhang-item a:active {
+  background-color: #DEDEFF;
+}
+#main-dianzhang .dianzhang-container .dianzhang-item a .item-img {
+  width: 50px;
+  height: 50px;
+}
+#main-dianzhang .dianzhang-container .dianzhang-item .dianzhang-title {
+  text-align: center;
+  height: 20px;
+  margin-top: 10px;
+}
+#main-dianzhang .dianzhang-container .dianzhang-item a .img-yonghu {
+  background-image: url(../../../assets/img/menu-dianzhang-yonghu.png);
+}
+#main-dianzhang .dianzhang-container .dianzhang-item a .img-xitong {
+  background-image: url(../../../assets/img/menu-dianzhang-xitong.png);
+}
+#main-dianzhang .dianzhang-container .dianzhang-item a .img-fangjia {
+  background-image: url(../../../assets/img/menu-dianzhang-fangjia.png);
+}
+#main-dianzhang .dianzhang-container .dianzhang-item a .img-ar {
+  background-image: url(../../../assets/img/menu-dianzhang-ar.png);
+}
+#main-dianzhang .dianzhang-container .dianzhang-item a .img-shenji {
+  background-image: url(../../../assets/img/menu-dianzhang-shenji.png);
+}
+#main-dianzhang .dianzhang-container .dianzhang-item a .img-caiwushenhe {
+  background-image: url(../../../assets/img/menu-dianzhang-caiwushenhe.png);
+}
+#main-dianzhang .dianzhang-container .dianzhang-item a .img-qiantaichazhang {
+  background-image: url(../../../assets/img/menu-dianzhang-qiantaichazhang.png);
+}
+#main-dianzhang .dianzhang-container .dianzhang-item a .img-chafang {
+  background-image: url(../../../assets/img/menu-dianzhang-chafang.png);
+}
+#main-dianzhang .dianzhang-container .dianzhang-item a .img-zhikazhongxin {
+  background-image: url(../../../assets/img/menu-dianzhang-zhikazhongxin.png);
+}
+#main-dianzhang .dianzhang-container .dianzhang-item a:hover .img-yonghu,
+#main-dianzhang .dianzhang-container .dianzhang-item a:active .img-yonghu {
+  background-image: url(../../../assets/img/menu-dianzhang-yonghu2.png);
+}
+#main-dianzhang .dianzhang-container .dianzhang-item a:hover .img-xitong,
+#main-dianzhang .dianzhang-container .dianzhang-item a:active .img-xitong {
+  background-image: url(../../../assets/img/menu-dianzhang-xitong2.png);
+}
+#main-dianzhang .dianzhang-container .dianzhang-item a:hover .img-fangjia,
+#main-dianzhang .dianzhang-container .dianzhang-item a:active .img-fangjia {
+  background-image: url(../../../assets/img/menu-dianzhang-fangjia2.png);
+}
+#main-dianzhang .dianzhang-container .dianzhang-item a:hover .img-ar,
+#main-dianzhang .dianzhang-container .dianzhang-item a:active .img-ar {
+  background-image: url(../../../assets/img/menu-dianzhang-ar2.png);
+}
+#main-dianzhang .dianzhang-container .dianzhang-item a:hover .img-shenji,
+#main-dianzhang .dianzhang-container .dianzhang-item a:active .img-shenji {
+  background-image: url(../../../assets/img/menu-dianzhang-shenji2.png);
+}
+#main-dianzhang .dianzhang-container .dianzhang-item a:hover .img-caiwushenhe,
+#main-dianzhang .dianzhang-container .dianzhang-item a:active .img-caiwushenhe {
+  background-image: url(../../../assets/img/menu-dianzhang-caiwushenhe2.png);
+}
+#main-dianzhang .dianzhang-container .dianzhang-item a:hover .img-qiantaichazhang,
+#main-dianzhang .dianzhang-container .dianzhang-item a:active .img-qiantaichazhang {
+  background-image: url(../../../assets/img/menu-dianzhang-qiantaichazhang2.png);
+}
+#main-dianzhang .dianzhang-container .dianzhang-item a:hover .img-chafang,
+#main-dianzhang .dianzhang-container .dianzhang-item a:active .img-chafang {
+  background-image: url(../../../assets/img/menu-dianzhang-chafang2.png);
+}
+#main-dianzhang .dianzhang-container .dianzhang-item a:hover .img-zhikazhongxin,
+#main-dianzhang .dianzhang-container .dianzhang-item a:active .img-zhikazhongxin {
+  background-image: url(../../../assets/img/menu-dianzhang-zhikazhongxin2.png);
+}

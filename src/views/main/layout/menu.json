@@ -1,0 +1,47 @@
+{
+	"code": 200,
+	"desc": "",
+	"data": [
+		{
+			"title": "首页",
+			"name": "home",
+			"icon": "img-home",
+			"jump": "/"
+		}, {
+			"title": "散客步入",
+			"name": "sankeburu",
+			"icon": "img-sankeburu",
+			"jump": "demo/demo-index/demo-index"
+		}, {
+			"title": "预订",
+			"name": "yuding",
+			"icon": "img-yuding",
+			"jump": "reservation/reservation-index/reservation-index"
+		}, {
+			"title": "现付帐",
+			"name": "xianfuzhang",
+			"icon": "img-xianfuzhang",
+			"jump": "system-settings/system-settings/system-settings"
+		}, {
+			"title": "房态",
+			"name": "fangtai",
+			"icon": "img-fangtai",
+			"jump": "main/error/405"
+		}, {
+			"title": "房情",
+			"name": "fangqing",
+			"icon": "img-fangqing",
+			"jump": "main/error/406"
+		}, {
+			"title": "报表",
+			"name": "baobiao",
+			"icon": "img-baobiao",
+			"jump": "main/error/407"
+		}, {
+			"title": "夜审",
+			"name": "yeshen",
+			"icon": "img-yeshen",
+			"jump": "main/error/408"
+		}
+	]
+}

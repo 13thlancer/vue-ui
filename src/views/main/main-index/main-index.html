@@ -1,0 +1,304 @@
+<link rel="stylesheet" type="text/css" href="../../main/main-index/main-index.css" />
+
+<div id="main-index" v-cloak class="layui-fluid">
+	<div class="layui-row">
+		<div class="layui-col-md3">
+			<div class="head-flex-bg">
+				<div class="head-title">
+					<img @click="moreClick" src="../../../assets/img/home_logo.png" />
+				</div>
+				<div class="head-user-info">
+					<div class="wh-flex1">
+						<img src="../../../assets/img/hotel_touxiang_fang.png" style="height: 65px; width: 65px; margin-left: 7px;" />
+						<span>张明</span>
+					</div>
+					<div class="haed-ueser-more" id="more_img" @click="moreClick"></div>
+				</div>
+				<div class="head-acount">
+					<div v-for="(account,index) in accountList" class="head-acount-item" v-bind:class="{'head-acount-item-center':(index == 1)}">{{account.accountType}}<span>{{parseFloat(account.sum).toFixed(2)}}</span></div>
+				</div>
+				<div class="head-message-bg">
+					<div v-if="messageList.length == 0">
+						<div class="no-message-tip">暂无留言信息</div>
+					</div>
+					<div v-else class="head-message-item" v-for="(message,index) in messageList">
+						<div class="wh-flex">
+							<div class="head-message-title wh-flex1">客户留言</div>
+							<div class="head-message-time">{{message.createDate}}</div>
+							<div class="head-message-point"></div>
+						</div>
+						<div class="head-message-content" v-bind:class="{'head-message-bottom-border':messageList.length < 3 || index != (messageList.length-1)}">房号:{{message.roomCode}};姓名:{{message.person}};留言:{{message.remark}}</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="center-item" class="layui-col-md9 wh-flex">
+			<div class="wh-flex center-more">
+				<div class="wh-flex1">本日未到 <span>{{statisticInfo.noInNums}}</span> 间，本日未离 <span>{{statisticInfo.noLeaveNums}}</span> 间 / 本日已到 <span>{{statisticInfo.inNums}}</span> 间，本日已离 <span>{{statisticInfo.leavedNums}}</span> 间</div>
+				<div @click="tableChangeClick" class="table-change-img-bg"><img src="../../../assets/img/hotel_icon_biaogeqiehuan.png"></div>
+			</div>
+			<div class="layui-tab layui-col-md12 wh-tab">
+				<ul class="layui-tab-title layui-col-md12 wh-tab-title">
+					<li @click="topTapClick(1)" class="layui-this">本日未到</li>
+					<li @click="topTapClick(2)">本日未离</li>
+					<li @click="topTapClick(3)">本日已到</li>
+					<li @click="topTapClick(4)">本日已离</li>
+				</ul>
+				<div class="layui-tab-content layui-col-md12 wh-tab-content">
+					<div class="layui-tab-item layui-show">
+						<div class="wh-flex center-content-head center-content-border">
+							<div class="center-head-item wh-flex3">预定号</div>
+							<div class="center-head-item wh-flex2">类型</div>
+							<div class="center-head-item wh-flex2">姓名</div>
+							<div class="center-head-item wh-flex2">房类</div>
+							<div class="center-head-item wh-flex2">房号</div>
+							<div class="center-head-item wh-flex2">房数</div>
+							<div class="center-head-item wh-flex2">房价</div>
+							<div class="center-head-item wh-flex3">联系方式/公司</div>
+							<div class="center-head-item wh-flex2">保留时间</div>
+							<div class="center-scroll-item"></div>
+						</div>
+						<div class="layui-side-scroll center-scroll-bg">
+							<div v-for="(item,index) in orderList" class="wh-flex center-content-head" v-bind:class="index%2 ? 'center-item-gray-bg':'center-item-white-bg'">
+								<div class="center-content-item wh-flex3">{{item.priMainId}}</div>
+								<div class="center-content-item wh-flex2">{{item.inType}}</div>
+								<div class="center-content-item wh-flex2">{{item.inPerson}}</div>
+								<div class="center-content-item wh-flex2">{{item.roomType}}</div>
+								<div class="center-content-item wh-flex2">{{item.roomNo}}</div>
+								<div class="center-content-item wh-flex2">{{item.roomNum}}</div>
+								<div class="center-content-item wh-flex2">{{item.dayPrice}}</div>
+								<div class="center-content-item wh-flex3">{{item.mobile}}</div>
+								<div class="center-content-item wh-flex2">{{item.keepTime}}</div>
+							</div>
+						</div>
+					</div>
+					<div class="layui-tab-item">
+						<div class="wh-flex center-content-head center-content-border">
+							<div class="center-head-item wh-flex2">类型</div>
+							<div class="center-head-item wh-flex2">姓名</div>
+							<div class="center-head-item wh-flex2">房类</div>
+							<div class="center-head-item wh-flex2">房号</div>
+							<div class="center-head-item wh-flex2">房价</div>
+							<div class="center-head-item wh-flex2">余额</div>
+							<div class="center-head-item wh-flex3">联系方式/公司</div>
+							<div class="center-head-item wh-flex2">到达时间</div>
+							<div class="center-scroll-item"></div>
+						</div>
+						<div class="layui-side-scroll center-scroll-bg">
+							<div v-for="(item,index) in orderList" class="wh-flex center-content-head" v-bind:class="index%2 ? 'center-item-gray-bg':'center-item-white-bg'">
+								<div class="center-content-item wh-flex2">{{item.inType}}</div>
+								<div class="center-content-item wh-flex2">{{item.inPerson}}</div>
+								<div class="center-content-item wh-flex2">{{item.roomType}}</div>
+								<div class="center-content-item wh-flex2">{{item.roomNo}}</div>
+								<div class="center-content-item wh-flex2">{{item.dayPrice}}</div>
+								<div class="center-content-item wh-flex2">{{item.balance}}</div>
+								<div class="center-content-item wh-flex3">{{item.mobile}}</div>
+								<div class="center-content-item wh-flex2">{{item.planEndSubDate}}</div>
+							</div>
+						</div>
+					</div>
+					<div class="layui-tab-item">
+						<div class="wh-flex center-content-head center-content-border">
+							<div class="center-head-item wh-flex2">类型</div>
+							<div class="center-head-item wh-flex2">姓名</div>
+							<div class="center-head-item wh-flex2">房类</div>
+							<div class="center-head-item wh-flex2">房号</div>
+							<div class="center-head-item wh-flex2">房价</div>
+							<div class="center-head-item wh-flex2">余额</div>
+							<div class="center-head-item wh-flex3">联系方式/公司</div>
+							<div class="center-head-item wh-flex2">到达</div>
+							<div class="center-head-item wh-flex2">离开</div>
+							<div class="center-scroll-item"></div>
+						</div>
+						<div class="layui-side-scroll center-scroll-bg">
+							<div v-for="(item,index) in orderList" class="wh-flex center-content-head" v-bind:class="index%2 ? 'center-item-gray-bg':'center-item-white-bg'">
+								<div class="center-content-item wh-flex2">{{item.inType}}</div>
+								<div class="center-content-item wh-flex2">{{item.inPerson}}</div>
+								<div class="center-content-item wh-flex2">{{item.roomType}}</div>
+								<div class="center-content-item wh-flex2">{{item.roomNo}}</div>
+								<div class="center-content-item wh-flex2">{{item.dayPrice}}</div>
+								<div class="center-content-item wh-flex2">{{item.balance}}</div>
+								<div class="center-content-item wh-flex3">{{item.mobile}}</div>
+								<div class="center-content-item wh-flex2">{{item.planStartSub}}</div>
+								<div class="center-content-item wh-flex2">{{item.planEndSubDate}}</div>
+							</div>
+						</div>
+					</div>
+					<div class="layui-tab-item">
+						<div class="wh-flex center-content-head center-content-border">
+							<div class="center-head-item wh-flex2">类型</div>
+							<div class="center-head-item wh-flex2">姓名</div>
+							<div class="center-head-item wh-flex2">房类</div>
+							<div class="center-head-item wh-flex2">房号</div>
+							<div class="center-head-item wh-flex2">房价</div>
+							<div class="center-head-item wh-flex3">联系方式/公司</div>
+							<div class="center-head-item wh-flex2">到达时间</div>
+							<div class="center-head-item wh-flex2">离开时间</div>
+							<div class="center-scroll-item"></div>
+						</div>
+						<div class="layui-side-scroll center-scroll-bg">
+							<div v-for="(item,index) in orderList" class="wh-flex center-content-head" v-bind:class="index%2 ? 'center-item-gray-bg':'center-item-white-bg'">
+								<div class="center-content-item wh-flex2">{{item.inType}}</div>
+								<div class="center-content-item wh-flex2">{{item.inPerson}}</div>
+								<div class="center-content-item wh-flex2">{{item.roomType}}</div>
+								<div class="center-content-item wh-flex2">{{item.roomNo}}</div>
+								<div class="center-content-item wh-flex2">{{item.dayPrice}}</div>
+								<div class="center-content-item wh-flex3">{{item.mobile}}</div>
+								<div class="center-content-item wh-flex2">{{item.planStartSubDate}}</div>
+								<div class="center-content-item wh-flex2">{{item.planEndSub}}</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="layui-col-md6 bottom-left">
+			<div v-show="showDatePicker" id="date-picker" class="center-more date-picker-bg">
+				<div class="layui-input-inline">
+					<input readonly class="layui-input" id="datePick" placeholder="yyyy-MM-dd" type="text">
+				</div>
+			</div>
+			<div class="layui-tab layui-col-md12 wh-tab">
+				<ul class="layui-tab-title layui-col-md12 wh-tab-title wh-tab-title-bottom">
+					<li @click="echartsTabClick(0)" class="layui-this">客房状态图</li>
+					<li @click="echartsTabClick(1)">在住分布图</li>
+					<li @click="echartsTabClick(2)" >数据表格</li>
+				</ul>
+				<div class="layui-tab-content layui-col-md12 wh-tab-content">
+					<div class="layui-tab-item layui-show">
+						<div class="layui-row">
+							<div class="layui-col-md12">
+								<div class="layui-card">
+									<div class="layui-col-md7 bottom-echats-bg">
+										<div data-anim="fade" lay-filter="LAY-index-dataview0">
+											<div id="LAY-index-dataview0">
+												<div style="height: 390px; width: 480px;"><i class="layui-icon layui-icon-loading1 layadmin-loading"></i></div>
+											</div>
+										</div>
+									</div>
+									<div class="layui-col-md5">
+										<div class="bottom-bar">
+											<div class="bottom-bar-bg">
+												<div class="item-bg" v-for="item in barList0">
+													<div class="item-title">{{item.name}}</div>
+													<div class="wh-flex">
+														<div class="item-bottom-bg">
+															<div class="item-bottom" v-bind:style="{width:item.value/item.total*100 + '%','background' : item.color,'background' : item.webkitColor}"></div>
+														</div>
+														<div class="item-count">{{item.value}}</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="layui-tab-item">
+						<div class="layui-row">
+							<div class="layui-col-md12">
+								<div class="layui-card">
+									<div class="layui-col-md7 bottom-echats-bg">
+										<div data-anim="fade" lay-filter="LAY-index-dataview1">
+											<div id="LAY-index-dataview1">
+												<div style="height: 390px; width: 480px;"><i class="layui-icon layui-icon-loading1 layadmin-loading"></i></div>
+											</div>
+										</div>
+									</div>
+									<div class="layui-col-md5">
+										<div class="bottom-bar">
+											<div class="bottom-bar-bg">
+												<div class="item-bg" v-for="item in barList1">
+													<div class="item-title">{{item.name}}</div>
+													<div class="wh-flex">
+														<div class="item-bottom-bg">
+															<div class="item-bottom" v-bind:style="{width:item.value/item.total*100 + '%','background' : item.color,'background' : item.webkitColor}"></div>
+														</div>
+														<div class="item-count">{{item.value}}</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="layui-tab-item">
+						<div class="bottom-data-table">
+							<div class="wh-flex data-table-bg">
+								<div class="wh-flex2">
+									<div class="data-table-head">汇总情况</div>
+									<div class="wh-flex">
+										<div class="wh-flex1 data-table-top-item"></div>
+										<div class="wh-flex1 data-table-top-item">房数</div>
+									</div>
+									<div class="wh-flex" v-for="(item,index) in dataTable.totalList" v-bind:class="index%2 ? 'table-item-white-bg':'table-item-gray-bg'">
+										<div class="wh-flex1 data-table-item">{{item.roomType}}</div>
+										<div class="wh-flex1 data-table-item">{{item.num}}</div>
+									</div>
+								</div>
+								<div class="wh-flex3">
+									<div class="data-table-head">业务流转</div>
+									<div class="wh-flex">
+										<div class="wh-flex1 data-table-top-item"></div>
+										<div class="wh-flex1 data-table-top-item">房数</div>
+										<div class="wh-flex1 data-table-top-item">人数</div>
+									</div>
+									<div class="wh-flex" v-for="(item,index) in dataTable.bussList" v-bind:class="index%2 ? 'table-item-white-bg':'table-item-gray-bg'">
+										<div class="wh-flex1 data-table-item">{{item.columnName}}</div>
+										<div class="wh-flex1 data-table-item">{{item.roomNum}}</div>
+										<div class="wh-flex1 data-table-item">{{item.personNum}}</div>
+									</div>
+								</div>
+								<div class="wh-flex3">
+									<div class="data-table-head">本日预测</div>
+									<div class="wh-flex">
+										<div class="wh-flex1 data-table-top-item"></div>
+										<div class="wh-flex1 data-table-top-item">房数</div>
+										<div class="wh-flex1 data-table-top-item">人数</div>
+									</div>
+									<div class="wh-flex" v-for="(item,index) in dataTable.forecastList" v-bind:class="index%2 ? 'table-item-white-bg':'table-item-gray-bg'">
+										<div class="wh-flex1 data-table-item">{{item.columnName}}</div>
+										<div class="wh-flex1 data-table-item">{{index >3 ? parseFloat(item.roomNum).toFixed(2) : item.roomNum}}</div>
+										<div class="wh-flex1 data-table-item">{{item.personNum != -1 ? item.personNum : ''}}</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="layui-col-md3 bottom-right">
+			<div class="layui-row">
+				<div class="layui-card" style="border-radius: 7px">
+					<div class="bottom-weather-bg">
+						<div class="weather-top-right">
+							<img src="../../../assets/img/hotel_icon_duoyun1.png" />
+							<div class="weater-top-text">多云</div>
+						</div>
+						<div class="weather-top-bg">
+							<div id="weather-time" class="weather-time"></div>
+							<div id="weather-week" class="weather-week"></div>
+							<div id="weather-date" class="weather-date"></div>
+						</div>
+						<div class="wh-flex weather-bottom-bg">
+							<div v-for="(item,index) in weatherInfo.slice(0,3)" class="wh-flex1">
+								<img v-if="" src="../../../assets/img/hotel_icon_duoyun2.png" />
+								<div v-if="index == 0" class="weater-bottom-text">今天</div>
+								<div v-else-if="index == 1" class="weater-bottom-text">明天</div>
+								<div v-else-if="index == 2" class="weater-bottom-text">后天</div>
+								<div class="weater-bottom-text">{{item.type}}</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script src="../../main/main-index/echarts.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../main/main-index/main-index.js" type="text/javascript" charset="utf-8"></script>

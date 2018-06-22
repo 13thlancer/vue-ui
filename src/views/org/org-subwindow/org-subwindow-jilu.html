@@ -1,0 +1,32 @@
+<link rel="stylesheet" type="text/css" href="../../org/org-subwindow/org-subwindow.css" />
+
+<div class="whui-fluid">
+    <div class="layui-row whui-form">
+        <form class="layui-form">
+
+            <div class="layui-tab-item layui-show">
+                <div class="center-flex-bg center-content-head center-content-border">
+                    <div class="center-head-item wh-flex1">状态</div>
+                    <div class="center-head-item wh-flex1">项目</div>
+                    <div class="center-head-item wh-flex1">金额</div>
+                    <div class="center-head-item wh-flex2">卡号</div>
+                    <div class="center-head-item wh-flex2">预授权号</div>
+                    <div class="center-head-item wh-flex1">操作</div>
+                    <div class="center-head-item wh-flex2">授权时间</div>
+                    <div class="center-scroll-item"></div>
+                </div>
+                <div class="layui-side-scroll jilu-scroll-bg">
+                    <div v-for="(item,index) in dataList" class="center-flex-bg center-content-head" v-bind:class="index%2 ? 'center-item-gray-bg':'center-item-white-bg'">
+                        <div class="center-content-item wh-flex1">{{item.status}}</div>
+                        <div class="center-content-item wh-flex1">{{item.project}}</div>
+                        <div class="center-content-item wh-flex1">{{item.count}}</div>
+                        <div class="center-content-item wh-flex2">{{item.cardNo}}</div>
+                        <div class="center-content-item wh-flex2">{{item.ysqNo}}</div>
+                        <div class="center-content-item wh-flex1">{{item.operate}}</div>
+                        <div class="center-content-item wh-flex2">{{item.sqDate}}</div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

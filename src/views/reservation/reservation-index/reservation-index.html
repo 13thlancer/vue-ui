@@ -1,0 +1,690 @@
+<link rel="stylesheet" type="text/css" href="../../reservation/reservation-index/reservation-index.css" />
+
+<div id="wh-book-content" v-cloak class="layui-fluid">
+    <div class="layui-row">
+
+        <div class="layui-col-md12 center-flex-bg">
+            <div style="flex:1" class="center-flex-sign">
+                <div class="center-sign">
+                    R
+                </div>
+            </div>
+            <div class="center-flex-btngroup">
+                <div class="center-batch-btn" @click="showPiliang()">
+                    <img src="../../../assets/img/reservation_icon_piliang.png" />
+                        批量
+                </div>
+                <div class="center-inAccount-btn">
+                    <img src="../../../assets/img/reservation_icon_ruzhang.png" />
+                    入账
+                </div>
+                <div class="center-finance-btn">
+                    <img src="../../../assets/img/reservation_icon_caiwu.png" />
+                    财务
+                </div>
+                <div class="center-print-btn">
+                    <img src="../../../assets/img/reservation_icon_dayin.png" />
+                    打印
+                </div>
+                <div class="center-save-btn" @click="saveAll()">
+                    保存
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-col-md12 center-step">
+            <div class="step-active">
+                1
+            </div>
+            <div class="line">
+
+            </div>
+            <div class="step">
+                2
+            </div>
+            <div  class="line">
+
+            </div>
+            <div class="step">
+                3
+            </div>
+            <div  class="line">
+
+            </div>
+            <div class="step">
+                4
+            </div>
+
+        </div>
+
+        <div class="layui-row layui-col-space12">
+            <form lay-filter="reservation-form">
+                <input style="display:none" name="hotelGroupId" v-model="reservationForm.hotelGroupId"/>
+                <input style="display:none" name="hotelId"  v-model="reservationForm.hotelId"/>
+                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12" v-bind:class="{'frame-divde': isdivided === true,'frame': isdivided === false}" style="margin-left: 26px;width:1735px;">
+                    <div class="title1" @click="changeStatus(0)">
+                        <div class="titleNum">
+                            1
+                        </div>
+                        <div class="title">
+                            预订信息
+                        </div>
+                        <img class="titleSign" src="../../../assets/img/reservation_icon_xiugai.png" />
+                    </div>
+
+                    <div class="title-divide-content">
+                        <div v-show ="isdivided === true">
+                            <div class="divide-content-line">
+                                <div class="divide-content-title4">
+                                    住客类型:
+                                </div>
+                                <div class="divide-content-info">
+                                    {{bookInfo.cusType}}
+                                </div>
+                            </div>
+                            <div class="divide-content-line">
+                                <div class="divide-content-title4">
+                                    到达时间:
+                                </div>
+                                <div class="divide-content-info">
+                                    {{bookInfo.arriveDate}}
+                                </div>
+                            </div>
+                            <div class="divide-content-line">
+                                <div class="divide-content-title4">
+                                    离店时间:
+                                </div>
+                                <div class="divide-content-info">
+                                    {{bookInfo.leaveDate}}
+                                </div>
+                            </div>
+                            <div class="divide-content-line">
+                                <div class="divide-content-title4">
+                                    入住天数:
+                                </div>
+                                <div class="divide-content-info">
+                                    {{bookInfo.days}}
+                                </div>
+                            </div>
+                            <div class="divide-content-line">
+                                <div class="divide-content-title5">
+                                    房型/房数:
+                                </div>
+                                <div class="divide-content-info">
+                                    {{bookInfo.roomTypeCount}}
+                                </div>
+                            </div>
+                            <div class="divide-content-line">
+                                <div class="divide-content-title4">
+                                    房价类型:
+                                </div>
+                                <div class="divide-content-info">
+                                    {{bookInfo.roomPriceType}}
+                                </div>
+                            </div>
+                            <div class="divide-content-line">
+                                <div class="divide-content-title3">
+                                    房价码:
+                                </div>
+                                <div class="divide-content-info">
+                                    {{bookInfo.roomPriceCode}}
+                                </div>
+                            </div>
+                            <div class="divide-content-line">
+                                <div class="divide-content-title2">
+                                    房价:
+                                </div>
+                                <div class="divide-content-info">
+                                    {{bookInfo.roomPrice}}
+                                </div>
+                            </div>
+                            <div class="divide-content-line">
+                                <div class="divide-content-title2">
+                                    包价:
+                                </div>
+                                <div class="divide-content-info">
+                                    {{bookInfo.baojia}}
+                                </div>
+                            </div>
+                            <div class="divide-content-line">
+                                <div class="divide-content-title2">
+                                    包价:
+                                </div>
+                                <div class="divide-content-info">
+                                    {{bookInfo.baojia}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="title2" @click="changeStatus(1)" v-bind:class="{'divide1-active':isactive1 === true,'divide1-close':isactive1 === false}">
+                        <div class="titleNum">
+                            2
+                        </div>
+                        <div class="title">
+                            住客信息
+                        </div>
+                        <img class="titleSign" src="../../../assets/img/reservation_icon_xiugai.png" />
+                    </div>
+                    <div class="title-divide-content">
+                        <div v-show ="isdivided === true">
+                            <div class="divide-content-line">
+                                <div class="content-title3">
+                                    预订人:
+                                </div>
+                                <div class="divide-content-info">
+                                    {{customInfo.booker}}
+                                </div>
+                            </div>
+                            <div class="divide-content-line">
+                                <div class="content-title3">
+                                    入住人:
+                                </div>
+                                <div class="divide-content-info">
+                                    {{customInfo.occupant}}
+                                </div>
+                            </div>
+                            <div class="divide-content-line">
+                                <div class="content-title2">
+                                    手机:
+                                </div>
+                                <div class="divide-content-info">
+                                    {{customInfo.phone}}
+                                </div>
+                            </div>
+                            <div class="divide-content-line">
+                                <div class="content-title4">
+                                    到达时间:
+                                </div>
+                                <div class="divide-content-info">
+                                    {{customInfo.arriveTime}}
+                                </div>
+                            </div>
+                            <div class="divide-content-line">
+                                <div class="content-title4">
+                                    最晚保留:
+                                </div>
+                                <div class="divide-content-info">
+                                    {{customInfo.latestTime}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="title3" @click="changeStatus(2)" v-bind:class="{'divide2-active':isactive2 === true,'divide2-close':isactive2 === false}">
+                        <div class="titleNum">
+                            3
+                        </div>
+                        <div class="title">
+                            市场销售
+                        </div>
+                        <img class="titleSign" src="../../../assets/img/reservation_icon_xiugai.png" />
+                    </div>
+                    <div class="title-divide-content">
+                        <div  v-show ="isdivided === true">
+                            <div class="divide-content-line">
+                                <div class="content-title3">
+                                    销售员:
+                                </div>
+                                <div class="divide-content-info">
+                                    {{marketManager.saler}}
+                                </div>
+                            </div>
+                            <div class="divide-content-line">
+                                <div class="content-title3">
+                                    佣金码:
+                                </div>
+                                <div class="divide-content-info">
+                                    {{marketManager.salaryCode}}
+                                </div>
+                            </div>
+                            <div class="divide-content-line">
+                                <div class="content-title2">
+                                    渠道:
+                                </div>
+                                <div class="divide-content-info">
+                                    {{marketManager.channel}}
+                                </div>
+                            </div>
+                            <div class="divide-content-line">
+                                <div class="content-title4">
+                                    付款方式:
+                                </div>
+                                <div class="divide-content-info">
+                                    {{marketManager.payType}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="title4" @click="changeStatus(3)" v-bind:class="{'divide3-active':isactive3 === true,'divide3-close':isactive3 === false}">
+                        <div class="titleNum">
+                            4
+                        </div>
+                        <div class="title">
+                            预收款信息
+                        </div>
+                        <img class="titleSign" src="../../../assets/img/reservation_icon_xiugai.png" />
+                    </div>
+                    <div class="title-divide-content">
+                        <div  v-show ="isdivided === true">
+                            <div class="divide-content-line">
+                                <div class="content-title3">
+                                    预收款:
+                                </div>
+                                <div class="divide-content-info">
+                                    {{adReceived.ysk}}
+                                </div>
+                            </div>
+                            <div class="divide-content-line">
+                                <div class="content-title3">
+                                    预授权:
+                                </div>
+                                <div class="divide-content-info">
+                                    {{adReceived.ysq}}
+                                </div>
+                            </div>
+                            <div class="divide-content-line">
+                                <div class="content-title4">
+                                    当前余额:
+                                </div>
+                                <div class="divide-content-info">
+                                    {{adReceived.dqye}}
+                                </div>
+                            </div>
+                            <div class="divide-content-line">
+                                <div class="content-title4">
+                                    当前信用:
+                                </div>
+                                <div class="divide-content-info">
+                                    {{adReceived.curcredit}}
+                                </div>
+                            </div>
+                            <div class="divide-content-line">
+                                <div class="content-title4">
+                                    当前总账:
+                                </div>
+                                <div class="divide-content-info">
+                                    {{adReceived.curtotal}}
+                                </div>
+                            </div>
+                            <div class="divide-content-line">
+                                <div class="content-title4">
+                                    联单余额:
+                                </div>
+                                <div class="divide-content-info">
+                                    {{adReceived.ldye}}
+                                </div>
+                            </div>
+                            <div class="divide-content-line">
+                                <div class="content-title4">
+                                    联单信用:
+                                </div>
+                                <div class="divide-content-info">
+                                    {{adReceived.ldcredit}}
+                                </div>
+                            </div>
+                            <div class="divide-content-line">
+                                <div class="content-title4">
+                                    联单总账:
+                                </div>
+                                <div class="divide-content-info">
+                                    {{adReceived.ldtotal}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <transition name="showAni">
+                        <!--预订信息-->
+                        <div class="bookInfo" v-show="isactive1 === false && isactive2 === false && isactive3 === false">
+                            <div class="tab">
+                                <div class="sk" @click="selectSk()" v-bind:class="{'bookInfo-tab-active':bookInfoTab1 === true}">散客</div>
+                                <div class="td" @click="selectTd()" v-bind:class="{'bookInfo-tab-active':bookInfoTab2 === true}">团队</div>
+                                <div class="cbf" @click="selectCbf()" v-bind:class="{'bookInfo-tab-active':bookInfoTab3 === true}">长包房</div>
+                            </div>
+                            <div class="tab-line1" v-show="bookInfoTab1 === true"></div>
+                            <div class="tab-line2" v-show="bookInfoTab2 === true"></div>
+                            <div class="tab-line3" v-show="bookInfoTab3 === true"></div>
+                            <div class="form-line">
+                                <div class="arriveDate">
+                                    到达时间:
+                                </div>
+                                <div class="arrive-date-picker">
+                                    <input class="layui-input" id="arriveDatePick" placeholder="yyyy-MM-dd" type="text">
+                                </div>
+                                <div class="arriveTime">
+                                    <input class="layui-input" placeholder="18:00" type="text">
+                                </div>
+                                <div class="roomPriceType">
+                                    房价类型:
+                                </div>
+                                <div class="roomPriceType-input">
+                                    <input class="layui-input" placeholder="散客" type="text" @click="showRoomPriceType()" name="roomPriceType" readonly v-model="reservationForm.roomPriceType">
+                                </div>
+                                <div class="roomPriceType" v-show="bookInfoTab2 === true">
+                                    组团单位:
+                                </div>
+                                <div class="roomPriceType-input" v-show="bookInfoTab2 === true">
+                                    <input class="layui-input" placeholder="散客" type="text" @click="showGroupList()" name="group" readonly v-model="reservationForm.group">
+                                </div>
+                            </div>
+                            <div class="form-line">
+                                <div class="leaveDate">
+                                    离店时间:
+                                </div>
+                                <div class="leave-date-picker">
+                                    <input class="layui-input" id="leaveDatePick" placeholder="yyyy-MM-dd" type="text">
+                                </div>
+                                <div class="leaveTime">
+                                    <input class="layui-input" placeholder="12:00" type="text">
+                                </div>
+                                <div class="roomPriceCode">
+                                    房价码:
+                                </div>
+                                <div class="roomPriceType-input">
+                                    <input class="layui-input" placeholder="门市类" type="text" @click="showRoomPriceCode()" name="roomPriceCode" readonly v-model="reservationForm.roomPriceCode">
+                                </div>
+                            </div>
+                            <div class="form-line">
+                                <div class="days">
+                                    入住天数:
+                                </div>
+                                <div class="days-group">
+                                    <div class="days-sub"  @click="dayInitCount--">
+                                        <img src="../../../assets/img/reservation_icon_jianshao.png">
+                                    </div>
+                                    <div class="days-count">
+                                        <input class="layui-input" type="text" v-model='dayInitCount'/>
+                                    </div>
+                                    <div class="days-add" @click="dayInitCount++">
+                                        <img src="../../../assets/img/reservation_icon_zengjia.png">
+                                    </div>
+                                </div>
+                                <div class="roomPrice">
+                                    房价:
+                                </div>
+                                <div v-bind:class="{'roomPriceReson-input':isShowBenefitReason === true,'roomPriceType-input':isShowBenefitReason === false}">
+                                    <input class="layui-input" type="text" name="roomPrice" v-model="reservationForm.roomPrice" v-on:input="checkPrice()">
+                                </div>
+                                <div class="reason" v-show="isShowBenefitReason === true">
+                                    <input class="layui-input" type="text" name="benefitReason" v-model="reservationForm.benefitReason" readonly @click="showBenefitReason()">
+                                </div>
+                            </div>
+                            <div class="form-line">
+                                <div class="roomTypeCount">
+                                    房型/房数:
+                                </div>
+                                <div class="roomTypeCount-group">
+                                    <div class="roomType">
+                                        <input class="layui-input" type="text" @click="showRoomType()" name="roomType" readonly v-model="reservationForm.roomType">
+                                    </div>
+                                    <div class="roomType-sub" @click="roomInitCount--">
+                                        <img src="../../../assets/img/reservation_icon_jianshao.png">
+                                    </div>
+                                    <div class="roomType-count">
+                                        <input class="layui-input" type="text" v-model='roomInitCount'/>
+                                    </div>
+                                    <div class="roomType-add" @click="roomInitCount++">
+                                        <img src="../../../assets/img/reservation_icon_zengjia.png">
+                                    </div>
+                                </div>
+
+                                <div class="totalPrice">
+                                    包价:
+                                </div>
+                                <div class="roomPriceType-input">
+                                    <input class="layui-input" placeholder="散客" type="text" @click="showRoomBaojia()" name="roomBaojia" readonly v-model="reservationForm.roomBaojia">
+                                </div>
+                            </div>
+                            <div class="page">
+                                <div v-for="(item,index) in pageNumList">
+                                    <div class="pageNum" @click="selecetPage(index)">{{pageNumList[index]}}</div>
+                                </div>
+
+                                <div class="addNew" @click="addNewPage()">
+                                    <img src="../../../assets/img/reservation_icon_tianjia.png" />
+                                </div>
+                                <div class="delete" @click="delNewPage()">
+                                    <img src="../../../assets/img/reservation_icon_sc.png" />
+                                </div>
+                            </div>
+                        </div>
+                    </transition>
+
+                    <transition name="showAni">
+                        <!--住户信息-->
+                        <div class="customInfo" v-show="isactive1 === true && isactive2 === false && isactive3 === false">
+                            <div class="customInfo-form-line">
+                                <div class="thrdiv">预订人:</div>
+                                <div class="thrdiv-input">
+                                    <input class="layui-input" type="text">
+                                </div>
+                            </div>
+
+                            <div class="customInfo-form-line">
+                                <div class="thrdiv">入住人:</div>
+                                <div class="thrdiv-input">
+                                    <input class="layui-input" type="text">
+                                </div>
+                            </div>
+
+                            <div class="customInfo-form-line">
+                                <div class="thrdiv">手机号:</div>
+                                <div class="thrdiv-input">
+                                    <input class="layui-input" type="text">
+                                </div>
+                            </div>
+
+                            <div class="customInfo-form-line">
+                                <div class="fourdiv">到达时间:</div>
+                                <div class="fourdiv-input">
+                                    <input class="layui-input" placeholder="18:00" type="text">
+                                </div>
+                            </div>
+
+                            <div class="customInfo-form-line">
+                                <div class="fourdiv">最晚保留:</div>
+                                <div class="fourdiv-input">
+                                    <input class="layui-input" placeholder="20:00" type="text">
+                                </div>
+                            </div>
+                        </div>
+                    </transition>
+
+                    <transition name="showAni">
+                        <!--市场销售-->
+                        <div class="marketManager" v-show="isactive1 === true && isactive2 === true && isactive3 === false">
+                            <div class="customInfo-form-line">
+                                <div class="thrdiv">销售员:</div>
+                                <div class="thrdiv-input">
+                                    <input class="layui-input" type="text" @click="showSaler()" name="saler" readonly v-model="reservationForm.saler">
+                                </div>
+                            </div>
+
+                            <div class="customInfo-form-line">
+                                <div class="thrdiv">佣金码:</div>
+                                <div class="thrdiv-input">
+                                    <input class="layui-input" type="text" @click="showSalaryCode()" name="salaryCode" readonly v-model="reservationForm.salaryCode">
+                                </div>
+                            </div>
+
+                            <div class="customInfo-form-line">
+                                <div class="thrdiv">渠道:</div>
+                                <div class="thrdiv-input">
+                                    <input class="layui-input" type="text" @click="showChannel()" name="channel" readonly v-model="reservationForm.channel">
+                                </div>
+                            </div>
+
+                            <div class="customInfo-form-line">
+                                <div class="fourdiv">支付方式:</div>
+                                <div class="fourdiv-input">
+                                    <input class="layui-input" type="text" @click="showPayType()" name="payType" readonly v-model="reservationForm.payType">
+                                </div>
+                            </div>
+                        </div>
+                    </transition>
+
+                    <transition name="showAni">
+                        <!--预收款信息-->
+                        <div class="adReceived" v-show="isactive1 === true && isactive2 === true && isactive3 === true">
+                            <div class="tab">
+                                <div class="ysk" @click="selectYsk()" v-bind:class="{'adReceived-tab-active':adReceivedTab1 === true}">预收款</div>
+                                <div class="ysq" @click="selectYsq()" v-bind:class="{'adReceived-tab-active':adReceivedTab2 === true}">预授权</div>
+                            </div>
+                            <div class="adReceived-tab-line1" v-show="adReceivedTab1 === true"></div>
+                            <div class="adReceived-tab-line2" v-show="adReceivedTab2 === true"></div>
+                            <div class="ysk-content" v-show="adReceivedTab1 === true">
+                                <div class="adReceived-left">
+                                    <div class="adReceived-line">
+                                        <div class="adReceived-title2">金额:</div>
+                                        <div class="adReceived-input">
+                                            <input class="layui-input" type="text">
+                                        </div>
+                                    </div>
+                                    <div class="adReceived-line">
+                                        <div class="adReceived-title4">付款方式:</div>
+                                        <div class="adReceived-input">
+                                            <input class="layui-input" type="text" @click="showYskPayType()">
+                                        </div>
+                                    </div>
+                                    <div class="adReceived-line">
+                                        <div class="adReceived-title2">单号:</div>
+                                        <div class="adReceived-input">
+                                            <input class="layui-input" type="text">
+                                        </div>
+                                    </div>
+                                    <div class="adReceived-line">
+                                        <div class="adReceived-title3">付款人:</div>
+                                        <div class="adReceived-input">
+                                            <input class="layui-input" type="text">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="adReceived-right">
+                                    <div class="adReceived-rigth-line">
+                                        <div class="adReceived-title2">备注:</div>
+                                        <div class="adReceived-text-input">
+                                            <textarea class="layui-textarea"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ysq-content" v-show="adReceivedTab2 === true">
+                                <div class="adReceived-line">
+                                    <div class="adReceived-title2">金额:</div>
+                                    <div class="adReceived-input">
+                                        <input class="layui-input" type="text">
+                                    </div>
+                                    <div class="adReceived-title3">付款人:</div>
+                                    <div class="adReceived-input">
+                                        <input class="layui-input" type="text">
+                                    </div>
+                                </div>
+                                <div class="adReceived-line">
+                                    <div class="adReceived-title4">付款方式:</div>
+                                    <div class="adReceived-input">
+                                        <input class="layui-input" type="text" @click="showYsqPayType()">
+                                    </div>
+                                </div>
+                                <div class="adReceived-line">
+                                    <div class="adReceived-title2">卡号:</div>
+                                    <div class="adReceived-input">
+                                        <input class="layui-input" type="text">
+                                    </div>
+                                </div>
+                                <div class="adReceived-line">
+                                    <div class="adReceived-title4">预授权号:</div>
+                                    <div class="adReceived-input">
+                                        <input class="layui-input" type="text">
+                                    </div>
+                                </div>
+                                <div class="page">
+                                    <div class="pageNum">1</div>
+                                    <div class="addNew">
+                                        <img src="../../../assets/img/reservation_icon_tianjia.png" />
+                                    </div>
+                                    <div style="flex:1;"></div>
+                                    <div class="ysq-chexiao" @click="showChexiao()">
+                                        <img src="../../../assets/img/reservation_icon_chexiao.png" />
+                                    </div>
+                                    <div class="ysq-zhuanyi" @click="showZhuanyi()">
+                                        <img src="../../../assets/img/reservation_icon_zhuanyi.png" />
+                                    </div>
+                                    <div class="ysq-jilu" @click="showJilu()">
+                                        <img src="../../../assets/img/reservation_icon_jilu.png" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </transition>
+                </div>
+            </form>
+        </div>
+
+        <div id="center-item" class="layui-col-md12 center-flex-bg">
+            <div class="layui-tab layui-col-md12 wh-tab">
+                <div class="layui-tab-content layui-col-md12 wh-tab-content">
+                    <div class="layui-tab-item layui-show">
+                        <div class="center-flex-bg center-content-head center-content-border">
+                            <div class="center-head-item wh-flex1">状态</div>
+                            <div class="center-head-item wh-flex1">姓名</div>
+                            <div class="center-head-item wh-flex1">房型</div>
+                            <div class="center-head-item wh-flex1">房号</div>
+                            <div class="center-head-item wh-flex1">房价</div>
+                            <div class="center-head-item wh-flex1">预订/排房数</div>
+                            <div class="center-head-item wh-flex1">到达</div>
+                            <div class="center-head-item wh-flex1">离开</div>
+                            <div class="center-head-item wh-flex1">预订天数</div>
+                            <div class="center-head-item wh-flex1">余额</div>
+                            <div class="center-head-item wh-flex1">信用</div>
+                            <div class="center-head-item wh-flex1">备注</div>
+                            <div class="center-head-item wh-flex4 center-flex-bg">
+                                <div class="center-head-item wh-flex1">操作</div>
+                                <div class="log-icon" @click="showLog()">
+                                    <img  src="../../../assets/img/reservation_icon_rizhi.png">
+                                </div>
+                            </div>
+                            <!--<div class="center-head-log" @click="showLog()">-->
+                                <!--<img src="../../../assets/img/reservation_icon_rizhi.png">-->
+                            <!--</div>-->
+                            <div class="center-scroll-item"></div>
+                        </div>
+                        <div class="layui-side-scroll center-scroll-bg">
+                            <div v-for="(item,index) in preorderList" class="center-flex-bg center-content-head" v-bind:class="index%2 ? 'center-item-gray-bg':'center-item-white-bg'" @mouseenter.self="mouseenter(index)">
+                                <div class="center-content-item wh-flex1">{{item.mainStatus}}</div>
+                                <div class="center-content-item wh-flex1">{{item.inPerson}}</div>
+                                <div class="center-content-item wh-flex1">{{item.roomType}}</div>
+                                <div class="center-content-item wh-flex1">{{item.roomNo}}</div>
+                                <div class="center-content-item wh-flex1">{{item.dayPrice}}</div>
+                                <div class="center-content-item wh-flex1">1/{{item.ifArrange}}</div>
+                                <div class="center-content-item wh-flex1">{{item.planStart.slice(0,10)}}</div>
+                                <div class="center-content-item wh-flex1">{{item.planEnd.slice(0,10)}}</div>
+                                <div class="center-content-item wh-flex1">{{item.days}}</div>
+                                <div class="center-content-item wh-flex1">{{item.charge}}</div>
+                                <div class="center-content-item wh-flex1">{{item.credit}}</div>
+                                <div class="center-content-item wh-flex1">{{item.remark}}</div>
+                                <div class="center-content-item wh-flex4">
+                                    <div v-show="selected == index">
+                                        <img src="../../../assets/img/reservation_icon_paifang.png" @click="showpaifang()"/>
+                                        <img class="table-icon" src="../../../assets/img/reservation_icon_ruzhu.png" />
+                                        <img class="table-icon" src="../../../assets/img/reservation_icon_zhukexinxi.png" @click="showZkInfo()" />
+                                        <img class="table-icon" src="../../../assets/img/reservation_icon_liuyan.png" @click="showMessage()"/>
+                                        <img class="table-icon" src="../../../assets/img/reservation_icon_shanchu.png" @click="showDelete()"/>
+                                    </div>
+                                </div>
+                                <!--<div class="center-head-log" >-->
+                                <!--</div>-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+
+<script src="../../reservation/reservation-index/reservation-index.js" type="text/javascript" charset="utf-8"></script>

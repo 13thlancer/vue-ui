@@ -1,0 +1,33 @@
+<div class="whui-fluid">
+    <div class="layui-row whui-form">
+        <form class="layui-form"  >
+            <div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">角色名称</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="name" lay-verify="required" autocomplete="off" placeholder="请输入角色名称" class="layui-input">
+                    </div>
+                </div>
+            </div>
+            <div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">角色编码</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="num" id="num" lay-verify="required" class="layui-input" >
+                    </div>
+                </div>
+            </div>
+            <div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">角色别名</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="remark" lay-verify="required" autocomplete="off" placeholder="请输入角色名称" class="layui-input">
+                    </div>
+                </div>
+            </div>
+          
+            <button class="layui-btn layui-hide" lay-submit lay-filter="role-add-submit"></button>
+        </form>
+    </div>
+</div>
+<script src="../../../lib/comm/js/comm.js?page=role-add" type="text/javascript" charset="utf-8"></script>

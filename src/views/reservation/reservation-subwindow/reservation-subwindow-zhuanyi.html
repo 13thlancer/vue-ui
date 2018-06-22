@@ -1,0 +1,48 @@
+<link rel="stylesheet" type="text/css" href="../../reservation/reservation-subwindow/reservation-subwindow.css" />
+
+<div class="whui-fluid">
+    <div class="layui-row whui-form">
+        <form class="layui-form">
+
+            <div class="subwindow-search-bg">
+                <input class="layui-input" type="text">
+            </div>
+            <div class="center-flex-bg center-content-head center-content-border">
+                <div class="center-head-item wh-flex1">姓名</div>
+                <div class="center-head-item wh-flex1">房号</div>
+                <div class="center-head-item wh-flex1">状态</div>
+                <div class="center-head-item wh-flex1">类型</div>
+                <div class="center-head-item wh-flex1">余额</div>
+                <div class="center-scroll-item"></div>
+            </div>
+            <div class="layui-side-scroll zhuanyi-scroll-bg">
+                <div v-for="(item,index) in dataList" class="center-flex-bg center-content-head" v-bind:class="index%2 ? 'center-item-gray-bg':'center-item-white-bg'">
+                    <div class="center-content-item wh-flex1">{{item.inPerson}}</div>
+                    <div class="center-content-item wh-flex1">{{item.roomNo}}</div>
+                    <div class="center-content-item wh-flex1">{{item.mainStatus}}</div>
+                    <div class="center-content-item wh-flex1">{{item.roomType}}</div>
+                    <div class="center-content-item wh-flex1">{{item.charge}}</div>
+                </div>
+            </div>
+            <div class="zhuanyi-checkbox">
+                <form class="layui-form">
+                    <div class="layui-form-item">
+                        <div class="layui-input-block">
+                            <input type="checkbox" name="like[I]" lay-skin="primary"  title="I">
+                            <input type="checkbox" name="like[R]" lay-skin="primary"  title="R">
+                            <input type="checkbox" name="like[S]" lay-skin="primary"  title="S">
+                            <input type="checkbox" name="like[xfz]" lay-skin="primary"  title="消费账">
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="subwindow-confirm-btngroup">
+                <div class="layui-layer-btn layui-layer-btn-c">
+                    <a class="subwindow-cancel-btn">取消</a>
+                    <a class="subwindow-ensure-btn">确认</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

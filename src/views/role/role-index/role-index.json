@@ -1,0 +1,25 @@
+{
+  "cols": [
+    [
+      {
+        "type": "checkbox"
+      }, {
+      "title": "序号",
+      "width": 100,
+      "type": "numbers"
+    }, {
+      "field": "name",
+      "width": "25%",
+      "title": "角色名称"
+    },{
+      "field": "remark",
+      "width": "25%",
+      "title": "角色别名"
+    }, {
+      "field": "num",
+      "width": "25%",
+      "title": "编码"
+    }
+    ]
+  ]
+}

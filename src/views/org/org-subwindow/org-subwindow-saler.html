@@ -1,0 +1,15 @@
+<div class="layui-tab-content layui-col-md12 wh-tab-content">
+    <div class="layui-tab-item layui-show">
+        <div class="center-flex-bg center-content-head center-content-border">
+            <div class="center-head-item wh-flex1">代码</div>
+            <div class="center-head-item wh-flex1">姓名</div>
+            <div class="center-scroll-item"></div>
+        </div>
+        <div class="layui-side-scroll subwindow-scroll-bg">
+            <div v-for="(item,index) in dataList" class="center-flex-bg center-content-head" v-bind:class="index%2 ? 'center-item-gray-bg':'center-item-white-bg'">
+                <div class="center-content-item wh-flex1">{{item.code}}</div>
+                <div class="center-content-item wh-flex1">{{item.name}}</div>
+            </div>
+        </div>
+    </div>
+</div>

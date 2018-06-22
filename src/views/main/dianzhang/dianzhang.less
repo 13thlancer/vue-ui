@@ -1,0 +1,118 @@
+#main-dianzhang {
+    * {
+        box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+    }
+    .sanjiao {
+        position: fixed;
+        z-index: 19891016;
+        margin-left: -25px;
+        margin-top: 356px;
+    }
+    .dianzhang-container {
+        display: flex;
+        flex-flow: row wrap;
+        align-items: center;
+        justify-content: center;
+        width: 426px;
+        height: 426px;
+        padding: 15px;
+        .dianzhang-item {
+            width: 132px;
+            height: 132px;
+            padding-top: 21px;
+            a {
+                width: 60px;
+                height: 60px;
+                margin-left: auto;
+                margin-right: auto;
+                border-radius: 10px;
+                display: flex;
+                flex-flow: column nowrap;
+                align-items: center;
+                justify-content: center;
+                //
+                &:hover {
+                    background-color: #E9E9F8;
+                    &+.dianzhang-title {
+                        display: none;
+                    }
+                }
+                &:active {
+                    background-color: #DEDEFF;
+                }
+                .item-img {
+                    width: 50px;
+                    height: 50px;
+                }
+            }
+            .dianzhang-title {
+                text-align: center;
+                height: 20px;
+                margin-top: 10px;
+            }
+        }
+    }
+    .dianzhang-container {
+        .dianzhang-item {
+            a {
+                .img-yonghu {
+                    background-image: url(../../../assets/img/menu-dianzhang-yonghu.png);
+                }
+                .img-xitong {
+                    background-image: url(../../../assets/img/menu-dianzhang-xitong.png);
+                }
+                .img-fangjia {
+                    background-image: url(../../../assets/img/menu-dianzhang-fangjia.png);
+                }
+                .img-ar {
+                    background-image: url(../../../assets/img/menu-dianzhang-ar.png);
+                }
+                .img-shenji {
+                    background-image: url(../../../assets/img/menu-dianzhang-shenji.png);
+                }
+                .img-caiwushenhe {
+                    background-image: url(../../../assets/img/menu-dianzhang-caiwushenhe.png);
+                }
+                .img-qiantaichazhang {
+                    background-image: url(../../../assets/img/menu-dianzhang-qiantaichazhang.png);
+                }
+                .img-chafang {
+                    background-image: url(../../../assets/img/menu-dianzhang-chafang.png);
+                }
+                .img-zhikazhongxin {
+                    background-image: url(../../../assets/img/menu-dianzhang-zhikazhongxin.png);
+                }
+            }
+            a:hover,a:active{
+                .img-yonghu {
+                    background-image: url(../../../assets/img/menu-dianzhang-yonghu2.png);
+                }
+                .img-xitong {
+                    background-image: url(../../../assets/img/menu-dianzhang-xitong2.png);
+                }
+                .img-fangjia {
+                    background-image: url(../../../assets/img/menu-dianzhang-fangjia2.png);
+                }
+                .img-ar {
+                    background-image: url(../../../assets/img/menu-dianzhang-ar2.png);
+                }
+                .img-shenji {
+                    background-image: url(../../../assets/img/menu-dianzhang-shenji2.png);
+                }
+                .img-caiwushenhe {
+                    background-image: url(../../../assets/img/menu-dianzhang-caiwushenhe2.png);
+                }
+                .img-qiantaichazhang {
+                    background-image: url(../../../assets/img/menu-dianzhang-qiantaichazhang2.png);
+                }
+                .img-chafang {
+                    background-image: url(../../../assets/img/menu-dianzhang-chafang2.png);
+                }
+                .img-zhikazhongxin {
+                    background-image: url(../../../assets/img/menu-dianzhang-zhikazhongxin2.png);
+                }
+            }
+        }
+    }
+}
