@@ -1,103 +1,208 @@
-<link rel="stylesheet" type="text/css" href="../../reservation/reservation-subwindow/reservation-subwindow.css" />
+<!--<link rel="stylesheet" type="text/css" href="../../reservation/reservation-subwindow/reservation-subwindow.css" />-->
 
-<div class="whui-fluid">
-    <div class="layui-row whui-form">
-        <form class="layui-form">
+<!--<div class="whui-fluid">-->
+    <!--<div class="layui-row whui-form">-->
+        <!--<form class="layui-form">-->
 
-            <div class="zkinfo-form-line">
-                <div class="zkinfo-title5">
-                    房类/房号:
-                </div>
-                <div class="zkinfo-text">
-                    {{roomInfo.roomType}}/{{roomInfo.roomNo}}
-                </div>
-            </div>
-            <div class="zkinfo-form-line">
-                <div class="zkinfo-title2">
-                    姓名:
-                </div>
-                <div class="zkinfo-input">
-                    <input class="layui-input" type="text" v-model="RoomPerson.personName">
-                </div>
-            </div>
-            <div class="zkinfo-form-line">
-                <div class="zkinfo-title4">
-                    证件类型:
-                </div>
-                <div class="zkinfo-input">
-                    <input class="layui-input" type="text" v-model="RoomPerson.cardType">
-                </div>
-            </div>
-            <div class="zkinfo-form-line">
-                <div class="zkinfo-title4">
-                    证件号码:
-                </div>
-                <div class="zkinfo-input">
-                    <input class="layui-input" type="text" v-model="RoomPerson.cardNo">
-                </div>
-            </div>
-            <div class="zkinfo-form-line">
-                <div class="zkinfo-title2">
-                    地址:
-                </div>
-                <div class="zkinfo-input">
-                    <input class="layui-input" type="text" v-model="RoomPerson.address">
-                </div>
-            </div>
+            <!--<div class="zkinfo-form-line">-->
+                <!--<div class="zkinfo-title5">-->
+                    <!--房类/房号:-->
+                <!--</div>-->
+                <!--<div class="zkinfo-text">-->
+                    <!--{{roomInfo.roomType}}/{{roomInfo.roomNo}}-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="zkinfo-form-line">-->
+                <!--<div class="zkinfo-title2">-->
+                    <!--姓名:-->
+                <!--</div>-->
+                <!--<div class="zkinfo-input">-->
+                    <!--<input class="layui-input" type="text" v-model="RoomPerson.personName">-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="zkinfo-form-line">-->
+                <!--<div class="zkinfo-title4">-->
+                    <!--证件类型:-->
+                <!--</div>-->
+                <!--<div class="zkinfo-input">-->
+                    <!--<input class="layui-input" type="text" v-model="RoomPerson.cardType">-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="zkinfo-form-line">-->
+                <!--<div class="zkinfo-title4">-->
+                    <!--证件号码:-->
+                <!--</div>-->
+                <!--<div class="zkinfo-input">-->
+                    <!--<input class="layui-input" type="text" v-model="RoomPerson.cardNo">-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="zkinfo-form-line">-->
+                <!--<div class="zkinfo-title2">-->
+                    <!--地址:-->
+                <!--</div>-->
+                <!--<div class="zkinfo-input">-->
+                    <!--<input class="layui-input" type="text" v-model="RoomPerson.address">-->
+                <!--</div>-->
+            <!--</div>-->
 
-            <div class="zkinfo-form-line">
-                <div class="zkinfo-title2">
-                    性别:
-                </div>
-                <div class="zkinfo-radio">
-                    <input type="radio" name="isStop" value="male" title="男">
-                    <input type="radio" name="isStop" value="female" title="女">
-                </div>
-            </div>
+            <!--<div class="zkinfo-form-line">-->
+                <!--<div class="zkinfo-title2">-->
+                    <!--性别:-->
+                <!--</div>-->
+                <!--<div class="zkinfo-radio">-->
+                    <!--<input type="radio" name="isStop" value="male" title="男">-->
+                    <!--<input type="radio" name="isStop" value="female" title="女">-->
+                <!--</div>-->
+            <!--</div>-->
 
-            <div class="zkinfo-form-line">
-                <div class="zkinfo-title4">
-                    手机号码:
-                </div>
-                <div class="zkinfo-input">
-                    <input class="layui-input" type="text" v-model="RoomPerson.mobile">
-                </div>
-            </div>
-            <div class="zkinfo-form-line">
-                <div class="zkinfo-title2">
-                    邮箱:
-                </div>
-                <div class="zkinfo-input">
-                    <input class="layui-input" type="text"  v-model="RoomPerson.email">
-                </div>
-            </div>
-            <div class="zkinfo-form-line">
-                <div class="zkinfo-title4">
-                    会员号码:
-                </div>
-                <div class="zkinfo-input">
-                    <input class="layui-input" type="text"  v-model="RoomPerson.vipNum">
-                </div>
-            </div>
+            <!--<div class="zkinfo-form-line">-->
+                <!--<div class="zkinfo-title4">-->
+                    <!--手机号码:-->
+                <!--</div>-->
+                <!--<div class="zkinfo-input">-->
+                    <!--<input class="layui-input" type="text" v-model="RoomPerson.mobile">-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="zkinfo-form-line">-->
+                <!--<div class="zkinfo-title2">-->
+                    <!--邮箱:-->
+                <!--</div>-->
+                <!--<div class="zkinfo-input">-->
+                    <!--<input class="layui-input" type="text"  v-model="RoomPerson.email">-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="zkinfo-form-line">-->
+                <!--<div class="zkinfo-title4">-->
+                    <!--会员号码:-->
+                <!--</div>-->
+                <!--<div class="zkinfo-input">-->
+                    <!--<input class="layui-input" type="text"  v-model="RoomPerson.vipNum">-->
+                <!--</div>-->
+            <!--</div>-->
 
-            <div class="zkinfo-page">
-                <div v-for="(item,index) in pageList">
-                    <div class="zkinfo-pageNum" @click="selecetPage(index)" v-bind:class="{'pageActive':pageSelect === index}">{{item}}</div>
-                </div>
-                <div class="zkinfo-addNew" @click="addNewPage()">
-                    <img src="../../../assets/img/reservation_icon_tianjia.png" />
-                </div>
-                <div class="zkinfo-delete">
-                    <img src="../../../assets/img/reservation_icon_sc.png" />
-                </div>
-                <div style="flex:1;"></div>
-                <div class="zkinfo-clear">
-                    <img src="../../../assets/img/reservation_icon_chexiao.png" />
-                </div>
-                <div class="zkinfo-save" @click="confirm()">
-                    <img src="../../../assets/img/reservation_icon_baocun.png" />
-                </div>
+            <!--<div class="zkinfo-page">-->
+                <!--<div v-for="(item,index) in pageList">-->
+                    <!--<div class="zkinfo-pageNum" @click="selecetPage(index)" v-bind:class="{'pageActive':pageSelect === index}">{{item}}</div>-->
+                <!--</div>-->
+                <!--<div class="zkinfo-addNew" @click="addNewPage()">-->
+                    <!--<img src="../../../assets/img/reservation_icon_tianjia.png" />-->
+                <!--</div>-->
+                <!--<div class="zkinfo-delete">-->
+                    <!--<img src="../../../assets/img/reservation_icon_sc.png" />-->
+                <!--</div>-->
+                <!--<div style="flex:1;"></div>-->
+                <!--<div class="zkinfo-clear">-->
+                    <!--<img src="../../../assets/img/reservation_icon_chexiao.png" />-->
+                <!--</div>-->
+                <!--<div class="zkinfo-save" @click="confirm()">-->
+                    <!--<img src="../../../assets/img/reservation_icon_baocun.png" />-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</form>-->
+    <!--</div>-->
+<!--</div>-->
+
+<div class="layui-col-md12">
+    <form class="layui-form" lay-filter="code-form">
+        <div class="multiple-pop-head">
+            <span>住客信息</span>
+            <img @click="closeImgClick" src="../../../assets/img/system-setting_icon_subClose.png" />
+        </div>
+
+        <div class="zkinfo-form-line">
+            <div class="zkinfo-title5">
+                房类/房号:
             </div>
-        </form>
-    </div>
+            <div class="zkinfo-text">
+                {{roomInfo.roomType}}/{{roomInfo.roomNo}}
+            </div>
+        </div>
+        <div class="zkinfo-form-line">
+            <div class="zkinfo-title2">
+                姓名:
+            </div>
+            <div class="zkinfo-input">
+                <input class="layui-input" type="text" v-model="RoomPerson.personName">
+            </div>
+        </div>
+        <div class="zkinfo-form-line">
+            <div class="zkinfo-title4">
+                证件类型:
+            </div>
+            <div class="zkinfo-input">
+                <input class="layui-input" type="text" v-model="RoomPerson.cardType">
+            </div>
+        </div>
+        <div class="zkinfo-form-line">
+            <div class="zkinfo-title4">
+                证件号码:
+            </div>
+            <div class="zkinfo-input">
+                <input class="layui-input" type="text" v-model="RoomPerson.cardNo">
+            </div>
+        </div>
+        <div class="zkinfo-form-line">
+            <div class="zkinfo-title2">
+                地址:
+            </div>
+            <div class="zkinfo-input">
+                <input class="layui-input" type="text" v-model="RoomPerson.address">
+            </div>
+        </div>
+
+        <div class="zkinfo-form-line">
+            <div class="zkinfo-title2">
+                性别:
+            </div>
+            <div class="zkinfo-radio">
+                <input type="radio" name="isStop" value="male" title="男">
+                <input type="radio" name="isStop" value="female" title="女">
+            </div>
+        </div>
+
+        <div class="zkinfo-form-line">
+            <div class="zkinfo-title4">
+                手机号码:
+            </div>
+            <div class="zkinfo-input">
+                <input class="layui-input" type="text" v-model="RoomPerson.mobile">
+            </div>
+        </div>
+        <div class="zkinfo-form-line">
+            <div class="zkinfo-title2">
+                邮箱:
+            </div>
+            <div class="zkinfo-input">
+                <input class="layui-input" type="text"  v-model="RoomPerson.email">
+            </div>
+        </div>
+        <div class="zkinfo-form-line">
+            <div class="zkinfo-title4">
+                会员号码:
+            </div>
+            <div class="zkinfo-input">
+                <input class="layui-input" type="text"  v-model="RoomPerson.vipNum">
+            </div>
+        </div>
+
+        <div class="zkinfo-page">
+            <div v-for="(item,index) in pageList">
+                <div class="zkinfo-pageNum" @click="selecetPage(index)" v-bind:class="{'pageActive':pageSelect === index}">{{item}}</div>
+            </div>
+            <div class="zkinfo-addNew" @click="addNewPage()">
+                <img src="../../../assets/img/reservation_icon_tianjia.png" />
+            </div>
+            <div class="zkinfo-delete">
+                <img src="../../../assets/img/reservation_icon_sc.png" />
+            </div>
+            <div style="flex:1;"></div>
+            <div class="zkinfo-clear">
+                <img src="../../../assets/img/reservation_icon_chexiao.png" />
+            </div>
+            <div class="zkinfo-save" @click="confirm()">
+                <img src="../../../assets/img/reservation_icon_baocun.png" />
+            </div>
+        </div>
+
+    </form>
 </div>

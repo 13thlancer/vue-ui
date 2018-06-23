@@ -1,21 +1,41 @@
-<div class="layui-tab-content layui-col-md12 wh-tab-content">
-    <div class="layui-tab-item layui-show">
-        <div class="center-flex-bg center-content-head center-content-border">
-            <div class="center-head-item wh-flex1">房型</div>
-            <div class="center-head-item wh-flex1">房型描述</div>
-            <div class="center-head-item wh-flex1">房号</div>
-            <div class="center-head-item wh-flex1">标记</div>
-            <div class="center-head-item wh-flex1">特征</div>
-            <div class="center-scroll-item"></div>
-        </div>
-        <div class="layui-side-scroll subwindow-scroll-bg">
-            <div v-for="(item,index) in dataList" class="center-flex-bg center-content-head" v-bind:class="index%2 ? 'center-item-gray-bg':'center-item-white-bg'">
-                <div class="center-content-item wh-flex1">{{item.roomType}}</div>
-                <div class="center-content-item wh-flex1">{{item.roomType}}</div>
-                <div class="center-content-item wh-flex1">{{item.roomNo}}</div>
-                <div class="center-content-item wh-flex1">{{item.mark}}</div>
-                <div class="center-content-item wh-flex1">{{item.sign}}</div>
-            </div>
+<!--<div class="layui-tab-content layui-col-md12 wh-tab-content">-->
+    <!--<div class="layui-tab-item layui-show">-->
+        <!--<div class="center-flex-bg center-content-head center-content-border">-->
+            <!--<div class="center-head-item wh-flex1">房型</div>-->
+            <!--<div class="center-head-item wh-flex1">房型描述</div>-->
+            <!--<div class="center-head-item wh-flex1">房号</div>-->
+            <!--<div class="center-head-item wh-flex1">标记</div>-->
+            <!--<div class="center-head-item wh-flex1">特征</div>-->
+            <!--<div class="center-scroll-item"></div>-->
+        <!--</div>-->
+        <!--<div class="layui-side-scroll subwindow-scroll-bg">-->
+            <!--<div v-for="(item,index) in dataList" class="center-flex-bg center-content-head" v-bind:class="index%2 ? 'center-item-gray-bg':'center-item-white-bg'">-->
+                <!--<div class="center-content-item wh-flex1">{{item.roomType}}</div>-->
+                <!--<div class="center-content-item wh-flex1">{{item.roomType}}</div>-->
+                <!--<div class="center-content-item wh-flex1">{{item.roomNo}}</div>-->
+                <!--<div class="center-content-item wh-flex1">{{item.mark}}</div>-->
+                <!--<div class="center-content-item wh-flex1">{{item.sign}}</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</div>-->
+
+<div class="layui-col-md12">
+    <div class="wh-flex pop-content-head">
+        <div class="pop-head-item wh-flex1">房型</div>
+        <div class="pop-head-item wh-flex1">房型描述</div>
+        <div class="pop-head-item wh-flex1">房号</div>
+        <div class="pop-head-item wh-flex1">标记</div>
+        <div class="pop-head-item wh-flex1">特征</div>
+        <div class="pop-scroll-item"></div>
+    </div>
+    <div class="layui-side-scroll pop-scroll-bg">
+        <div v-for="(item,index) in dataList" @click="selectItem(item)" class="wh-flex pop-content-content" v-bind:class="{'center-item-gray-bg':index%2, 'center-item-white-bg':!(index%2)}">
+            <div class="pop-content-item wh-flex1">{{item.roomType}}</div>
+            <div class="pop-content-item-item wh-flex1">{{item.roomType}}</div>
+            <div class="pop-content-item wh-flex1">{{item.roomNo}}</div>
+            <div class="pop-content-item wh-flex1">{{item.mark}}</div>
+            <div class="pop-content-item wh-flex1">{{item.sign}}</div>
         </div>
     </div>
 </div>

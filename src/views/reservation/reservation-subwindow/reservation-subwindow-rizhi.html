@@ -1,26 +1,54 @@
-<link rel="stylesheet" type="text/css" href="../../reservation/reservation-subwindow/reservation-subwindow.css" />
+<!--<link rel="stylesheet" type="text/css" href="../../reservation/reservation-subwindow/reservation-subwindow.css" />-->
 
-<div class="whui-fluid">
-    <div class="layui-row whui-form">
-        <form class="layui-form">
+<!--<div class="whui-fluid">-->
+    <!--<div class="layui-row whui-form">-->
+        <!--<form class="layui-form">-->
 
-            <div class="center-flex-bg center-content-head center-content-border">
-                <div class="center-head-item wh-flex2">时间</div>
-                <div class="center-head-item wh-flex1">项目</div>
-                <div class="center-head-item wh-flex1">旧值</div>
-                <div class="center-head-item wh-flex1">新值</div>
-                <div class="center-head-item wh-flex1">创建</div>
-                <div class="center-scroll-item"></div>
+            <!--<div class="center-flex-bg center-content-head center-content-border">-->
+                <!--<div class="center-head-item wh-flex2">时间</div>-->
+                <!--<div class="center-head-item wh-flex1">项目</div>-->
+                <!--<div class="center-head-item wh-flex1">旧值</div>-->
+                <!--<div class="center-head-item wh-flex1">新值</div>-->
+                <!--<div class="center-head-item wh-flex1">创建</div>-->
+                <!--<div class="center-scroll-item"></div>-->
+            <!--</div>-->
+            <!--<div class="layui-side-scroll rizhi-scroll-bg">-->
+                <!--<div v-for="(item,index) in dataList" class="center-flex-bg center-content-head" v-bind:class="index%2 ? 'center-item-gray-bg':'center-item-white-bg'">-->
+                    <!--<div class="center-content-item wh-flex2">{{item.date}}</div>-->
+                    <!--<div class="center-content-item wh-flex1">{{item.project}}</div>-->
+                    <!--<div class="center-content-item wh-flex1">{{item.old}}</div>-->
+                    <!--<div class="center-content-item wh-flex1">{{item.new}}</div>-->
+                    <!--<div class="center-content-item wh-flex1">{{item.create}}</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</form>-->
+    <!--</div>-->
+<!--</div>-->
+
+
+<div class="layui-col-md12">
+    <form class="layui-form" lay-filter="code-form">
+        <div class="multiple-pop-head">
+            <span>日志</span>
+            <img @click="closeImgClick" src="../../../assets/img/system-setting_icon_subClose.png" />
+        </div>
+        <div class="wh-flex pop-content-head">
+            <div class="pop-head-item wh-flex2">时间</div>
+            <div class="pop-head-item wh-flex1">项目</div>
+            <div class="pop-head-item wh-flex1">旧值</div>
+            <div class="pop-head-item wh-flex1">新值</div>
+            <div class="pop-head-item wh-flex1">创建</div>
+            <div class="pop-scroll-item"></div>
+        </div>
+        <div class="layui-side-scroll pop-scroll-bg">
+            <div v-for="(item,index) in dataList" @click="selectItem(item)" class="wh-flex pop-content-content" v-bind:class="{'center-item-gray-bg':index%2, 'center-item-white-bg':!(index%2)}">
+                <div class="pop-content-item wh-flex2">{{item.date}}</div>
+                <div class="pop-content-item wh-flex1">{{item.project}}</div>
+                <div class="pop-content-item wh-flex1">{{item.old}}</div>
+                <div class="pop-content-item wh-flex1">{{item.new}}</div>
+                <div class="pop-content-item wh-flex1">{{item.create}}</div>
             </div>
-            <div class="layui-side-scroll rizhi-scroll-bg">
-                <div v-for="(item,index) in dataList" class="center-flex-bg center-content-head" v-bind:class="index%2 ? 'center-item-gray-bg':'center-item-white-bg'">
-                    <div class="center-content-item wh-flex2">{{item.date}}</div>
-                    <div class="center-content-item wh-flex1">{{item.project}}</div>
-                    <div class="center-content-item wh-flex1">{{item.old}}</div>
-                    <div class="center-content-item wh-flex1">{{item.new}}</div>
-                    <div class="center-content-item wh-flex1">{{item.create}}</div>
-                </div>
-            </div>
-        </form>
-    </div>
+        </div>
+
+    </form>
 </div>

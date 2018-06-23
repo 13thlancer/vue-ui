@@ -1,27 +1,52 @@
-<link rel="stylesheet" type="text/css" href="../../reservation/reservation-subwindow/reservation-subwindow.css" />
+<!--<link rel="stylesheet" type="text/css" href="../../reservation/reservation-subwindow/reservation-subwindow.css" />-->
 
-<div class="whui-fluid">
-    <div class="layui-row whui-form">
-        <form class="layui-form">
+<!--<div class="whui-fluid">-->
+    <!--<div class="layui-row whui-form">-->
+        <!--<form class="layui-form">-->
 
-            <div class="subwindow-confirm">
-                <div class="subwindow-confirm-icon">
-                    <img src="../../../assets/img/setting_icon_gantanhao.png"/>
-                </div>
-                <div class="subwindow-confirm-content">
-                    {{message}}
-                </div>
+            <!--<div class="subwindow-confirm">-->
+                <!--<div class="subwindow-confirm-icon">-->
+                    <!--<img src="../../../assets/img/setting_icon_gantanhao.png"/>-->
+                <!--</div>-->
+                <!--<div class="subwindow-confirm-content">-->
+                    <!--{{message}}-->
+                <!--</div>-->
+            <!--</div>-->
+
+
+            <!--<div class="subwindow-confirm-btngroup">-->
+                <!--<div class="layui-layer-btn layui-layer-btn-c">-->
+                    <!--<a class="subwindow-cancel-btn">取消</a>-->
+                    <!--<a class="subwindow-ensure-btn" @click="confirm()">确认</a>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</form>-->
+    <!--</div>-->
+<!--</div>-->
+
+<div class="layui-col-md12">
+    <form class="layui-form" lay-filter="code-form">
+        <div class="multiple-pop-head">
+            <span>{{title}}</span>
+            <img @click="closeImgClick" src="../../../assets/img/system-setting_icon_subClose.png" />
+        </div>
+
+        <div class="subwindow-confirm">
+            <div class="subwindow-confirm-icon">
+                <img src="../../../assets/img/setting_icon_gantanhao.png"/>
             </div>
-
-
-            <div class="subwindow-confirm-btngroup">
-                <div class="layui-layer-btn layui-layer-btn-c">
-                    <a class="subwindow-cancel-btn">取消</a>
-                    <a class="subwindow-ensure-btn" @click="confirm()">确认</a>
-                </div>
+            <div class="subwindow-confirm-content">
+                {{message}}
             </div>
-        </form>
-    </div>
+        </div>
+
+        <div class="wh-form-bottom">
+            <div class="wh-flex1">
+                <div @click="CancelClick" class="code-form-left-btn">取消</div>
+            </div>
+            <div class="wh-flex1">
+                <div @click="ConfirmClick" class="code-form-right-btn">确认</div>
+            </div>
+        </div>
+    </form>
 </div>
-
-

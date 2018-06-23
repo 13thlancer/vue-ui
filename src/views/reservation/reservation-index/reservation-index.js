@@ -415,27 +415,30 @@ layui.use(['admin', 'whui','form', 'element', 'laydate', 'dateformat'], function
                         content: html,
                         id: 'piliang',
                         type: 1,
-                        title: '批量处理',
-                        closeBtn:1,
-                        scrollbar: false,
+                        title: false,
                         area: ['838px', '878px'],
                         success:function(){
+                            var piliang = new Vue({
+                                el: "#piliang",
+                                data: {
+                                    dataList:'',
+                                },
+                                methods:{
+                                    showPLSelect:function(){
+                                        plselect();
+                                    },
+                                    closeImgClick:function(){
+                                        layer.closeAll();
+                                    }
+                                }
+                            })
+
                             var params = {
                                 "priMainId":18061500002
                             };
                             whui.request(layui.whconfig.bizurl.reservation.getBatchOrderList,params,
                                 function(data,desc){
-                                    new Vue({
-                                        el: "#piliang",
-                                        data: {
-                                            dataList:data.batchOrderList,
-                                        },
-                                        methods:{
-                                            showPLSelect:function(){
-                                                plselect();
-                                            }
-                                        }
-                                    })
+                                    piliang.dataList = data.batchOrderLis;
                                 }
                             );
                         }
@@ -1002,23 +1005,26 @@ layui.use(['admin', 'whui','form', 'element', 'laydate', 'dateformat'], function
                         content: html,
                         id: 'jilu',
                         type: 1,
-                        title: '记录',
-                        closeBtn:1,
-                        scrollbar: false,
+                        title:false,
                         area: ['968px', '878px'],
                         success:function(){
-
+                            var jilu = new Vue({
+                                el: "#jilu",
+                                data: {
+                                    dataList:''
+                                },
+                                methods:{
+                                    closeImgClick: function() {
+                                        layer.closeAll();
+                                    }
+                                }
+                            })
                             var params = {
                                 "priMainId":18061500002
                             };
                             whui.request(layui.whconfig.bizurl.reservation.getPrelicenceLogs,params,
                                 function(data,desc){
-                                    new Vue({
-                                        el: "#jilu",
-                                        data: {
-                                            dataList:data.prelicenceLogs,
-                                        }
-                                    })
+                                    jilu.dataList = data.prelicenceLogs;
                                 }
                             );
                         }
@@ -1031,25 +1037,53 @@ layui.use(['admin', 'whui','form', 'element', 'laydate', 'dateformat'], function
                         content: html,
                         id: 'zhuanyi',
                         type: 1,
-                        title: '转移',
-                        closeBtn:1,
-                        scrollbar: false,
+                        title: false,
                         area: ['689px', '848px'],
                         success:function(){
                             var transfor = new Vue({
                                 el: "#zhuanyi",
                                 data: {
+                                    typeList:[
+                                        {'selected':false,
+                                            'name':'I'
+                                        },
+                                        {'selected':false,
+                                            'name':'R'
+                                        },
+                                        {'selected':false,
+                                            'name':'S'
+                                        },
+                                        {'selected':false,
+                                            'name':'消费帐'
+                                        }],
                                     dataList:'',
                                     selectTransforIndex:'',
                                     selectTransfor:'',
+                                    selectNameArr: [],
+                                    selectCodeArr: [],
                                     ysqInfo:vm.preLicenceList.preLicenceList[vm.ysqPageSelect],
                                 },
                                 methods:{
                                     selectItem:function (index,item) {
-                                        this.selectTransforIndex = index;
-                                        this.ysqInfo.newSubId = item.subId;
+                                        transfor.selectTransforIndex = index;
+                                        transfor.ysqInfo.newSubId = item.subId;
                                     },
-                                    confirm:function(){
+                                    selectItemClick:function(item){
+                                        if(item.selected) {
+                                            removeByValue(transfor.selectNameArr, item.text);
+                                            removeByValue(transfor.selectCodeArr, item.id);
+                                        } else {
+                                            transfor.selectNameArr.push(item.text);
+                                            transfor.selectCodeArr.push(item.id);
+                                        }
+                                        if(transfor.selectNameArr.length == transfor.dataList.length) {
+                                            transfor.isSelectAll = true;
+                                        } else {
+                                            transfor.isSelectAll = false;
+                                        }
+                                        item.selected = !item.selected
+                                    },
+                                    ConfirmClick:function(){
                                         var params = this.ysqInfo;
                                         whui.request(layui.whconfig.bizurl.reservation.prelicenceTansfer,params,
                                             function(data,desc){
@@ -1059,6 +1093,12 @@ layui.use(['admin', 'whui','form', 'element', 'laydate', 'dateformat'], function
                                                 contentType : 'application/json',
                                             },
                                         );
+                                    },
+                                    closeImgClick:function () {
+                                        layer.closeAll();
+                                    },
+                                    CancelClick: function() {
+                                        layer.closeAll();
                                     }
                                 }
                             });
@@ -1084,8 +1124,7 @@ layui.use(['admin', 'whui','form', 'element', 'laydate', 'dateformat'], function
                         content: html,
                         id: 'rizhi',
                         type: 1,
-                        title: '日志',
-                        closeBtn:1,
+                        title: false,
                         scrollbar: false,
                         area: ['689px', '880px'],
                         success:function(){
@@ -1142,6 +1181,11 @@ layui.use(['admin', 'whui','form', 'element', 'laydate', 'dateformat'], function
                                             "create":"administrator"
                                         }
                                     ],
+                                },
+                                methods:{
+                                    closeImgClick: function() {
+                                        layer.closeAll();
+                                    }
                                 }
                             })
                         }
@@ -1154,14 +1198,14 @@ layui.use(['admin', 'whui','form', 'element', 'laydate', 'dateformat'], function
                         content: html,
                         id: 'chexiao',
                         type: 1,
-                        title: '撤销',
-                        closeBtn:1,
+                        title: false,
                         scrollbar: false,
                         area: ['640px', '320px'],
                         success:function(){
                             new Vue({
                                 el: "#chexiao",
                                 data: {
+                                    title:'撤销',
                                     message:'确定撤销该笔预授权？'
                                 },
                                 methods:{
@@ -1180,9 +1224,7 @@ layui.use(['admin', 'whui','form', 'element', 'laydate', 'dateformat'], function
                         content: html,
                         id: 'zkInfo',
                         type: 1,
-                        title: '住客信息',
-                        closeBtn:1,
-                        scrollbar: false,
+                        title: false,
                         area: ['689px', '878px'],
                         success:function(){
                             //初始化
@@ -1250,6 +1292,9 @@ layui.use(['admin', 'whui','form', 'element', 'laydate', 'dateformat'], function
                                                 contentType : 'application/json',
                                             },
                                         );
+                                    },
+                                    closeImgClick: function() {
+                                        layer.closeAll();
                                     }
                                 }
                             })
@@ -1279,9 +1324,7 @@ layui.use(['admin', 'whui','form', 'element', 'laydate', 'dateformat'], function
                         content: html,
                         id: 'message',
                         type: 1,
-                        title: '留言',
-                        closeBtn:1,
-                        scrollbar: false,
+                        title: false,
                         area: ['517px', '627px'],
                         success:function(){
                             var msg = new Vue({
@@ -1301,7 +1344,7 @@ layui.use(['admin', 'whui','form', 'element', 'laydate', 'dateformat'], function
                                     }
                                 },
                                 methods:{
-                                    confirm:function(){
+                                    ConfirmClick:function(){
                                         var params = this.messageForm;
                                         whui.request(layui.whconfig.bizurl.reservation.sendMessage,params,
                                             function(data,desc){
@@ -1310,6 +1353,12 @@ layui.use(['admin', 'whui','form', 'element', 'laydate', 'dateformat'], function
                                                 contentType : 'application/json',
                                             },
                                         );
+                                    },
+                                    CancelClick: function() {
+                                        layer.closeAll();
+                                    },
+                                    closeImgClick:function () {
+                                        layer.closeAll();
                                     }
                                 }
                             })
@@ -1330,7 +1379,6 @@ layui.use(['admin', 'whui','form', 'element', 'laydate', 'dateformat'], function
                                         value = value.replace('年','-').replace('月','-').replace('日','')
                                         msg.messageForm.showstartTime = dateformat.format(new Date(value), 'yyyy年M月d日');
                                         msg.messageForm.startTime = dateformat.format(new Date(value), 'yyyy-M-d');
-
                                     }
                                 });
                                 layui.laydate.render({
@@ -1358,14 +1406,14 @@ layui.use(['admin', 'whui','form', 'element', 'laydate', 'dateformat'], function
                         content: html,
                         id: 'shanchu',
                         type: 1,
-                        title: '删除',
-                        closeBtn:1,
+                        title: false,
                         scrollbar: false,
                         area: ['640px', '320px'],
                         success:function(){
                             new Vue({
                                 el: "#shanchu",
                                 data: {
+                                    title:'删除',
                                     message:'确定删除该记录？'
                                 },
                                 methods:{
@@ -1410,12 +1458,6 @@ layui.use(['admin', 'whui','form', 'element', 'laydate', 'dateformat'], function
     });
 
     function initTable(){
-        // var params = {
-        //     "priMainId":18062000001
-        // }
-        // whui.request(layui.whconfig.bizurl.reservation.getPreorderList, params, function(data,desc){
-        //    vm.preorderListTable = data.preorderList;
-        // });
         var req={
             "priMainId":18062200001
         }
@@ -1462,23 +1504,78 @@ layui.use(['admin', 'whui','form', 'element', 'laydate', 'dateformat'], function
     });
 
     function plselect(){
-        jQuery("#layui-layer3").css("-webkit-transform", "translate(-400px,0)");
-        jQuery("#layui-layer3").css("transition", "opacity 200ms ease-in-out 2s,transform 800ms ease-in-out");
+        jQuery(".layui-layer.layui-layer-page").css("-webkit-transform", "translate(-400px,0)");
+        jQuery(".layui-layer.layui-layer-page").css("transition", "opacity 200ms ease-in-out 2s,transform 800ms ease-in-out");
+
 
         jQuery.get('../../reservation/reservation-subwindow/reservation-subwindow-piliangSelect.html', function(html) {
             layer.open({
                 content: html,
                 id: 'plselect',
                 type: 1,
-                title: '批量选择',
-                closeBtn:1,
-                scrollbar: false,
+                title: false,
                 offset: ['50px','1000px'],
                 area: ['689px', '878px'],
                 success:function(){
-                    new Vue({
+                   var plselect = new Vue({
                         el: "#plselect",
                         data: {
+                            typeList:{
+                              mark:[
+                                  {'selected':false,
+                                  'name':'VC'
+                                  },
+                                  {'selected':false,
+                                      'name':'VD'
+                                  },
+                                  {'selected':false,
+                                      'name':'OC'
+                                  },
+                                  {'selected':false,
+                                      'name':'OD'
+                                  }],
+                              building:[
+                                  {'selected':false,
+                                  'name':'1'
+                                   },
+                                  {'selected':false,
+                                      'name':'2'
+                                  },
+                                  {'selected':false,
+                                      'name':'3'
+                                  },
+                                  {'selected':false,
+                                      'name':'4'
+                                  }],
+                              level:[
+                                  {'selected':false,
+                                      'name':'1'
+                                  },
+                                  {'selected':false,
+                                      'name':'2'
+                                  },
+                                  {'selected':false,
+                                      'name':'3'
+                                  },
+                                  {'selected':false,
+                                      'name':'4'
+                                  }
+                              ],
+                              feature:[
+                                  {'selected':false,
+                                      'name':'落地窗'
+                                  },
+                                  {'selected':false,
+                                      'name':'远离工作间'
+                                  },
+                                  {'selected':false,
+                                      'name':'远离工作间'
+                                  },
+                                  {'selected':false,
+                                      'name':'远离工作间'
+                                  }
+                              ]
+                            },
                             dataList: [{
                                 "roomType":"SWSC",
                                 "roomNo":"1001",
@@ -1514,6 +1611,72 @@ layui.use(['admin', 'whui','form', 'element', 'laydate', 'dateformat'], function
                                     "sign":"远离工作区"
                                 }
                             ],
+                            selectNameArr:[],
+                            selectCodeArr:[],
+                            isSelectAll: false,
+                        },
+                        methods:{
+                            closeImgClick:function(){
+                                layer.closeAll();
+                            },
+                            selectAllClick: function() {
+                                this.selectNameArr = [];
+                                this.selectCodeArr = [];
+                                if(this.isSelectAll) {
+                                    for(var i in this.dataList) {
+                                        this.dataList[i].selected = false;
+                                    }
+                                } else {
+
+                                    for(var i in this.dataList) {
+                                        var temp = this.dataList[i];
+                                        temp.selected = true;
+                                        this.selectNameArr.push(temp.text);
+                                        this.selectCodeArr.push(temp.id);
+                                    }
+                                }
+
+                                this.isSelectAll = !this.isSelectAll;
+
+                            },
+                            selectItem:function(item){
+                                if(item.selected) {
+
+                                    removeByValue(this.selectNameArr, item.text);
+                                    removeByValue(this.selectCodeArr, item.id);
+                                } else {
+                                    this.selectNameArr.push(item.text);
+                                    this.selectCodeArr.push(item.id);
+                                }
+                                if(this.selectNameArr.length == this.dataList.length) {
+                                    this.isSelectAll = true;
+                                } else {
+                                    this.isSelectAll = false;
+                                }
+                                item.selected = !item.selected
+                            },
+                            selectItemClick:function(item){
+                                if(item.selected) {
+
+                                    removeByValue(this.selectNameArr, item.text);
+                                    removeByValue(this.selectCodeArr, item.id);
+                                } else {
+                                    this.selectNameArr.push(item.text);
+                                    this.selectCodeArr.push(item.id);
+                                }
+                                if(this.selectNameArr.length == this.dataList.length) {
+                                    this.isSelectAll = true;
+                                } else {
+                                    this.isSelectAll = false;
+                                }
+                                item.selected = !item.selected
+                            },
+                            CancelClick:function(){
+                                layer.closeAll();
+                            },
+                            ConfirmClick:function(){
+
+                            }
                         }
                     })
                     //初始化
@@ -1524,6 +1687,15 @@ layui.use(['admin', 'whui','form', 'element', 'laydate', 'dateformat'], function
                 }
             });
         });
+    }
+
+    function removeByValue(arr, val) {
+        for(var i = 0; i < arr.length; i++) {
+            if(arr[i] == val) {
+                arr.splice(i, 1);
+                break;
+            }
+        }
     }
 
     function timeformat(time){

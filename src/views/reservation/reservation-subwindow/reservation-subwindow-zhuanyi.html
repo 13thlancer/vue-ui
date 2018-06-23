@@ -1,52 +1,107 @@
-<link rel="stylesheet" type="text/css" href="../../reservation/reservation-subwindow/reservation-subwindow.css" />
+<!--<link rel="stylesheet" type="text/css" href="../../reservation/reservation-subwindow/reservation-subwindow.css" />-->
 
-<div class="whui-fluid">
-    <div class="layui-row whui-form">
-        <form class="layui-form">
+<!--<div class="whui-fluid">-->
+    <!--<div class="layui-row whui-form">-->
+        <!--<form class="layui-form">-->
 
-            <div class="subwindow-search-bg">
-                <input class="layui-input" type="text">
+            <!--<div class="subwindow-search-bg">-->
+                <!--<input class="layui-input" type="text">-->
+            <!--</div>-->
+
+            <!--<div class="center-flex-bg center-content-head center-content-border">-->
+                <!--<div class="center-head-item wh-flex1">姓名</div>-->
+                <!--<div class="center-head-item wh-flex1">房号</div>-->
+                <!--<div class="center-head-item wh-flex1">状态</div>-->
+                <!--<div class="center-head-item wh-flex1">类型</div>-->
+                <!--<div class="center-head-item wh-flex1">余额</div>-->
+                <!--<div class="center-scroll-item"></div>-->
+            <!--</div>-->
+
+            <!--<div class="layui-side-scroll zhuanyi-scroll-bg">-->
+                <!--<div v-for="(item,index) in dataList" class="center-flex-bg center-content-head"  v-bind:class="{'center-item-gray-bg':index%2, 'center-item-white-bg':!(index%2), 'select-item-bg':index == selectTransforIndex}"  @click="selectItem(index,item)">-->
+                    <!--<div class="center-content-item wh-flex1 hide">{{item.subId}}</div>-->
+                    <!--<div class="center-content-item wh-flex1">{{item.inPerson}}</div>-->
+                    <!--<div class="center-content-item wh-flex1">{{item.roomNo}}</div>-->
+                    <!--<div class="center-content-item wh-flex1">{{item.mainStatus}}</div>-->
+                    <!--<div class="center-content-item wh-flex1">{{item.roomType}}</div>-->
+                    <!--<div class="center-content-item wh-flex1">{{item.charge}}</div>-->
+                <!--</div>-->
+            <!--</div>-->
+
+            <!--<div class="zhuanyi-checkbox">-->
+                <!--<form class="layui-form">-->
+                    <!--<div class="layui-form-item">-->
+                        <!--<div class="layui-input-block">-->
+                            <!--<input type="checkbox" name="like[I]" lay-skin="primary"  title="I">-->
+                            <!--<input type="checkbox" name="like[R]" lay-skin="primary"  title="R">-->
+                            <!--<input type="checkbox" name="like[S]" lay-skin="primary"  title="S">-->
+                            <!--<input type="checkbox" name="like[xfz]" lay-skin="primary"  title="消费账">-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</form>-->
+            <!--</div>-->
+
+            <!--<div class="subwindow-confirm-btngroup">-->
+                <!--<div class="layui-layer-btn layui-layer-btn-c">-->
+                    <!--<a class="subwindow-cancel-btn">取消</a>-->
+                    <!--<a class="subwindow-ensure-btn" @click="confirm()">确认</a>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</form>-->
+    <!--</div>-->
+<!--</div>-->
+
+
+<div class="layui-col-md12">
+    <form class="layui-form" lay-filter="code-form">
+        <div class="multiple-pop-head">
+            <span>转移</span>
+            <img @click="closeImgClick" src="../../../assets/img/system-setting_icon_subClose.png" />
+        </div>
+        <div class="subwindow-search-bg">
+            <input class="layui-input" type="text">
+        </div>
+        <div class="wh-flex pop-content-head">
+            <div class="pop-head-item wh-flex1">姓名</div>
+            <div class="pop-head-item wh-flex1">房号</div>
+            <div class="pop-head-item wh-flex1">状态</div>
+            <div class="pop-head-item wh-flex1">类型</div>
+            <div class="pop-head-item wh-flex1">余额</div>
+            <div class="pop-scroll-item"></div>
+        </div>
+        <div class="layui-side-scroll pop-scroll-bg">
+            <div v-for="(item,index) in dataList" @click="selectItem(item)" class="wh-flex pop-content-content" v-bind:class="{'center-item-gray-bg':index%2, 'center-item-white-bg':!(index%2)}">
+                <div class="pop-content-item wh-flex1 hide">{{item.subId}}</div>
+                <div class="pop-content-item wh-flex1">{{item.inPerson}}</div>
+                <div class="pop-content-item wh-flex1">{{item.roomNo}}</div>
+                <div class="pop-content-item wh-flex1">{{item.mainStatus}}</div>
+                <div class="pop-content-item wh-flex1">{{item.roomType}}</div>
+                <div class="pop-content-item wh-flex1">{{item.charge}}</div>
             </div>
+        </div>
 
-            <div class="center-flex-bg center-content-head center-content-border">
-                <div class="center-head-item wh-flex1">姓名</div>
-                <div class="center-head-item wh-flex1">房号</div>
-                <div class="center-head-item wh-flex1">状态</div>
-                <div class="center-head-item wh-flex1">类型</div>
-                <div class="center-head-item wh-flex1">余额</div>
-                <div class="center-scroll-item"></div>
-            </div>
-
-            <div class="layui-side-scroll zhuanyi-scroll-bg">
-                <div v-for="(item,index) in dataList" class="center-flex-bg center-content-head"  v-bind:class="{'center-item-gray-bg':index%2, 'center-item-white-bg':!(index%2), 'select-item-bg':index == selectTransforIndex}"  @click="selectItem(index,item)">
-                    <div class="center-content-item wh-flex1 hide">{{item.subId}}</div>
-                    <div class="center-content-item wh-flex1">{{item.inPerson}}</div>
-                    <div class="center-content-item wh-flex1">{{item.roomNo}}</div>
-                    <div class="center-content-item wh-flex1">{{item.mainStatus}}</div>
-                    <div class="center-content-item wh-flex1">{{item.roomType}}</div>
-                    <div class="center-content-item wh-flex1">{{item.charge}}</div>
-                </div>
-            </div>
-
-            <div class="zhuanyi-checkbox">
-                <form class="layui-form">
-                    <div class="layui-form-item">
-                        <div class="layui-input-block">
-                            <input type="checkbox" name="like[I]" lay-skin="primary"  title="I">
-                            <input type="checkbox" name="like[R]" lay-skin="primary"  title="R">
-                            <input type="checkbox" name="like[S]" lay-skin="primary"  title="S">
-                            <input type="checkbox" name="like[xfz]" lay-skin="primary"  title="消费账">
+        <div class="zhuanyi-checkbox">
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <div v-for="(item,index) in typeList" @click="selectItemClick(item)" style="float:left;margin-left:10px;" >
+                            <div>
+                                <img v-if="!item.selected" src="../../../assets/img/system-settings-checkbox-unselect.png" />
+                                <img v-else src="../../../assets/img/system-settings-checkbox-selected.png" />
+                                {{item.name}}
+                            </div>
                         </div>
-                    </div>
-                </form>
-            </div>
 
-            <div class="subwindow-confirm-btngroup">
-                <div class="layui-layer-btn layui-layer-btn-c">
-                    <a class="subwindow-cancel-btn">取消</a>
-                    <a class="subwindow-ensure-btn" @click="confirm()">确认</a>
+                    </div>
                 </div>
+        </div>
+
+        <div class="wh-form-bottom">
+            <div class="wh-flex1">
+                <div @click="CancelClick" class="code-form-left-btn">取消</div>
             </div>
-        </form>
-    </div>
+            <div class="wh-flex1">
+                <div @click="ConfirmClick" class="code-form-right-btn">确认</div>
+            </div>
+        </div>
+    </form>
 </div>

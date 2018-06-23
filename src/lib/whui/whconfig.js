@@ -8,8 +8,10 @@ layui.define(function(exports) {
 		baseurl = 'http://127.0.0.1:3000/whui/';
 	} else if('D' === runtime) {
 		// baseurl = 'http://192.168.185.174:8070/whxxhms/';
-        baseurl='http://192.168.133.32:8070/whxxhms/';
-	}
+        // baseurl='http://192.168.133.32:8070/whxxhms/';
+        baseurl='http://192.168.31.163:8070/whxxhms/';
+
+    }
 	var whconfig = {};
 	jQuery.extend(true, whconfig, {
 		debug: runtime === 'D' || false, //是否开启调试模式。如开启，接口异常时会抛出异常 URL等信息

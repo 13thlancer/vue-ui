@@ -1,32 +1,63 @@
-<link rel="stylesheet" type="text/css" href="../../reservation/reservation-subwindow/reservation-subwindow.css" />
+<!--<link rel="stylesheet" type="text/css" href="../../reservation/reservation-subwindow/reservation-subwindow.css" />-->
 
-<div class="whui-fluid">
-    <div class="layui-row whui-form">
-        <form class="layui-form">
+<!--<div class="whui-fluid">-->
+    <!--<div class="layui-row whui-form">-->
+        <!--<form class="layui-form">-->
 
-            <div class="layui-tab-item layui-show">
-                <div class="center-flex-bg center-content-head center-content-border">
-                    <div class="center-head-item wh-flex1">状态</div>
-                    <div class="center-head-item wh-flex1">项目</div>
-                    <div class="center-head-item wh-flex1">金额</div>
-                    <div class="center-head-item wh-flex2">卡号</div>
-                    <div class="center-head-item wh-flex2">预授权号</div>
-                    <div class="center-head-item wh-flex1">操作</div>
-                    <div class="center-head-item wh-flex2">授权时间</div>
-                    <div class="center-scroll-item"></div>
-                </div>
-                <div class="layui-side-scroll jilu-scroll-bg">
-                    <div v-for="(item,index) in dataList" class="center-flex-bg center-content-head" v-bind:class="index%2 ? 'center-item-gray-bg':'center-item-white-bg'">
-                        <div class="center-content-item wh-flex1">预授权</div>
-                        <div class="center-content-item wh-flex1">{{item.creditPayCode}}</div>
-                        <div class="center-content-item wh-flex1">{{item.creditMoney}}</div>
-                        <div class="center-content-item wh-flex2">{{item.creditNo}}</div>
-                        <div class="center-content-item wh-flex2">{{item.creditPayNo}}</div>
-                        <div class="center-content-item wh-flex1">{{item.creditMan}}</div>
-                        <div class="center-content-item wh-flex2">{{item.createDate}}</div>
-                    </div>
-                </div>
+            <!--<div class="layui-tab-item layui-show">-->
+                <!--<div class="center-flex-bg center-content-head center-content-border">-->
+                    <!--<div class="center-head-item wh-flex1">状态</div>-->
+                    <!--<div class="center-head-item wh-flex1">项目</div>-->
+                    <!--<div class="center-head-item wh-flex1">金额</div>-->
+                    <!--<div class="center-head-item wh-flex2">卡号</div>-->
+                    <!--<div class="center-head-item wh-flex2">预授权号</div>-->
+                    <!--<div class="center-head-item wh-flex1">操作</div>-->
+                    <!--<div class="center-head-item wh-flex2">授权时间</div>-->
+                    <!--<div class="center-scroll-item"></div>-->
+                <!--</div>-->
+                <!--<div class="layui-side-scroll jilu-scroll-bg">-->
+                    <!--<div v-for="(item,index) in dataList" class="center-flex-bg center-content-head" v-bind:class="index%2 ? 'center-item-gray-bg':'center-item-white-bg'">-->
+                        <!--<div class="center-content-item wh-flex1">预授权</div>-->
+                        <!--<div class="center-content-item wh-flex1">{{item.creditPayCode}}</div>-->
+                        <!--<div class="center-content-item wh-flex1">{{item.creditMoney}}</div>-->
+                        <!--<div class="center-content-item wh-flex2">{{item.creditNo}}</div>-->
+                        <!--<div class="center-content-item wh-flex2">{{item.creditPayNo}}</div>-->
+                        <!--<div class="center-content-item wh-flex1">{{item.creditMan}}</div>-->
+                        <!--<div class="center-content-item wh-flex2">{{item.createDate}}</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</form>-->
+    <!--</div>-->
+<!--</div>-->
+
+<div class="layui-col-md12">
+    <form class="layui-form" lay-filter="code-form">
+        <div class="multiple-pop-head">
+            <span>记录</span>
+            <img @click="closeImgClick" src="../../../assets/img/system-setting_icon_subClose.png" />
+        </div>
+        <div class="wh-flex pop-content-head">
+            <div class="pop-head-item wh-flex1">状态</div>
+            <div class="pop-head-item wh-flex1">项目</div>
+            <div class="pop-head-item wh-flex1">金额</div>
+            <div class="pop-head-item wh-flex2">卡号</div>
+            <div class="pop-head-item wh-flex2">预授权号</div>
+            <div class="pop-head-item wh-flex1">操作</div>
+            <div class="pop-head-item wh-flex2">授权时间</div>
+            <div class="pop-scroll-item"></div>
+        </div>
+        <div class="layui-side-scroll pop-scroll-bg">
+            <div v-for="(item,index) in dataList" @click="selectItem(item)" class="wh-flex pop-content-content" v-bind:class="{'center-item-gray-bg':index%2, 'center-item-white-bg':!(index%2)}">
+                <div class="pop-content-item wh-flex1">预授权</div>
+                <div class="pop-content-item wh-flex1">{{item.creditPayCode}}</div>
+                <div class="pop-content-item wh-flex1">{{item.creditMoney}}</div>
+                <div class="pop-content-item wh-flex2">{{item.creditNo}}</div>
+                <div class="pop-content-item wh-flex2">{{item.creditPayNo}}</div>
+                <div class="pop-content-item wh-flex1">{{item.creditMan}}</div>
+                <div class="pop-content-item wh-flex2">{{item.createDate}}</div>
             </div>
-        </form>
-    </div>
+        </div>
+
+    </form>
 </div>
