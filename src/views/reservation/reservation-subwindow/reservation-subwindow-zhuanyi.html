@@ -7,6 +7,7 @@
             <div class="subwindow-search-bg">
                 <input class="layui-input" type="text">
             </div>
+
             <div class="center-flex-bg center-content-head center-content-border">
                 <div class="center-head-item wh-flex1">姓名</div>
                 <div class="center-head-item wh-flex1">房号</div>
@@ -15,8 +16,10 @@
                 <div class="center-head-item wh-flex1">余额</div>
                 <div class="center-scroll-item"></div>
             </div>
+
             <div class="layui-side-scroll zhuanyi-scroll-bg">
-                <div v-for="(item,index) in dataList" class="center-flex-bg center-content-head" v-bind:class="index%2 ? 'center-item-gray-bg':'center-item-white-bg'">
+                <div v-for="(item,index) in dataList" class="center-flex-bg center-content-head"  v-bind:class="{'center-item-gray-bg':index%2, 'center-item-white-bg':!(index%2), 'select-item-bg':index == selectTransforIndex}"  @click="selectItem(index,item)">
+                    <div class="center-content-item wh-flex1 hide">{{item.subId}}</div>
                     <div class="center-content-item wh-flex1">{{item.inPerson}}</div>
                     <div class="center-content-item wh-flex1">{{item.roomNo}}</div>
                     <div class="center-content-item wh-flex1">{{item.mainStatus}}</div>
@@ -24,6 +27,7 @@
                     <div class="center-content-item wh-flex1">{{item.charge}}</div>
                 </div>
             </div>
+
             <div class="zhuanyi-checkbox">
                 <form class="layui-form">
                     <div class="layui-form-item">
@@ -40,7 +44,7 @@
             <div class="subwindow-confirm-btngroup">
                 <div class="layui-layer-btn layui-layer-btn-c">
                     <a class="subwindow-cancel-btn">取消</a>
-                    <a class="subwindow-ensure-btn">确认</a>
+                    <a class="subwindow-ensure-btn" @click="confirm()">确认</a>
                 </div>
             </div>
         </form>

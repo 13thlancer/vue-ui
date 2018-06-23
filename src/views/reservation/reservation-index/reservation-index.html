@@ -10,6 +10,10 @@
                 </div>
             </div>
             <div class="center-flex-btngroup">
+                <div class="center-batch-btn" @click="cancelAll()">
+                    <img src="../../../assets/img/reservation_icon_piliang.png" />
+                    取消
+                </div>
                 <div class="center-batch-btn" @click="showPiliang()">
                     <img src="../../../assets/img/reservation_icon_piliang.png" />
                         批量
@@ -33,25 +37,25 @@
         </div>
 
         <div class="layui-col-md12 center-step">
-            <div class="step-active">
+            <div class="step" v-bind:class="{'step-active':isactive0 === true && isdivided === false}"  @click="changeStatus(0)">
                 1
             </div>
-            <div class="line">
+            <div class="line" v-bind:class="{'line-active':isactive1 === true}">
 
             </div>
-            <div class="step">
+            <div class="step" v-bind:class="{'step-active':isactive1 === true}"  @click="changeStatus(1)">
                 2
             </div>
-            <div  class="line">
+            <div  class="line" v-bind:class="{'line-active':isactive2 === true}">
 
             </div>
-            <div class="step">
+            <div class="step" v-bind:class="{'step-active':isactive2 === true}" @click="changeStatus(2)">
                 3
             </div>
-            <div  class="line">
+            <div  class="line" v-bind:class="{'line-active':isactive3 === true}">
 
             </div>
-            <div class="step">
+            <div class="step" v-bind:class="{'step-active':isactive3 === true}" @click="changeStatus(3)">
                 4
             </div>
 
@@ -335,8 +339,8 @@
                         </div>
                     </div>
 
+                    <!--预订信息-->
                     <transition name="showAni">
-                        <!--预订信息-->
                         <div class="bookInfo" v-show="isactive1 === false && isactive2 === false && isactive3 === false">
                             <div class="tab">
                                 <div class="sk" @click="selectSk()" v-bind:class="{'bookInfo-tab-active':bookInfoTab1 === true}">散客</div>
@@ -351,22 +355,25 @@
                                     到达时间:
                                 </div>
                                 <div class="arrive-date-picker">
-                                    <input class="layui-input" id="arriveDatePick" placeholder="yyyy-MM-dd" type="text">
+                                    <input class="layui-input" id="arriveDatePick" type="text" placeholder="yyyy-dd-mm" v-model="preorder.showplanStartDate">
+                                    <input class="layui-input hide" type="text" v-model="preorder.planStartDate">
                                 </div>
                                 <div class="arriveTime">
-                                    <input class="layui-input" placeholder="18:00" type="text">
+                                    <input class="layui-input" placeholder="18:00" type="text" v-on:focusout="starttimeformat(preorder.planStartTime)" v-model="preorder.planStartTime">
                                 </div>
                                 <div class="roomPriceType">
                                     房价类型:
                                 </div>
                                 <div class="roomPriceType-input">
-                                    <input class="layui-input" placeholder="散客" type="text" @click="showRoomPriceType()" name="roomPriceType" readonly v-model="reservationForm.roomPriceType">
+                                    <input class="layui-input" placeholder="散客" type="text" @click="showRoomPriceType()" name="roomPriceType" readonly v-model="preorder.ratecodeCategoryName">
+                                    <input class="layui-input hide" type="text" v-model="preorder.dayPrice">
                                 </div>
                                 <div class="roomPriceType" v-show="bookInfoTab2 === true">
                                     组团单位:
                                 </div>
                                 <div class="roomPriceType-input" v-show="bookInfoTab2 === true">
-                                    <input class="layui-input" placeholder="散客" type="text" @click="showGroupList()" name="group" readonly v-model="reservationForm.group">
+                                    <input class="layui-input" type="text" @click="showGroupList()" name="group" readonly v-model="preorder.groupNoName">
+                                    <input class="layui-input hide" type="text" v-model="preorder.groupNo">
                                 </div>
                             </div>
                             <div class="form-line">
@@ -374,16 +381,18 @@
                                     离店时间:
                                 </div>
                                 <div class="leave-date-picker">
-                                    <input class="layui-input" id="leaveDatePick" placeholder="yyyy-MM-dd" type="text">
+                                    <input class="layui-input" id="leaveDatePick" type="text" v-model="preorder.showplanEndDate">
+                                    <input class="layui-input hide" type="text" v-model="preorder.planEndDate">
                                 </div>
                                 <div class="leaveTime">
-                                    <input class="layui-input" placeholder="12:00" type="text">
+                                    <input class="layui-input" placeholder="12:00" type="text" v-on:focusout="endtimeformat(preorder.planEndTime)" v-model="preorder.planEndTime">
                                 </div>
                                 <div class="roomPriceCode">
                                     房价码:
                                 </div>
                                 <div class="roomPriceType-input">
-                                    <input class="layui-input" placeholder="门市类" type="text" @click="showRoomPriceCode()" name="roomPriceCode" readonly v-model="reservationForm.roomPriceCode">
+                                    <input class="layui-input" type="text" @click="showRoomPriceCode()" name="roomPriceCode" readonly v-model="preorder.ratecodeName">
+                                    <input class="layui-input hide" type="text" v-model="preorder.ratecode">
                                 </div>
                             </div>
                             <div class="form-line">
@@ -391,13 +400,13 @@
                                     入住天数:
                                 </div>
                                 <div class="days-group">
-                                    <div class="days-sub"  @click="dayInitCount--">
+                                    <div class="days-sub"  @click="preorder.days--">
                                         <img src="../../../assets/img/reservation_icon_jianshao.png">
                                     </div>
                                     <div class="days-count">
-                                        <input class="layui-input" type="text" v-model='dayInitCount'/>
+                                        <input class="layui-input" type="text" v-model='preorder.days'/>
                                     </div>
-                                    <div class="days-add" @click="dayInitCount++">
+                                    <div class="days-add" @click="preorder.days++">
                                         <img src="../../../assets/img/reservation_icon_zengjia.png">
                                     </div>
                                 </div>
@@ -405,10 +414,11 @@
                                     房价:
                                 </div>
                                 <div v-bind:class="{'roomPriceReson-input':isShowBenefitReason === true,'roomPriceType-input':isShowBenefitReason === false}">
-                                    <input class="layui-input" type="text" name="roomPrice" v-model="reservationForm.roomPrice" v-on:input="checkPrice()">
+                                    <input class="layui-input" type="text" name="roomPrice" v-model="preorder.dayPrice" v-on:input="checkPrice()">
                                 </div>
                                 <div class="reason" v-show="isShowBenefitReason === true">
-                                    <input class="layui-input" type="text" name="benefitReason" v-model="reservationForm.benefitReason" readonly @click="showBenefitReason()">
+                                    <input class="layui-input" type="text" name="benefitReason" v-model="preorder.benefitReasonName" readonly @click="showBenefitReason()">
+                                    <input class="layui-input hide" type="text" v-model="preorder.benefitReason">
                                 </div>
                             </div>
                             <div class="form-line">
@@ -417,15 +427,16 @@
                                 </div>
                                 <div class="roomTypeCount-group">
                                     <div class="roomType">
-                                        <input class="layui-input" type="text" @click="showRoomType()" name="roomType" readonly v-model="reservationForm.roomType">
+                                        <input class="layui-input" type="text" @click="showRoomType()" name="roomType" readonly v-model="preorder.roomTypeName">
+                                        <input class="layui-input hide" type="text" v-model="preorder.roomType">
                                     </div>
-                                    <div class="roomType-sub" @click="roomInitCount--">
+                                    <div class="roomType-sub" @click="preorder.roomNum--">
                                         <img src="../../../assets/img/reservation_icon_jianshao.png">
                                     </div>
                                     <div class="roomType-count">
-                                        <input class="layui-input" type="text" v-model='roomInitCount'/>
+                                        <input class="layui-input" type="text" v-model='preorder.roomNum'/>
                                     </div>
-                                    <div class="roomType-add" @click="roomInitCount++">
+                                    <div class="roomType-add" @click="preorder.roomNum++">
                                         <img src="../../../assets/img/reservation_icon_zengjia.png">
                                     </div>
                                 </div>
@@ -434,12 +445,13 @@
                                     包价:
                                 </div>
                                 <div class="roomPriceType-input">
-                                    <input class="layui-input" placeholder="散客" type="text" @click="showRoomBaojia()" name="roomBaojia" readonly v-model="reservationForm.roomBaojia">
+                                    <input class="layui-input" type="text" @click="showRoomBaojia()" name="roomBaojia" readonly v-model="preorder.packagesName">
+                                    <input class="layui-input hide" type="text" v-model="preorder.packages">
                                 </div>
                             </div>
                             <div class="page">
                                 <div v-for="(item,index) in pageNumList">
-                                    <div class="pageNum" @click="selecetPage(index)">{{pageNumList[index]}}</div>
+                                    <div class="pageNum" @click="bookInfoselecetPage(index)" v-bind:class="{'pageActive':bookInfopageSelect === index}">{{pageNumList[index]}}</div>
                                 </div>
 
                                 <div class="addNew" @click="addNewPage()">
@@ -452,74 +464,78 @@
                         </div>
                     </transition>
 
+                    <!--住户信息-->
                     <transition name="showAni">
-                        <!--住户信息-->
                         <div class="customInfo" v-show="isactive1 === true && isactive2 === false && isactive3 === false">
                             <div class="customInfo-form-line">
                                 <div class="thrdiv">预订人:</div>
                                 <div class="thrdiv-input">
-                                    <input class="layui-input" type="text">
+                                    <input class="layui-input" type="text" v-model="reservationParamsForm.rsvInfo.rsvMan">
                                 </div>
                             </div>
 
                             <div class="customInfo-form-line">
                                 <div class="thrdiv">入住人:</div>
                                 <div class="thrdiv-input">
-                                    <input class="layui-input" type="text">
+                                    <input class="layui-input" type="text" v-model="reservationParamsForm.rsvInfo.inPerson">
                                 </div>
                             </div>
 
                             <div class="customInfo-form-line">
                                 <div class="thrdiv">手机号:</div>
                                 <div class="thrdiv-input">
-                                    <input class="layui-input" type="text">
+                                    <input class="layui-input" type="text" v-model="reservationParamsForm.rsvInfo.mobile">
                                 </div>
                             </div>
 
                             <div class="customInfo-form-line">
                                 <div class="fourdiv">到达时间:</div>
                                 <div class="fourdiv-input">
-                                    <input class="layui-input" placeholder="18:00" type="text">
+                                    <input class="layui-input" placeholder="18:00" type="text" v-on:focusout="rsvInfostarttimeformat(reservationParamsForm.rsvInfo.planStart)" v-model="reservationParamsForm.rsvInfo.planStart">
                                 </div>
                             </div>
 
                             <div class="customInfo-form-line">
                                 <div class="fourdiv">最晚保留:</div>
                                 <div class="fourdiv-input">
-                                    <input class="layui-input" placeholder="20:00" type="text">
+                                    <input class="layui-input" placeholder="20:00" type="text" v-on:focusout="rsvInfoendtimeformat(reservationParamsForm.rsvInfo.keepTime)" v-model="reservationParamsForm.rsvInfo.keepTime">
                                 </div>
                             </div>
                         </div>
                     </transition>
 
+                    <!--市场销售-->
                     <transition name="showAni">
-                        <!--市场销售-->
                         <div class="marketManager" v-show="isactive1 === true && isactive2 === true && isactive3 === false">
                             <div class="customInfo-form-line">
                                 <div class="thrdiv">销售员:</div>
                                 <div class="thrdiv-input">
-                                    <input class="layui-input" type="text" @click="showSaler()" name="saler" readonly v-model="reservationForm.saler">
+                                    <input class="layui-input" type="text" @click="showSaler()" name="saler" readonly v-model="marketing.salesmanName">
+                                    <input class="layui-input hide" type="text" v-model="reservationParamsForm.marketing.salesman">
                                 </div>
                             </div>
 
                             <div class="customInfo-form-line">
                                 <div class="thrdiv">佣金码:</div>
                                 <div class="thrdiv-input">
-                                    <input class="layui-input" type="text" @click="showSalaryCode()" name="salaryCode" readonly v-model="reservationForm.salaryCode">
+                                    <input class="layui-input" type="text" @click="showSalaryCode()" name="salaryCode" readonly v-model="marketing.commissionCodeName">
+                                    <input class="layui-input hide" type="text" v-model="reservationParamsForm.marketing.commissionCode">
                                 </div>
                             </div>
 
                             <div class="customInfo-form-line">
                                 <div class="thrdiv">渠道:</div>
                                 <div class="thrdiv-input">
-                                    <input class="layui-input" type="text" @click="showChannel()" name="channel" readonly v-model="reservationForm.channel">
+                                    <input class="layui-input" type="text" @click="showChannel()" name="channel" readonly v-model="marketing.channelName">
+                                    <input class="layui-input hide" type="text" v-model="reservationParamsForm.marketing.channel">
                                 </div>
                             </div>
 
                             <div class="customInfo-form-line">
                                 <div class="fourdiv">支付方式:</div>
                                 <div class="fourdiv-input">
-                                    <input class="layui-input" type="text" @click="showPayType()" name="payType" readonly v-model="reservationForm.payType">
+                                    <input class="layui-input" type="text" @click="showPayType()" name="payType" readonly v-model="marketing.payCodeName">
+                                    <input class="layui-input hide" type="text" v-model="reservationParamsForm.marketing.payCode">
                                 </div>
                             </div>
                         </div>
@@ -539,25 +555,26 @@
                                     <div class="adReceived-line">
                                         <div class="adReceived-title2">金额:</div>
                                         <div class="adReceived-input">
-                                            <input class="layui-input" type="text">
+                                            <input class="layui-input" type="text" v-model="prepayDto.prepayMoney">
                                         </div>
                                     </div>
                                     <div class="adReceived-line">
                                         <div class="adReceived-title4">付款方式:</div>
                                         <div class="adReceived-input">
-                                            <input class="layui-input" type="text" @click="showYskPayType()">
+                                            <input class="layui-input" type="text" readonly @click="showYskPayType()" v-model="prepayDto.payCodeName">
+                                            <input class="layui-input hide" type="text" v-model="prepayDto.payCode">
                                         </div>
                                     </div>
                                     <div class="adReceived-line">
                                         <div class="adReceived-title2">单号:</div>
                                         <div class="adReceived-input">
-                                            <input class="layui-input" type="text">
+                                            <input class="layui-input" type="text" v-model="prepayDto.transactionNo">
                                         </div>
                                     </div>
                                     <div class="adReceived-line">
                                         <div class="adReceived-title3">付款人:</div>
                                         <div class="adReceived-input">
-                                            <input class="layui-input" type="text">
+                                            <input class="layui-input" type="text" v-model="prepayDto.rsvMan">
                                         </div>
                                     </div>
                                 </div>
@@ -565,7 +582,7 @@
                                     <div class="adReceived-rigth-line">
                                         <div class="adReceived-title2">备注:</div>
                                         <div class="adReceived-text-input">
-                                            <textarea class="layui-textarea"></textarea>
+                                            <textarea class="layui-textarea" v-model="prepayDto.remark"></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -574,34 +591,37 @@
                                 <div class="adReceived-line">
                                     <div class="adReceived-title2">金额:</div>
                                     <div class="adReceived-input">
-                                        <input class="layui-input" type="text">
+                                        <input class="layui-input" type="text" v-model="preLicence.creditMoney">
                                     </div>
                                     <div class="adReceived-title3">付款人:</div>
                                     <div class="adReceived-input">
-                                        <input class="layui-input" type="text">
+                                        <input class="layui-input" type="text" v-model="preLicence.creditMan">
                                     </div>
                                 </div>
                                 <div class="adReceived-line">
                                     <div class="adReceived-title4">付款方式:</div>
                                     <div class="adReceived-input">
-                                        <input class="layui-input" type="text" @click="showYsqPayType()">
+                                        <input class="layui-input" type="text" @click="showYsqPayType()" readonly  v-model="preLicence.creditPayCodeName">
+                                        <input class="layui-input hide" type="text" v-model="preLicence.creditPayCode">
                                     </div>
                                 </div>
                                 <div class="adReceived-line">
                                     <div class="adReceived-title2">卡号:</div>
                                     <div class="adReceived-input">
-                                        <input class="layui-input" type="text">
+                                        <input class="layui-input" type="text"  v-model="preLicence.creditNo">
                                     </div>
                                 </div>
                                 <div class="adReceived-line">
                                     <div class="adReceived-title4">预授权号:</div>
                                     <div class="adReceived-input">
-                                        <input class="layui-input" type="text">
+                                        <input class="layui-input" type="text" v-model="preLicence.creditPayNo">
                                     </div>
                                 </div>
                                 <div class="page">
-                                    <div class="pageNum">1</div>
-                                    <div class="addNew">
+                                    <div v-for="(item,index) in ysqPageNumList">
+                                        <div class="pageNum" @click="ysqselecetPage(index)" v-bind:class="{'pageActive':ysqPageSelect === index}">{{ysqPageNumList[index]}}</div>
+                                    </div>
+                                    <div class="addNew" @click="addYsqNewPage()">
                                         <img src="../../../assets/img/reservation_icon_tianjia.png" />
                                     </div>
                                     <div style="flex:1;"></div>
@@ -651,11 +671,15 @@
                             <div class="center-scroll-item"></div>
                         </div>
                         <div class="layui-side-scroll center-scroll-bg">
-                            <div v-for="(item,index) in preorderList" class="center-flex-bg center-content-head" v-bind:class="index%2 ? 'center-item-gray-bg':'center-item-white-bg'" @mouseenter.self="mouseenter(index)">
+                            <div v-for="(item,index) in preorderListTable" class="center-flex-bg center-content-head" v-bind:class="index%2 ? 'center-item-gray-bg':'center-item-white-bg'" @mouseenter.self="mouseenter(index)">
+                                <div class="center-content-item wh-flex1 hide">{{item.subId}}</div>
+                                <div class="center-content-item wh-flex1 hide">{{item.subInfoId}}</div>
                                 <div class="center-content-item wh-flex1">{{item.mainStatus}}</div>
                                 <div class="center-content-item wh-flex1">{{item.inPerson}}</div>
                                 <div class="center-content-item wh-flex1">{{item.roomType}}</div>
-                                <div class="center-content-item wh-flex1">{{item.roomNo}}</div>
+                                <div class="center-content-item wh-flex1" >
+                                    <input class="center-item-input"  v-bind:class="{'center-item-input-active':selected == index}" v-bind:disabled="selected != index" v-model="item.roomNo"/>
+                                </div>
                                 <div class="center-content-item wh-flex1">{{item.dayPrice}}</div>
                                 <div class="center-content-item wh-flex1">1/{{item.ifArrange}}</div>
                                 <div class="center-content-item wh-flex1">{{item.planStart.slice(0,10)}}</div>
@@ -663,14 +687,16 @@
                                 <div class="center-content-item wh-flex1">{{item.days}}</div>
                                 <div class="center-content-item wh-flex1">{{item.charge}}</div>
                                 <div class="center-content-item wh-flex1">{{item.credit}}</div>
-                                <div class="center-content-item wh-flex1">{{item.remark}}</div>
+                                <div class="center-content-item wh-flex1">
+                                    <input class="center-item-input" v-bind:class="{'center-item-input-active':selected == index}" v-model="item.remark"/>
+                                </div>
                                 <div class="center-content-item wh-flex4">
                                     <div v-show="selected == index">
                                         <img src="../../../assets/img/reservation_icon_paifang.png" @click="showpaifang()"/>
-                                        <img class="table-icon" src="../../../assets/img/reservation_icon_ruzhu.png" />
-                                        <img class="table-icon" src="../../../assets/img/reservation_icon_zhukexinxi.png" @click="showZkInfo()" />
-                                        <img class="table-icon" src="../../../assets/img/reservation_icon_liuyan.png" @click="showMessage()"/>
-                                        <img class="table-icon" src="../../../assets/img/reservation_icon_shanchu.png" @click="showDelete()"/>
+                                        <img class="table-icon" src="../../../assets/img/reservation_icon_ruzhu.png"  @click="toIn(item)"/>
+                                        <img class="table-icon" src="../../../assets/img/reservation_icon_zhukexinxi.png" @click="showZkInfo(item)" />
+                                        <img class="table-icon" src="../../../assets/img/reservation_icon_liuyan.png" @click="showMessage(item)"/>
+                                        <img class="table-icon" src="../../../assets/img/reservation_icon_shanchu.png" @click="showDelete(item)"/>
                                     </div>
                                 </div>
                                 <!--<div class="center-head-log" >-->

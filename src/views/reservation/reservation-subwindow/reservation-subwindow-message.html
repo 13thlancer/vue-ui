@@ -9,7 +9,8 @@
                     生效:
                 </div>
                 <div class="message-date-picker">
-                    <input class="layui-input" id="startDatePick" type="text">
+                    <input class="layui-input" id="startDatePick" type="text" v-model="messageForm.showstartTime">
+                    <input class="layui-input hide" type="text" v-model="messageForm.startTime">
                 </div>
             </div>
             <div class="message-form-line">
@@ -17,7 +18,8 @@
                     失效:
                 </div>
                 <div class="message-date-picker">
-                    <input class="layui-input" id="endDatePick" type="text">
+                    <input class="layui-input" id="endDatePick" type="text"  v-model="messageForm.showendTime">
+                    <input class="layui-input hide" type="text" v-model="messageForm.endTime">
                 </div>
             </div>
             <div class="message-form-line message-text">
@@ -25,7 +27,7 @@
                     摘要:
                 </div>
                 <div class="message-text-input">
-                    <textarea class="layui-textarea"></textarea>
+                    <textarea class="layui-textarea" v-model="messageForm.remark"></textarea>
                 </div>
             </div>
             <div class="message-form-line">
@@ -42,7 +44,7 @@
             <div class="subwindow-confirm-btngroup">
                 <div class="layui-layer-btn layui-layer-btn-c">
                     <a class="subwindow-cancel-btn">取消</a>
-                    <a class="subwindow-ensure-btn">确认</a>
+                    <a class="subwindow-ensure-btn" @click="confirm()">确认</a>
                 </div>
             </div>
         </form>

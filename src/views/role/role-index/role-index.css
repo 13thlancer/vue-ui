@@ -1,0 +1,11 @@
+#test div{
+    height:100px;
+    border:1px solid #000;
+    margin-left:10px;
+    margin-top:10px;
+}
+
+.changeStatus{
+    height:200px;
+    background: red;
+}

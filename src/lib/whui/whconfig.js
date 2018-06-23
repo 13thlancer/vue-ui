@@ -8,7 +8,7 @@ layui.define(function(exports) {
 		baseurl = 'http://127.0.0.1:3000/whui/';
 	} else if('D' === runtime) {
 		// baseurl = 'http://192.168.185.174:8070/whxxhms/';
-		baseurl='http://192.168.3.215:8070/whxxhms/';
+        baseurl='http://192.168.133.32:8070/whxxhms/';
 	}
 	var whconfig = {};
 	jQuery.extend(true, whconfig, {
@@ -147,7 +147,7 @@ layui.define(function(exports) {
 				listFirstConfig: baseurl +'pubCode/listFirstConfig',
 				updateFirstSystem: baseurl +'pubCode/updateFirstSystem',
 				codeListHeadUrl: baseurl +'pubCode/',
-				selectBuilding: baseurl +'pubCode/selectBuilding'
+				insertRooms: baseurl +'pubCode/insertRooms'
 			},
             reservation:{
 				getPreorderList: baseurl +'reservation/orderList',
@@ -157,14 +157,25 @@ layui.define(function(exports) {
                 getRoomBaojia: baseurl + 'reservation/configCode',
                 getGroupList: baseurl + 'reservation/groupList',
                 getSaler: baseurl + 'reservation/salesManList',
-				getSalaryCode:baseurl+'/reservation/commissionCodeList',
+				getSalaryCode:baseurl+'reservation/commissionCodeList',
 				getChannel: baseurl + 'reservation/configCode',
 				getPayType: baseurl + 'reservation/paycodeList',
                 getYsqPayType: baseurl + 'reservation/prelicencePaycodeList',
                 getBenefitReason: baseurl + 'reservation/configCode',
                 getTransferList: baseurl + 'reservation/transferList',
                 getPrelicenceLogs: baseurl + 'reservation/prelicenceLogs',
-                getBatchOrderList:baseurl+'/reservation/batchOrderList',
+                getBatchOrderList:baseurl+'reservation/batchOrderList',
+                sendMessage:baseurl+'reservation/insertMessages',
+                saveAll:baseurl + 'reservation/update',
+				getzkInfoList:baseurl + 'reservation/rsvManList',
+                savezkInfo:baseurl + 'reservation/updateRsvman',
+				cancelAll:baseurl + 'reservation/cancelAll',
+                cancelItem:baseurl + 'reservation/cancelItem',
+                addPrepay:baseurl + 'reservation/addPrepay',
+                addPrelicence:baseurl + 'reservation/addPrelicence',
+				toIn:baseurl + 'reservation/toIn',
+                prelicenceTansfer:baseurl + 'reservation/prelicenceTansfer',
+                getPreorderData:baseurl + 'reservation/detailByPriMainId',
             },
 			"": ""
 		}

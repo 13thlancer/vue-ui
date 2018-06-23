@@ -508,3 +508,172 @@
 .plselect-center{
     margin-top:10px;
 }
+
+.pageActive{
+    background:#4D8AFA;
+    color:#FFFFFF;
+}
+
+
+.wh-flex1 {
+    flex: 1;
+    -webkit-flex: 1;
+}
+
+.wh-flex2 {
+    flex: 2;
+    -webkit-flex: 2;
+}
+
+.wh-flex3 {
+    flex: 3;
+    -webkit-flex: 3;
+}
+
+.wh-flex4 {
+    flex: 4;
+    -webkit-flex: 4;
+}
+
+.wh-flex5 {
+    flex: 5;
+    -webkit-flex: 5;
+}
+
+.log-icon{
+
+    margin-right:26px;
+}
+
+.log-icon img{
+    width:20px;
+    height:26px;
+}
+
+.head-flex-bg {
+    display: flex;
+    display: -webkit-flex;
+    flex-direction: column;
+    justify-content: center;
+    -webkit-justify-content: center;
+    background-color: white;
+    margin: 24px 26px 15px 0;
+    border-radius: 5px;
+    box-shadow:0px 0px 52px rgba(72,88,127,0.15);
+}
+
+.center-sign{
+    text-align: center;
+    font-size:40px;
+    margin-left:32px;
+    width:48px;
+    height:48px;
+    line-height:48px;
+    background:rgba(255,255,255,1);
+    color:rgba(77,143,250,1);
+    border-radius:10px;
+    box-shadow:2px 0px 16px rgba(74,92,172,0.3);
+}
+.center-batch-btn{
+    font-size: 18px;
+    line-height:40px;
+    height: 40px;
+    width:94px;
+    text-align: center;
+    background:rgba(255,255,255,1);
+    border-radius:5px;
+    box-shadow:6px 0px 18px rgba(74,92,172,0.14);
+    color: #4D8FFA;
+    margin-right:20px;
+    top: 17px;
+    font-size:18px;
+}
+
+.batch{
+    margin-left:10px;
+    width:35px;
+    height:17px;
+    font-size:18px;
+    font-family:PingFang-SC-Bold;
+    color:rgba(77,143,250,1);
+    line-height:18px;
+}
+
+.batch-icon{
+    background: url(../../../assets/img/reservation_icon_piliang.png) no-repeat right;
+    width:20px;
+    height:20px;
+    margin-top:10px;
+    margin-left:14px;
+}
+
+.center-inAccount-btn{
+    font-size: 18px;
+    line-height:40px;
+    height: 40px;
+    width:94px;
+    text-align: center;
+    color: #4D8FFA;
+    margin-right:20px;
+    top: 17px;
+    font-size:18px;
+    background:rgba(255,255,255,1);
+    border-radius:5px;
+    box-shadow:6px 0px 18px rgba(74,92,172,0.14);
+}
+
+.center-finance-btn{
+    font-size: 18px;
+    line-height:40px;
+    height: 40px;
+    width:94px;
+    text-align: center;
+    color: #4D8FFA;
+    margin-right:20px;
+    top: 17px;
+    font-size:18px;
+    background:rgba(255,255,255,1);
+    border-radius:5px;
+    box-shadow:6px 0px 18px rgba(74,92,172,0.14);
+}
+
+.center-print-btn{
+    font-size: 18px;
+    line-height:40px;
+    height: 40px;
+    width:94px;
+    text-align: center;
+    color: #4D8FFA;
+    margin-right:20px;
+    top: 17px;
+    font-size:18px;
+    background:rgba(255,255,255,1);
+    border-radius:5px;
+    box-shadow:6px 0px 18px rgba(74,92,172,0.14);
+}
+
+
+.center-save-btn {
+    font-size: 18px;
+    line-height:40px;
+    height: 40px;
+    width:94px;
+    text-align: center;
+    color: #FFFFFF;
+    margin-right:26px;
+    top: 17px;
+    font-size:18px;
+    background:rgba(77,143,250,1);
+    border-radius:5px;
+    box-shadow:6px 0px 16px rgba(74,92,172,0.14);
+}
+
+.center-step{
+    display:flex;
+    margin-left:201px;
+    margin-top:13px;
+    height:42px;
+}
+.select-item-bg{
+    background-color: #D1DCFF;
+}

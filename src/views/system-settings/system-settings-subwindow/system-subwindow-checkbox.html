@@ -1,0 +1,29 @@
+<div class="layui-col-md12">
+	<div class="wh-flex pop-content-head">
+		<div @click="selectAllClick" class="pop-head-item wh-flex1">
+			<img v-if="!isSelectAll" src="../../../assets/img/system-settings-checkbox-unselect.png" />
+			<img v-else src="../../../assets/img/system-settings-checkbox-selected.png" />
+		</div>
+		<div class="pop-head-item wh-flex2">代码</div>
+		<div class="pop-head-item wh-flex2">描述</div>
+		<div class="pop-scroll-item"></div>
+	</div>
+	<div class="layui-side-scroll pop-scroll-bg">
+		<div v-for="(item,index) in dataList" class="wh-flex pop-content-content" @click="selectItemClick(item)" v-bind:class="{'center-item-gray-bg':index%2, 'center-item-white-bg':!(index%2), 'active':item.selected}">
+			<div class="pop-head-item wh-flex1">
+				<img v-if="!item.selected" src="../../../assets/img/system-settings-checkbox-unselect.png" />
+				<img v-else src="../../../assets/img/system-settings-checkbox-selected.png" />
+			</div>
+			<div class="pop-content-item wh-flex2">{{item.id}}</div>
+			<div class="pop-content-item wh-flex2">{{item.text}}</div>
+		</div>
+	</div>
+	<div class="pop-bottom">
+		<div class="wh-flex1">
+			<div @click="cancelBtnClick" class="pop-left-btn">取消</div>
+		</div>
+		<div class="wh-flex1">
+			<div @click="confirmBtnClick" class="pop-right-btn">确定</div>
+		</div>
+	</div>
+</div>

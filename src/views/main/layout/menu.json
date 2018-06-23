@@ -26,7 +26,7 @@
 			"title": "房态",
 			"name": "fangtai",
 			"icon": "img-fangtai",
-			"jump": "main/error/405"
+			"jump": "role/role-index/role-index"
 		}, {
 			"title": "房情",
 			"name": "fangqing",

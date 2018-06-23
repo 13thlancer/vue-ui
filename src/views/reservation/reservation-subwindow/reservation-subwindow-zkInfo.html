@@ -9,7 +9,7 @@
                     房类/房号:
                 </div>
                 <div class="zkinfo-text">
-                    SWSC/1002
+                    {{roomInfo.roomType}}/{{roomInfo.roomNo}}
                 </div>
             </div>
             <div class="zkinfo-form-line">
@@ -17,7 +17,7 @@
                     姓名:
                 </div>
                 <div class="zkinfo-input">
-                    <input class="layui-input" type="text">
+                    <input class="layui-input" type="text" v-model="RoomPerson.personName">
                 </div>
             </div>
             <div class="zkinfo-form-line">
@@ -25,15 +25,15 @@
                     证件类型:
                 </div>
                 <div class="zkinfo-input">
-                    <input class="layui-input" type="text">
+                    <input class="layui-input" type="text" v-model="RoomPerson.cardType">
                 </div>
             </div>
             <div class="zkinfo-form-line">
                 <div class="zkinfo-title4">
-                    证件好码:
+                    证件号码:
                 </div>
                 <div class="zkinfo-input">
-                    <input class="layui-input" type="text">
+                    <input class="layui-input" type="text" v-model="RoomPerson.cardNo">
                 </div>
             </div>
             <div class="zkinfo-form-line">
@@ -41,7 +41,7 @@
                     地址:
                 </div>
                 <div class="zkinfo-input">
-                    <input class="layui-input" type="text">
+                    <input class="layui-input" type="text" v-model="RoomPerson.address">
                 </div>
             </div>
 
@@ -60,7 +60,7 @@
                     手机号码:
                 </div>
                 <div class="zkinfo-input">
-                    <input class="layui-input" type="text">
+                    <input class="layui-input" type="text" v-model="RoomPerson.mobile">
                 </div>
             </div>
             <div class="zkinfo-form-line">
@@ -68,7 +68,7 @@
                     邮箱:
                 </div>
                 <div class="zkinfo-input">
-                    <input class="layui-input" type="text">
+                    <input class="layui-input" type="text"  v-model="RoomPerson.email">
                 </div>
             </div>
             <div class="zkinfo-form-line">
@@ -76,13 +76,15 @@
                     会员号码:
                 </div>
                 <div class="zkinfo-input">
-                    <input class="layui-input" type="text">
+                    <input class="layui-input" type="text"  v-model="RoomPerson.vipNum">
                 </div>
             </div>
 
             <div class="zkinfo-page">
-                <div class="zkinfo-pageNum">1</div>
-                <div class="zkinfo-addNew">
+                <div v-for="(item,index) in pageList">
+                    <div class="zkinfo-pageNum" @click="selecetPage(index)" v-bind:class="{'pageActive':pageSelect === index}">{{item}}</div>
+                </div>
+                <div class="zkinfo-addNew" @click="addNewPage()">
                     <img src="../../../assets/img/reservation_icon_tianjia.png" />
                 </div>
                 <div class="zkinfo-delete">
@@ -92,8 +94,8 @@
                 <div class="zkinfo-clear">
                     <img src="../../../assets/img/reservation_icon_chexiao.png" />
                 </div>
-                <div class="zkinfo-save">
-                    <img src="../../../assets/img/reservation_icon_zhuanyi.png" />
+                <div class="zkinfo-save" @click="confirm()">
+                    <img src="../../../assets/img/reservation_icon_baocun.png" />
                 </div>
             </div>
         </form>

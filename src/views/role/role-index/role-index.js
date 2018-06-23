@@ -4,255 +4,108 @@ layui.use(['admin', 'table', 'form', 'layer','zTree'], function() {
     var form = layui.form;
     var layer = layui.layer;
     var whconfig = layui.whconfig;
-	var whui = layui.whui;
-	
-    var cols;
-    jQuery.getJSON("../../role/role-index/role-index.json", function(data) {
-        cols = data.cols;
-        query(table);
-    });
+    var whui = layui.whui;
 
-    /**
-     * 查询
-     */
-    jQuery('#role-index .whui-btn-query').click(function() {
-        form.on('submit(role-query-btn)', function(data) {
-            query(table, data.field);
-            return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
-        });
-        jQuery('button[lay-filter="role-query-btn"]').click();
-    });
+    var test = new Vue({
+        el: '#test',
+        data: {
+            rooms:[
+                {num:'1',name:'111111111',selected:false},
+                {num:'2',name:'222222222',selected:false},
+                {num:'3',name:'333333333',selected:false},
+                {num:'4',name:'444444444',selected:false},
+                {num:'5',name:'555555555',selected:false},
+                {num:'6',name:'666666666',selected:false},
+                {num:'7',name:'777777777',selected:false},
+                {num:'8',name:'888888888',selected:false},
+                {num:'9',name:'999999999',selected:false},
+                {num:'10',name:'10101010101010101010',selected:false},
+                {num:'11',name:'11111111111111111111',selected:false},
+                {num:'12',name:'12121212121212121212',selected:false},
+                {num:'13',name:'13131313131313131313',selected:false},
+                {num:'14',name:'14141414141414141414',selected:false}
+            ],
+            activeName: '',
+            isChecked: '',
+            shiftSeqSign:'',
+            activeNames: [],
+            curIndex:''
+        },
+        // 在 `methods` 对象中定义方法
+        methods: {
+            selected: function (index,ev) {
+                // console.log(room)
+                // alert("click");
+                if(!ev.ctrlKey && !ev.shiftKey){
 
-    /**
-     * 重置
-     */
-    jQuery('#role-index .whui-btn-reset').click(function() {
-        form.val('role-query-form', {
-            'roleName': ''
-        });
-    });
-
-
-	/**
-     * 新增
-     */
-    jQuery('#role-index .whui-btn-add').click(function() {
-        jQuery.get('../../role/role-add/role-add.html', function(html) {
-        	form.render('select');
-            layer.open({
-                content: html,
-                id: 'role-add',
-                title: '新增',
-                type: 1,
-                area: ['500px', '220px'],
-                btn: ['确认', '取消'],
-                success: function(layero, index){
-
-                },
-                yes: function(index, layero) {
-
-                    form.on('submit(role-add-submit)', function(data) {
-                        //TODO
-                        whui.request(layui.whconfig.sysurl.role.add, data.field, function(data,desc){
-                            layer.close(index);
-                            whui.msg.success(desc);
-                            query(table);
-                        },function(data){
-                        	whui.msg.warn(data.desc);
-		                });
-                        return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
-                    });
-                    jQuery('button[lay-filter="role-add-submit"]').click();
+                    for (var i=0;i<this.rooms.length;i++)
+                    {
+                        this.rooms[i].selected= false;
+                    }
+                    this.rooms[index].selected= !this.rooms[index].selected;
+                    this.shiftSeqSign = '';
+                    this.curIndex = index;
                 }
-            });
-        });
-    });
 
-	/**
-     * 修改
-     */
-    jQuery('#role-index .whui-btn-update').click(function() {
-        var checkStatus = table.checkStatus('role-table');
-        //TODO
-        // console.log(checkStatus.data) //获取选中行的数据
-        // console.log(checkStatus.data.length) //获取选中行数量，可作为是否有选中行的条件
-        // console.log(checkStatus.isAll) //表格是否全选
+            },
+            mutiSelected: function (index,ev) {
 
-        var editdata = checkStatus.data;
-        var eidtlen = editdata.length;
-
-        if(eidtlen>1 || eidtlen == 0){
-            whui.msg.warn("请选择一条记录进行编辑！");
-            return false;
-        }
-        console.log(editdata[0].id)
-        jQuery.get('../../role/role-edit/role-edit.html', function(html) {
-            layer.open({
-                content: html,
-                id: 'role-edit',
-                title: '修改',
-                type: 1,
-                area: ['500px', '220px'],
-                btn: ['确认', '取消'],
-                success: function(layero, index){
-   					form.val('role-edit-form', {
-                        'id': editdata[0].id,
-                        'num': editdata[0].num,
-                        'remark': editdata[0].remark,
-                        'name': editdata[0].name
-                    });
-                },
-                yes: function(index, layero) {
-                    form.on('submit(role-edit-submit)', function(data) {
-                        //TODO
-                        whui.request(layui.whconfig.sysurl.role.edit, data.field, function(data,desc){
-                            whui.msg.success(desc);
-                            query(table);
-                            layer.close(index);
-                        },function(data){
-                        	whui.msg.warn(data.desc);
-		                });
-                        return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
-                    });
-                    jQuery('button[lay-filter="role-edit-submit"]').click();
+                this.rooms[index].selected= !this.rooms[index].selected;
+                this.shiftSeqSign = '';
+                this.curIndex = index;
+            },
+            shiftSelect:function (index,ev) {
+                // alert(ev.shiftKey)
+                var c;
+                for (var i=0;i<this.rooms.length;i++)
+                {
+                    if( this.rooms[i].selected == true){
+                        c = i;
+                        break;
+                    }
                 }
-            });
-        });
-    });
-    
-    jQuery('#role-index .whui-btn-delete').click(function() {
-        var checkStatus = table.checkStatus('role-table');
-        var ids = '';
-        layui.each(checkStatus.data,function(index, item){
-           ids += item.id +',';
-        });
-		
-        var params = {
-            ids:ids
-        }
-        layer.open({
-            title: '删除',
-            content: '是否删除所选信息？',
-            btn: ['删除', '取消'],
-            yes: function(index, layero) {
-                layer.close(index);
-                whui.request(layui.whconfig.sysurl.role.delete, params, function(data,desc){
-                        whui.msg.success(desc);
-                        query(table);
-                },function(data){
-                    whui.msg.warn(data.desc);
-                });
-                return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+
+                if(this.curIndex === ''){
+                    if(c === undefined){
+                        this.rooms[index].selected = true;
+                        this.curIndex = c;
+                    }
+                }else{
+                    c = this.curIndex;
+                }
+                // alert(this.curIndex);
+                // alert(c);
+                if(index < c){
+                    for(var i = index; i < c; i++){
+                        this.rooms[i].selected= true;
+                    }
+                    for(var i = 0;i<index;i++){
+                        this.rooms[i].selected= false;
+                    }
+                    for(var i = c+1; i < this.rooms.length; i++){
+                        this.rooms[i].selected= false;
+                    }
+                }
+                if(index > c){
+                    for (var i = c; i <index+1;i++){
+                        this.rooms[i].selected= true;
+                    }
+                    for(var i = index+1;i<this.rooms.length;i++){
+                        this.rooms[i].selected= false;
+                    }
+                    for(var i = 0;i<c;i++){
+                        this.rooms[i].selected= false;
+                    }
+                }
+
+            },
+            /*鼠标悬浮事件*/
+            showDetail:function(room){
+                // alert(room.name);
             }
-            });
-    });
-    
-    function query(table, where) {
-        where = where || {};
+        },
+        computed: {
 
-        table.render({
-            elem: '#role-table',
-            id: 'role-table',
-            url: layui.whconfig.sysurl.role.query,
-            where: where,
-            cols: cols
-        });
-    }
-
-	
-	var zTree_ids ;
-	
-	/**
-     * 权限配置
-     */
-    jQuery('#role-index .whui-btn-upload').click(function() {
-    	var checkStatus = table.checkStatus('role-table');
-        var editdata = checkStatus.data;
-        var eidtlen = editdata.length;
-
-        if(eidtlen>1 || eidtlen == 0){
-            whui.msg.warn("请选择一条记录进行编辑！");
-            return false;
         }
-        var param = {id : editdata[0].id}
-        jQuery.get('../../role/role-auth/role-auth.html', function(html) {
-            layer.open({
-                content: html,
-                id: 'role-auth',
-                title: '权限配置',
-                type: 1,
-                area: ['500px', '460px'],
-                btn: ['确认', '取消'],
-                success: function(layero, index){
-                	jQuery('#roleName').val(editdata[0].name);
-                	//初始化
-                	initTree(param);
-                },
-                yes: function(index, layero) {
-
-					var id = editdata[0].id ;
-				    var ids = getCheckedTreeNodeId();
-				     
-				     var params ={
-						id : id,
-						ids : ids
-					}
-                    form.on('submit(role-auth-submit)', function(data) {
-                        //TODO
-                        whui.request(layui.whconfig.sysurl.role.setAuthority, params, function(data,desc){
-                            layer.close(index);
-                            whui.msg.success(desc);
-                        },function(data){
-                        	whui.msg.warn(data.desc);
-		                });
-						
-                        // console.log(data.elem) //被执行事件的元素DOM对象，一般为button对象
-                        // console.log(data.form) //被执行提交的form对象，一般在存在form标签时才会返回
-                        // console.log(data.field) //当前容器的全部表单字段，名值对形式：{name: value}
-                        return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
-                    });
-                    jQuery('button[lay-filter="role-auth-submit"]').click();
-                }
-            });
-        });
-
-    });
- 
-
-    
-    
-    var zTreeObj;
-	var menus;
-	function initTree(param){
-        whui.request(layui.whconfig.sysurl.menu.toMenu,param, function(data,desc){
-                menus = data;
-                console.log(menus);
-                // var zNodes = transData(data, 'code', 'pcode', 'children');
-                // console.log(zNodes);
-                zTreeObj =  zTree.init(jQuery("#auth-menu-tree"), setting, menus);
-            });
-	}
-
-
-
-    // zTree 的参数配置，深入使用请参考 API 文档（setting 配置详解）
-    var setting = {
-        check: {
-            enable: true,
-            chkStyle: "checkbox",
-            chkboxType: {
-                "Y": "ps",
-                "N": "s"
-            }
-        }
-    };
-    
-    function getCheckedTreeNodeId() {
-         var checkCount = zTreeObj.getCheckedNodes(true);
-		 var nodes = new Array();
-	     for(i = 0; i < checkCount.length; i++) {
-	          nodes[i] = checkCount[i].id;
-	     }
-	     return nodes.join(",") ;
-    };
+    })
 });

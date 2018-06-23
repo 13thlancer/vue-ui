@@ -9,7 +9,7 @@
             <div class="center-scroll-item"></div>
         </div>
         <div class="layui-side-scroll subwindow-scroll-bg">
-            <div v-for="(item,index) in dataList" class="center-flex-bg center-content-head" v-bind:class="index%2 ? 'center-item-gray-bg':'center-item-white-bg'" @click="selectItem(index)">
+            <div v-for="(item,index) in dataList" class="center-flex-bg center-content-head" v-bind:class="index%2 ? 'center-item-gray-bg':'center-item-white-bg'" @click="selectItem(item)">
                 <div class="center-content-item wh-flex1">{{item.id}}</div>
                 <div class="center-content-item wh-flex2">{{item.text}}</div>
                 <div class="center-content-item wh-flex1">{{item.dayPrice}}</div>

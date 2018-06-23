@@ -1,0 +1,40 @@
+<div class="layui-col-md12">
+	<form class="layui-form" lay-filter="code-form">
+		<div class="multiple-pop-head">
+			<span>批量增加</span>
+			<img @click="closeImgClick" src="../../../assets/img/system-setting_icon_subClose.png" />
+		</div>
+		<div class="wh-form">
+			<div v-for="(item,index) in multipleInputList">
+				<div v-if="item.type == 1" class="layui-form-item">
+					<label class="layui-form-label">{{item.title}}:</label>
+					<div class="layui-input-block">
+						<input v-model="multipleParams[item.nameKey]" type="text" name="title" placeholder="请输入" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+				<div v-if="item.type == 2" class="layui-form-item">
+					<label class="layui-form-label">{{item.title}}:</label>
+					<div class="layui-input-block">
+						<input v-bind:id="'multipleInput'+item.nameKey+'Id'" @click="multipleInputClick(item,index,'multipleInput'+item.nameKey+'Id')" v-model="multipleParams[item.nameKey]" readonly type="text" name="title" placeholder="请选择" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+				<div v-if="item.type == 3" class="layui-form-item">
+					<label class="layui-form-label">{{item.title}}:</label>
+					<div class="layui-input-block wh-flex">
+						<div class="wh-flex1" style="margin-right: 10px;"><input v-model="multipleParams[item.nameKey1]" type="text" name="title" placeholder="请输入" autocomplete="off" class="layui-input"></div>
+						<div>-</div>
+						<div class="wh-flex1" style="margin-left: 10px;"><input v-model="multipleParams[item.nameKey2]" type="text" name="title" placeholder="请输入" autocomplete="off" class="layui-input"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="wh-form-bottom">
+			<div class="wh-flex1">
+				<div @click="multiplePopCancelClick" class="code-form-left-btn">取消</div>
+			</div>
+			<div class="wh-flex1">
+				<div @click="multiplePopConfirmClick" class="code-form-right-btn">确认</div>
+			</div>
+		</div>
+	</form>
+</div>
