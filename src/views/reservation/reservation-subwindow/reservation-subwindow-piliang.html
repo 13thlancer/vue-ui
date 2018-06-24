@@ -1,42 +1,3 @@
-<!--<link rel="stylesheet" type="text/css" href="../../reservation/reservation-subwindow/reservation-subwindow.css" />-->
-
-<!--<div class="whui-fluid">-->
-    <!--<div class="layui-row whui-form">-->
-        <!--<form class="layui-form">-->
-
-            <!--<div class="layui-tab-item layui-show">-->
-                <!--<div class="center-flex-bg center-content-head center-content-border">-->
-                    <!--<div class="center-head-item wh-flex1">房型</div>-->
-                    <!--<div class="center-head-item wh-flex1">房号</div>-->
-                    <!--<div class="center-head-item wh-flex1">姓名</div>-->
-                    <!--<div class="center-head-item wh-flex1">到达</div>-->
-                    <!--<div class="center-head-item wh-flex1">离开</div>-->
-                    <!--<div class="center-scroll-item"></div>-->
-                <!--</div>-->
-                <!--<div class="layui-side-scroll pl-scroll-bg">-->
-                    <!--<div v-for="(item,index) in dataList" class="center-flex-bg center-content-head" v-bind:class="index%2 ? 'center-item-gray-bg':'center-item-white-bg'">-->
-                        <!--<div class="center-content-item wh-flex1">{{item.roomType}}</div>-->
-                        <!--<div class="center-content-item wh-flex1">{{item.roomNo}}</div>-->
-                        <!--<div class="center-content-item wh-flex1">{{item.inPerson}}</div>-->
-                        <!--<div class="center-content-item wh-flex1">{{item.planStart}}</div>-->
-                        <!--<div class="center-content-item wh-flex1">{{item.planEnd}}</div>-->
-                    <!--</div>-->
-                <!--</div>-->
-            <!--</div>-->
-            <!--<div class="pl-btngroup">-->
-                <!--<div class="layui-layer-btn layui-layer-btn-c">-->
-                    <!--<a class="subwindow-cancel-btn">取消</a>-->
-                    <!--<a class="subwindow-primary-btn">自动排房</a>-->
-                    <!--<a class="subwindow-primary-btn" @click="showPLSelect()">批量选择</a>-->
-                    <!--<a class="subwindow-primary-btn">入住</a>-->
-                    <!--<a class="subwindow-ensure-btn">确认</a>-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</form>-->
-    <!--</div>-->
-<!--</div>-->
-
-
 <div class="layui-col-md12">
     <form class="layui-form" lay-filter="code-form">
         <div class="multiple-pop-head">
@@ -54,28 +15,23 @@
         <div class="layui-side-scroll pop-scroll-bg">
             <div v-for="(item,index) in dataList" @click="selectItem(item)" class="wh-flex pop-content-content" v-bind:class="{'center-item-gray-bg':index%2, 'center-item-white-bg':!(index%2)}">
                 <div class="pop-content-item wh-flex1">{{item.roomType}}</div>
-                <div class="pop-content-item wh-flex1">{{item.roomNo}}</div>
+                <div class="pop-content-item wh-flex1">
+                    <input class="center-item-input"  v-bind:class="{'center-item-input-active':selected == index}" readonly v-model="item.roomNo" @click="showpaifang(item)"/>
+                </div>
+                <!--<div class="pop-content-item wh-flex1">{{item.roomNo}}</div>-->
                 <div class="pop-content-item wh-flex1">{{item.inPerson}}</div>
-                <div class="pop-content-itemcontent-item wh-flex1">{{item.planStart}}</div>
+                <div class="pop-content-item wh-flex1">{{item.planStart}}</div>
                 <div class="pop-content-item wh-flex1">{{item.planEnd}}</div>
             </div>
         </div>
-        <!--<div class="pl-btngroup">-->
-            <!--<div class="layui-layer-btn layui-layer-btn-c">-->
-                <!--<a class="subwindow-cancel-btn">取消</a>-->
-                <!--<a class="subwindow-primary-btn">自动排房</a>-->
-                <!--<a class="subwindow-primary-btn" @click="showPLSelect()">批量选择</a>-->
-                <!--<a class="subwindow-primary-btn">入住</a>-->
-                <!--<a class="subwindow-ensure-btn">确认</a>-->
-            <!--</div>-->
-        <!--</div>-->
+
 
         <div class="wh-form-bottom">
             <div class="wh-flex1">
                 <div class="code-form-left-btn">取消</div>
             </div>
             <div class="wh-flex1">
-                <div class="code-form-left-btn">自动排房</div>
+                <div class="code-form-left-btn" @click="autoArrangeRoom">自动排房</div>
             </div>
             <div class="wh-flex1">
                 <div @click="showPLSelect" class="code-form-left-btn">批量选择</div>

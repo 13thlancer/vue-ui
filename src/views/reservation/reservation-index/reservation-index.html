@@ -678,7 +678,7 @@
                                 <div class="center-content-item wh-flex1">{{item.inPerson}}</div>
                                 <div class="center-content-item wh-flex1">{{item.roomType}}</div>
                                 <div class="center-content-item wh-flex1" >
-                                    <input class="center-item-input"  v-bind:class="{'center-item-input-active':selected == index}" v-bind:disabled="selected != index" v-model="item.roomNo"/>
+                                    <input class="center-item-input"  v-bind:class="{'center-item-input-active':selected == index}" readonly v-model="item.roomNo" @click="showpaifang(item)"/>
                                 </div>
                                 <div class="center-content-item wh-flex1">{{item.dayPrice}}</div>
                                 <div class="center-content-item wh-flex1">1/{{item.ifArrange}}</div>
@@ -688,11 +688,11 @@
                                 <div class="center-content-item wh-flex1">{{item.charge}}</div>
                                 <div class="center-content-item wh-flex1">{{item.credit}}</div>
                                 <div class="center-content-item wh-flex1">
-                                    <input class="center-item-input" v-bind:class="{'center-item-input-active':selected == index}" v-model="item.remark"/>
+                                    <input class="center-item-input" v-bind:class="{'center-item-input-active':selected == index}" v-model="item.remark" v-on:focusout="saveRemark(item)"/>
                                 </div>
                                 <div class="center-content-item wh-flex4">
                                     <div v-show="selected == index">
-                                        <img src="../../../assets/img/reservation_icon_paifang.png" @click="showpaifang()"/>
+                                        <img src="../../../assets/img/reservation_icon_paifang.png" @click="showpaifang(item)"/>
                                         <img class="table-icon" src="../../../assets/img/reservation_icon_ruzhu.png"  @click="toIn(item)"/>
                                         <img class="table-icon" src="../../../assets/img/reservation_icon_zhukexinxi.png" @click="showZkInfo(item)" />
                                         <img class="table-icon" src="../../../assets/img/reservation_icon_liuyan.png" @click="showMessage(item)"/>

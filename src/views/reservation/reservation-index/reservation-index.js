@@ -404,7 +404,6 @@ layui.use(['admin', 'whui','form', 'element', 'laydate', 'dateformat'], function
             },
             mouseenter:function(index){
                 this.selected = index;
-
             },
             datePickClick: function() {
                 layui.laydate.show;
@@ -421,7 +420,8 @@ layui.use(['admin', 'whui','form', 'element', 'laydate', 'dateformat'], function
                             var piliang = new Vue({
                                 el: "#piliang",
                                 data: {
-                                    dataList:'',
+                                    dataList:[],
+                                    selected:'',
                                 },
                                 methods:{
                                     showPLSelect:function(){
@@ -429,16 +429,34 @@ layui.use(['admin', 'whui','form', 'element', 'laydate', 'dateformat'], function
                                     },
                                     closeImgClick:function(){
                                         layer.closeAll();
+                                    },
+                                    showpaifang:function(item){
+                                        vm.showpaifang();
+                                    },
+                                    autoArrangeRoom:function(){
+                                        var params = {
+                                            priMainId:'18062200002'
+                                        }
+                                        whui.request(layui.whconfig.bizurl.reservation.autoArrangeRoom,params,
+                                            function(data,desc){
+                                                var roomList = data.autoArrangeRoomList;
+                                                for(var i = 0;i < roomList.length;i++){
+                                                    if(roomList[i].subId == piliang.dataList[i].subId){
+                                                        piliang.dataList[i].roomNo = roomList[i].roomNo;
+                                                    }
+                                                }
+                                            }
+                                        );
                                     }
                                 }
                             })
 
                             var params = {
-                                "priMainId":18061500002
+                                "priMainId":18062200002
                             };
                             whui.request(layui.whconfig.bizurl.reservation.getBatchOrderList,params,
                                 function(data,desc){
-                                    piliang.dataList = data.batchOrderLis;
+                                    piliang.dataList = data.batchOrderList;
                                 }
                             );
                         }
@@ -733,10 +751,10 @@ layui.use(['admin', 'whui','form', 'element', 'laydate', 'dateformat'], function
                     });
                 });
             },
-            showpaifang:function(){
+            showpaifang:function(item){
                 layer.closeAll();
                 jQuery.get('../../reservation/reservation-subwindow/reservation-subwindow-paifang.html', function(html) {
-                    layer.open({
+                    var layerIndex = layer.open({
                         content: html,
                         id: 'paifang',
                         type: 1,
@@ -745,61 +763,44 @@ layui.use(['admin', 'whui','form', 'element', 'laydate', 'dateformat'], function
                         offset: ['483px','571px'],
                         area: ['541px', '534px'],
                         success:function(){
-                            new Vue({
+                            var paifang = new Vue({
                                 el: "#paifang",
                                 data: {
-                                    dataList: [{
-                                        "roomType":"SWSC",
-                                        "roomDesc":"商务大床房",
-                                        "roomNo":"1001",
-                                        "mark":"VC",
-                                        "sign":"远离工作区"
-                                    },
-                                        {
-                                            "roomType":"SWSC",
-                                            "roomDesc":"商务大床房",
-                                            "roomNo":"1001",
-                                            "mark":"VC",
-                                            "sign":"远离工作区"
-                                        },
-                                        {
-                                            "roomType":"SWSC",
-                                            "roomDesc":"商务大床房",
-                                            "roomNo":"1001",
-                                            "mark":"VC",
-                                            "sign":"远离工作区"
-                                        },
-                                        {
-                                            "roomType":"SWSC",
-                                            "roomDesc":"商务大床房",
-                                            "roomNo":"1001",
-                                            "mark":"VC",
-                                            "sign":"远离工作区"
-                                        },
-                                        {
-                                            "roomType":"SWSC",
-                                            "roomDesc":"商务大床房",
-                                            "roomNo":"1001",
-                                            "mark":"VC",
-                                            "sign":"远离工作区"
-                                        },
-                                        {
-                                            "roomType":"SWSC",
-                                            "roomDesc":"商务大床房",
-                                            "roomNo":"1001",
-                                            "mark":"VC",
-                                            "sign":"远离工作区"
-                                        },
-                                        {
-                                            "roomType":"SWSC",
-                                            "roomDesc":"商务大床房",
-                                            "roomNo":"1001",
-                                            "mark":"VC",
-                                            "sign":"远离工作区"
+                                    dataList:'',
+                                },
+                                methods:{
+                                    selectItem:function(paifangitem){
+                                        item.roomNo = paifangitem.roomNo;
+                                        var params = {
+                                            "subInfoId":item.subInfoId,
+                                            "subId":item.subId,
+                                            "roomCode":item.roomNo
                                         }
-                                    ],
+                                        whui.request(layui.whconfig.bizurl.reservation.arrange, params,
+                                            function(data,desc){
+                                                console.log(data);
+                                                layer.close(layerIndex);
+                                            }
+                                        );
+                                    }
                                 }
                             })
+
+                            var params = {
+                                hotelGroupId:2,
+                                hotelId:9,
+                                roomType:item.roomType,
+                                sign:'VC',
+                                floorName:'',
+                                planStart:item.planStart.slice(0,10)
+                            }
+                            console.log(params);
+                            whui.request(layui.whconfig.bizurl.reservation.roomlist, params,
+                                function(data,desc){
+                                    console.log(data);
+                                    paifang.dataList = data.roomlist;
+                                }
+                            );
                         }
                     });
                 });
@@ -849,7 +850,7 @@ layui.use(['admin', 'whui','form', 'element', 'laydate', 'dateformat'], function
                 }
                 whui.request(layui.whconfig.bizurl.reservation.toIn,params,
                     function(data,desc){
-
+                        whui.msg.success(desc);
                     }
                 );
             },
@@ -954,7 +955,6 @@ layui.use(['admin', 'whui','form', 'element', 'laydate', 'dateformat'], function
                                                 vm.prepayDto.payCodeName = item.text;
                                                 vm.prepayDto.payCode = item.id;
                                                 layer.closeAll();
-
                                             }
                                         }
                                     })
@@ -989,7 +989,6 @@ layui.use(['admin', 'whui','form', 'element', 'laydate', 'dateformat'], function
                                                 vm.preLicence.creditPayCodeName = item.text;
                                                 vm.preLicence.creditPayCode = item.id;
                                                 layer.closeAll();
-
                                             }
                                         }
                                     })
@@ -1209,8 +1208,14 @@ layui.use(['admin', 'whui','form', 'element', 'laydate', 'dateformat'], function
                                     message:'确定撤销该笔预授权？'
                                 },
                                 methods:{
-                                    confirm:function(){
+                                    ConfirmClick:function(){
                                         vm.delYsqNewPage();
+                                    },
+                                    CancelClick:function(){
+                                        layer.closeAll();
+                                    },
+                                    closeImgClick:function(){
+                                        layer.closeAll();
                                     }
                                 }
                             })
@@ -1417,7 +1422,7 @@ layui.use(['admin', 'whui','form', 'element', 'laydate', 'dateformat'], function
                                     message:'确定删除该记录？'
                                 },
                                 methods:{
-                                    confirm:function(){
+                                    ConfirmClick:function(){
                                         var params={
                                             "subInfoId":item.subInfoId,
                                         }
@@ -1428,12 +1433,30 @@ layui.use(['admin', 'whui','form', 'element', 'laydate', 'dateformat'], function
                                                 // whui.msg.warn(desc);
                                             }
                                         );
+                                    },
+                                    CancelClick:function(){
+                                        layer.closeAll();
+                                    },
+                                    closeImgClick:function(){
+                                        layer.closeAll();
                                     }
                                 }
                             })
                         }
                     });
                 });
+            },
+            saveRemark:function(item){
+                var params = {
+                    "subInfoId":item.subInfoId,
+                    "remark":item.remark
+                }
+                console.log(params);
+                whui.request(layui.whconfig.bizurl.reservation.updateRemark,params,
+                    function(data,desc){
+                        whui.msg.success(desc);
+                    },
+                );
             },
             starttimeformat:function(time){
                 this.preorder.planStartTime = timeformat(time);
@@ -1447,8 +1470,6 @@ layui.use(['admin', 'whui','form', 'element', 'laydate', 'dateformat'], function
             rsvInfoendtimeformat:function(time){
                 this.reservationParamsForm.rsvInfo.keepTime = timeformat(time);
             },
-
-
         }
     })
 
@@ -1481,7 +1502,7 @@ layui.use(['admin', 'whui','form', 'element', 'laydate', 'dateformat'], function
             console.log(JSON.stringify(date));
             value = value.replace('年','-').replace('月','-').replace('日','')
             vm.preorder.showplanStartDate = dateformat.format(new Date(value), 'yyyy年M月d日');
-            // vm.preorder.planStartDate = dateformat.format(new Date(value), 'yyyy-MM-dd');
+            vm.preorder.planStartDate = dateformat.format(new Date(value), 'yyyy-MM-dd');
 
         }
     });
@@ -1505,11 +1526,11 @@ layui.use(['admin', 'whui','form', 'element', 'laydate', 'dateformat'], function
 
     function plselect(){
         jQuery(".layui-layer.layui-layer-page").css("-webkit-transform", "translate(-400px,0)");
-        jQuery(".layui-layer.layui-layer-page").css("transition", "opacity 200ms ease-in-out 2s,transform 800ms ease-in-out");
+        jQuery(".layui-layer.layui-layer-page").css("transition", "opacity 100ms ease-in-out .1s,transform 400ms ease-in-out");
 
 
         jQuery.get('../../reservation/reservation-subwindow/reservation-subwindow-piliangSelect.html', function(html) {
-            layer.open({
+            var layindex= layer.open({
                 content: html,
                 id: 'plselect',
                 type: 1,
@@ -1520,104 +1541,35 @@ layui.use(['admin', 'whui','form', 'element', 'laydate', 'dateformat'], function
                    var plselect = new Vue({
                         el: "#plselect",
                         data: {
-                            typeList:{
-                              mark:[
-                                  {'selected':false,
-                                  'name':'VC'
-                                  },
-                                  {'selected':false,
-                                      'name':'VD'
-                                  },
-                                  {'selected':false,
-                                      'name':'OC'
-                                  },
-                                  {'selected':false,
-                                      'name':'OD'
-                                  }],
-                              building:[
-                                  {'selected':false,
-                                  'name':'1'
-                                   },
-                                  {'selected':false,
-                                      'name':'2'
-                                  },
-                                  {'selected':false,
-                                      'name':'3'
-                                  },
-                                  {'selected':false,
-                                      'name':'4'
-                                  }],
-                              level:[
-                                  {'selected':false,
-                                      'name':'1'
-                                  },
-                                  {'selected':false,
-                                      'name':'2'
-                                  },
-                                  {'selected':false,
-                                      'name':'3'
-                                  },
-                                  {'selected':false,
-                                      'name':'4'
-                                  }
-                              ],
-                              feature:[
-                                  {'selected':false,
-                                      'name':'落地窗'
-                                  },
-                                  {'selected':false,
-                                      'name':'远离工作间'
-                                  },
-                                  {'selected':false,
-                                      'name':'远离工作间'
-                                  },
-                                  {'selected':false,
-                                      'name':'远离工作间'
-                                  }
-                              ]
+                            typeList: {
+                                buildingList: [],
+                                floorList: [],
+                                roomSpecList: []
                             },
-                            dataList: [{
-                                "roomType":"SWSC",
-                                "roomNo":"1001",
-                                "mark":"VC",
-                                "sign":"远离工作区"
-                            },
-                                {
-                                    "roomType":"SWSC",
-                                    "roomNo":"1001",
-                                    "mark":"VC",
-                                    "sign":"远离工作区"
-                                },
-                                {
-                                    "roomType":"SWSC",
-                                    "roomNo":"1001",
-                                    "mark":"VC",
-                                    "sign":"远离工作区"
-                                },
-                                {
-                                    "roomType":"SWSC",
-                                    "roomNo":"1001",
-                                    "mark":"VC",
-                                    "sign":"远离工作区"
-                                }, {
-                                    "roomType":"SWSC",
-                                    "roomNo":"1001",
-                                    "mark":"VC",
-                                    "sign":"远离工作区"
-                                }, {
-                                    "roomType":"SWSC",
-                                    "roomNo":"1001",
-                                    "mark":"VC",
-                                    "sign":"远离工作区"
-                                }
+                            signList: [
+                                {id:"VC",text:"VC",selected:"true"},
+                                {id:"VD",text:"VD",selected:"false"},
+                                {id:"OC",text:"OC",selected:"false"},
+                                {id:"OD",text:"OD",selected:"false"}
                             ],
-                            selectNameArr:[],
-                            selectCodeArr:[],
-                            isSelectAll: false,
+                            dataList: '',
+                            selectNameArr: [],
+                            selectCodeArr: [],
+                            isSelectAll: 'false',
+                            batchChooseForm:{
+                                hotelGroupId:2,
+                                hotelId:9,
+                                signArray:['VC'],
+                                building:[],
+                                floor:[],
+                                roomSpec:[]
+                            }
                         },
                         methods:{
                             closeImgClick:function(){
-                                layer.closeAll();
+                                layer.close(layindex);
+                                jQuery(".layui-layer.layui-layer-page").css("-webkit-transform", "translate(0,0)");
+                                jQuery(".layui-layer.layui-layer-page").css("transition", "opacity 200ms ease-in-out .2s,transform 800ms ease-in-out");
                             },
                             selectAllClick: function() {
                                 this.selectNameArr = [];
@@ -1627,7 +1579,6 @@ layui.use(['admin', 'whui','form', 'element', 'laydate', 'dateformat'], function
                                         this.dataList[i].selected = false;
                                     }
                                 } else {
-
                                     for(var i in this.dataList) {
                                         var temp = this.dataList[i];
                                         temp.selected = true;
@@ -1635,13 +1586,25 @@ layui.use(['admin', 'whui','form', 'element', 'laydate', 'dateformat'], function
                                         this.selectCodeArr.push(temp.id);
                                     }
                                 }
-
                                 this.isSelectAll = !this.isSelectAll;
-
+                            },
+                            selectListItem:function(item){
+                                if(item.selected) {
+                                    removeByValue(this.selectNameArr, item.text);
+                                    removeByValue(this.selectCodeArr, item.id);
+                                } else {
+                                    this.selectNameArr.push(item.text);
+                                    this.selectCodeArr.push(item.id);
+                                }
+                                if(this.selectNameArr.length == this.dataList.length) {
+                                    this.isSelectAll = true;
+                                } else {
+                                    this.isSelectAll = false;
+                                }
+                                item.selected = !item.selected
                             },
                             selectItem:function(item){
                                 if(item.selected) {
-
                                     removeByValue(this.selectNameArr, item.text);
                                     removeByValue(this.selectCodeArr, item.id);
                                 } else {
@@ -1657,7 +1620,6 @@ layui.use(['admin', 'whui','form', 'element', 'laydate', 'dateformat'], function
                             },
                             selectItemClick:function(item){
                                 if(item.selected) {
-
                                     removeByValue(this.selectNameArr, item.text);
                                     removeByValue(this.selectCodeArr, item.id);
                                 } else {
@@ -1672,13 +1634,23 @@ layui.use(['admin', 'whui','form', 'element', 'laydate', 'dateformat'], function
                                 item.selected = !item.selected
                             },
                             CancelClick:function(){
-                                layer.closeAll();
+                                layer.close(layindex);
+                                jQuery(".layui-layer.layui-layer-page").css("-webkit-transform", "translate(0,0)");
+                                jQuery(".layui-layer.layui-layer-page").css("transition", "opacity 200ms ease-in-out .2s,transform 800ms ease-in-out");
                             },
                             ConfirmClick:function(){
-
+                                jQuery(".layui-layer.layui-layer-page").css("-webkit-transform", "translate(0,0)");
+                                jQuery(".layui-layer.layui-layer-page").css("transition", "opacity 200ms ease-in-out .2s,transform 800ms ease-in-out");
                             }
                         }
                     })
+
+                    var params = plselect.batchChooseForm;
+                    whui.request(layui.whconfig.bizurl.reservation.batchChooseRoom, params, function(data,desc){
+                        plselect.typeList = data;
+                        plselect.dataList = data.roomList;
+                        console.log(data);
+                    });
                     //初始化
                     layui.use(['admin', 'whui', 'element', 'form'], function() {
                         var form = layui.form;

@@ -30,12 +30,12 @@
         <div class="pop-scroll-item"></div>
     </div>
     <div class="layui-side-scroll pop-scroll-bg">
-        <div v-for="(item,index) in dataList" @click="selectItem(item)" class="wh-flex pop-content-content" v-bind:class="{'center-item-gray-bg':index%2, 'center-item-white-bg':!(index%2)}">
+        <div v-for="(item,index) in dataList" @click="selectItem(item)" class="wh-flex pop-content-content" v-bind:class="{'center-item-gray-bg':index%2, 'center-item-white-bg':!(index%2)}" @click="selectItem(item)">
             <div class="pop-content-item wh-flex1">{{item.roomType}}</div>
-            <div class="pop-content-item-item wh-flex1">{{item.roomType}}</div>
+            <div class="pop-content-item wh-flex1">{{item.roomTypeName}}</div>
             <div class="pop-content-item wh-flex1">{{item.roomNo}}</div>
-            <div class="pop-content-item wh-flex1">{{item.mark}}</div>
             <div class="pop-content-item wh-flex1">{{item.sign}}</div>
+            <div class="pop-content-item wh-flex1">{{item.roomSpec}}</div>
         </div>
     </div>
 </div>

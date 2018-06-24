@@ -75,11 +75,11 @@
                 <div class="plselect-title2">标记:</div>
                 <div class="layui-form-item">
                     <div class="layui-input-block">
-                        <div v-for="(item,index) in typeList.mark" @click="selectItemClick(item)" style="float:left;margin-left:10px;" >
+                        <div v-for="(item,index) in signList" @click="selectItemClick(item)" style="float:left;margin-left:10px;" >
                             <div>
-                                <img v-if="!item.selected" src="../../../assets/img/system-settings-checkbox-unselect.png" />
+                                <img v-if="item.selected === 'false'" src="../../../assets/img/system-settings-checkbox-unselect.png" />
                                 <img v-else src="../../../assets/img/system-settings-checkbox-selected.png" />
-                                {{item.name}}
+                                {{item.text}}
                             </div>
                         </div>
                     </div>
@@ -96,11 +96,11 @@
                 <div class="plselect-title2">楼栋:</div>
                 <div class="layui-form-item">
                     <div class="layui-input-block">
-                        <div v-for="(item,index) in typeList.building" @click="selectItemClick(item)" style="float:left;margin-left:10px;" >
+                        <div v-for="(item,index) in typeList.buildingList" @click="selectItemClick(item)" style="float:left;margin-left:10px;" >
                             <div>
-                                <img v-if="!item.selected" src="../../../assets/img/system-settings-checkbox-unselect.png" />
+                                <img v-if="item.selected === 'false'" src="../../../assets/img/system-settings-checkbox-unselect.png" />
                                 <img v-else src="../../../assets/img/system-settings-checkbox-selected.png" />
-                                {{item.name}}
+                                {{item.text}}
                             </div>
                         </div>
                     </div>
@@ -110,11 +110,11 @@
                 <div class="plselect-title2">楼层:</div>
                 <div class="layui-form-item">
                     <div class="layui-input-block">
-                        <div v-for="(item,index) in typeList.level" @click="selectItemClick(item)" style="float:left;margin-left:10px;" >
+                        <div v-for="(item,index) in typeList.floorList" @click="selectItemClick(item)" style="float:left;margin-left:10px;" >
                             <div>
-                                <img v-if="!item.selected" src="../../../assets/img/system-settings-checkbox-unselect.png" />
+                                <img v-if="item.selected === 'false'" src="../../../assets/img/system-settings-checkbox-unselect.png" />
                                 <img v-else src="../../../assets/img/system-settings-checkbox-selected.png" />
-                                {{item.name}}
+                                {{item.text}}
                             </div>
                         </div>
                     </div>
@@ -124,28 +124,21 @@
                 <div class="plselect-title4">客房特征:</div>
                 <div class="layui-form-item">
                     <div class="layui-input-block">
-                        <div v-for="(item,index) in typeList.feature" @click="selectItemClick(item)" style="float:left;margin-left:10px;" >
+                        <div v-for="(item,index) in typeList.roomSpecList" @click="selectItemClick(item)" style="float:left;margin-left:10px;" >
                             <div>
-                                <img v-if="!item.selected" src="../../../assets/img/system-settings-checkbox-unselect.png" />
+                                <img v-if="item.selected === 'false'" src="../../../assets/img/system-settings-checkbox-unselect.png" />
                                 <img v-else src="../../../assets/img/system-settings-checkbox-selected.png" />
-                                {{item.name}}
+                                {{item.text}}
                             </div>
                         </div>
                     </div>
                 </div>
-
-                <!--<div class="plselect-checkbox">-->
-                    <!--<input type="checkbox" name="like[VC]" lay-skin="primary"  title="落地窗">-->
-                    <!--<input type="checkbox" name="like[VD]" lay-skin="primary"  title="远离工作间">-->
-                    <!--<input type="checkbox" name="like[OC]" lay-skin="primary"  title="远离工作间">-->
-                    <!--<input type="checkbox" name="like[OD]" lay-skin="primary"  title="远离工作间">-->
-                <!--</div>-->
             </div>
         </div>
 
         <div class="wh-flex pop-content-head">
             <div @click="selectAllClick" class="pop-head-item wh-flex1">
-                <img v-if="!isSelectAll" src="../../../assets/img/system-settings-checkbox-unselect.png" />
+                <img v-if="isSelectAll === 'false'" src="../../../assets/img/system-settings-checkbox-unselect.png" />
                 <img v-else src="../../../assets/img/system-settings-checkbox-selected.png" />
             </div>
             <div class="pop-head-item wh-flex1">房型</div>
@@ -155,15 +148,15 @@
             <div class="pop-scroll-item"></div>
         </div>
         <div class="layui-side-scroll pop-scroll-bg">
-            <div v-for="(item,index) in dataList" @click="selectItem(item)" class="wh-flex pop-content-content" v-bind:class="{'center-item-gray-bg':index%2, 'center-item-white-bg':!(index%2)}">
+            <div v-for="(item,index) in dataList" @click="selectListItem(item)" class="wh-flex pop-content-content" v-bind:class="{'center-item-gray-bg':index%2, 'center-item-white-bg':!(index%2)}">
                 <div class="pop-head-item wh-flex1">
-                    <img v-if="!item.selected" src="../../../assets/img/system-settings-checkbox-unselect.png" />
+                    <img v-if="item.selected === 'false'" src="../../../assets/img/system-settings-checkbox-unselect.png" />
                     <img v-else src="../../../assets/img/system-settings-checkbox-selected.png" />
                 </div>
                 <div class="pop-content-item wh-flex1">{{item.roomType}}</div>
                 <div class="pop-content-item wh-flex1">{{item.roomNo}}</div>
-                <div class="pop-content-item wh-flex1">{{item.mark}}</div>
                 <div class="pop-content-item wh-flex1">{{item.sign}}</div>
+                <div class="pop-content-item wh-flex1">{{item.roomSpec}}</div>
             </div>
         </div>
 
